@@ -72,7 +72,7 @@ html { overflow-y: scroll; }
 /* timeline css */
 body{
 	background: url(../images/body-bg.jpg) top center;
-	background-size: 100% ;
+	background-size: cover ;
 }
 
 header{
