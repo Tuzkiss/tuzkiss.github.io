@@ -22,7 +22,7 @@ header{
 	margin-bottom: 20px;
 	-webkit-box-shadow:  0 0 10px #000;
 	box-shadow:  0 0 10px #000;
-	background: url(../Images/header.png);
+	background: url(../images/header.png);
 	background-size: cover;
 	
 }
@@ -44,7 +44,7 @@ header{
 	width: 70px;
 	height: 70px;
 	display: block;
-	background: url(../Images/logo.jpg);
+	background: url(../images/logo.jpg);
 	background-size: 100% 100%;
 	margin: 25px 70px;
 	text-indent: -9999px;
