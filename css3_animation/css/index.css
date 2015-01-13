@@ -19,13 +19,37 @@ header{
 	width:100%;
 	height: 120px;
 	overflow: hidden;
-	margin-bottom: 20px;
 	-webkit-box-shadow:  0 0 10px #000;
 	box-shadow:  0 0 10px #000;
 	background: url(../images/header.png);
 	background-size: cover;
 	
 }
+section {
+	width: 100%;
+	min-height: 100%;
+	margin-top: -120px;
+}
+footer{
+	width: 100%;
+	height: 40px;
+	background: #444;
+	background: rgba(0, 0, 0, 0.6);
+	margin-top: -40px;
+
+}
+
+#content{
+ 	height: 100%;
+ 	margin: 0 auto;
+ 	padding-left: 20px;
+ 	padding-top: 130px;
+ 	padding-bottom: 100px;
+ 	display: block;
+ 	overflow: hidden;
+
+}
+
  #header-bg{
 	width:100%;
 	height: 120px;
@@ -66,16 +90,40 @@ header{
 	text-shadow: 0 0 10px #f1f1f1;
 }
 
-.title small{
-	font-size: 0.4em;
-	line-height: 70px;
+/* when screen width less than 600px */
+@media screen and ( max-width:600px ) {
+	.logo{
+		width: 60px;
+		height: 60px;
+		margin: 25px 12%;
+	}
+	.title{
+		height: 50px;
+		margin: 35px 0px 35px -25px;
+		font-size: 35px;
+		line-height: 50px;
+		letter-spacing: 1px;
+	}
 }
 
-#content{
-	width: 100%;
- 	margin: 0 auto;
- 	padding-left: 20px;
+/* when screen width less than 420px */
+@media screen and ( max-width:420px ) {
+	.logo{
+		width: 50px;
+		height: 50px;
+		margin: 35px 10%;
+	}
+	.title{
+		height: 50px;
+		margin: 35px 0px 35px -5px;
+		font-size: 25px;
+		line-height: 50px;
+		letter-spacing: 1px;
+
+	}
 }
+
+
 
 .mask{
 	width:100%;
@@ -90,6 +138,7 @@ header{
 }
 
 .box{
+	display: block;
 	box-shadow: 0px 0px 5px #444;
 	padding: 15px;
 	width: 150px;

@@ -17,7 +17,7 @@ window.onresize = function () {
 };
 
 window.onscroll = function () {
-	console.log(document.body.scrollTop || document.documentElement.scrollTop );
+	//console.log(document.body.scrollTop || document.documentElement.scrollTop );
 };
 
 // Show the rainy header
@@ -41,6 +41,8 @@ cssAnim.showWaterFlow = function ( contentId, boxClass ) {
 	var boxes = document.querySelectorAll('.box');
 
 	var col = cssAnim.setContentWidth(boxes[0], 'content');
+
+	//document.querySelector('section').style.height = boxes[boxes.length - 1].offsetTop +boxes[boxes.length - 1].offsetHeight  + 'px';
 
 	//console.log( "col : " + col );
 
@@ -73,11 +75,6 @@ cssAnim.showWaterFlow = function ( contentId, boxClass ) {
 			posH[minIndex] += this_box.offsetHeight + 20;
 		}
 	};
-	
-
-	
-
-
 };
 
 // set the main content width
