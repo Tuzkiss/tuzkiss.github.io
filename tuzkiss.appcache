@@ -2,6 +2,9 @@ CACHE MANIFEST
 
 CACHE:
 css/index.css
+css/reset.css
+scripts/require.js
+scripts/localStorage.js
 
 NETWORK:
 *
