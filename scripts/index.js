@@ -3,14 +3,13 @@
 *     tuzkiss profile site
 */
 
-console.log(2);
 
 window.onload = function () {
 
-	ls.set( '123', '123');
-	ls.set( '22', '1223');
-	console.log( ls.get( 'hello' ) );
-	var aa = ls.showStorage();
-	console.log(aa['tuzkiss']);
+	//ls.set( '123', '123');
+	//ls.set( '22', '1223');
+	console.log( lsModule.get( 'tuzkiss' ) );
+	//var aa = ls.showStorage();
+	//console.log(aa['tuzkiss']);
 };
 

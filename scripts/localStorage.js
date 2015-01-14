@@ -7,21 +7,21 @@ var lsModule = (function () {
 	'use strict';
 
 	// set localStorage
-	set : function ( lsName, lsValue ) {
+	var set = function ( lsName, lsValue ) {
 		if ( window.localStorage ) {
 			localStorage.setItem( lsName, lsValue );
 		} else {
-			Console.log( 'sorry, your browser dont support localStorge' );
+			Console.log( 'sorry, your browser dont support localStorge.' );
 		};
 	};	
 
 	// get localStorage
-	get : function ( lsName ) {
+	var get = function ( lsName ) {
 		return localStorage.getItem( lsName ) || null ;
 	};
 
 	// show the all storage , return res
-	showStorage : function () {
+	var showStorage = function () {
 		if ( window.localStorage ) {
 			var storage = window.localStorage;
 
@@ -35,7 +35,7 @@ var lsModule = (function () {
 			return res;
 
 		} else {
-			Console.log( 'sorry, your browser dont support localStorge' );
+			Console.log( 'sorry, your browser dont support localStorge.' );
 		};
 	};
 
