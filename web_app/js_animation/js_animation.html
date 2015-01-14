@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS animation</title>
+	<script defer src="scripts/index.js"></script>
+	<style>
+		.alert {
+			width:400px;
+			height:auto;
+			min-height: 200px;
+			background:#fff;
+			border-radius : 10px;
+			border: 5px solid #aaa;
+			top:0;
+			position: absolute;
+			left:50%;
+			margin-left:-200px;
+			top :100px;
+			z-index: 100;
+
+			-webkit-animation: slideDown 1s ease-in-out;
+			-o-animation: slideDown 1s ease-in-out;
+			animation: slideDown 1s ease-in-out;
+		}
+		@-webkit-keyframes slideDown {
+			from {  top : -200px; }
+			to { top: 100px;  }
+		}
+		@-o-keyframes slideDown {
+			from {  top : -200px; }
+			to { top: 100px;  }
+		}
+		@-moz-keyframes slideDown {
+			from {  top : -200px; }
+			to { top: 100px;  }
+		}
+		@keyframes slideDown {
+			from {  top : -200px; }
+			to { top: 100px;  }
+		}
+
+		.slide-up {
+			width:400px;
+			height:auto;
+			min-height: 200px;
+			background:#fff;
+			border-radius : 10px;
+			border: 5px solid #aaa;
+			top:0;
+			position: absolute;
+			left:50%;
+			margin-left:-200px;
+			top :-250px;
+			z-index: 100;
+			-webkit-animation: slideUp 1s ease-in-out;
+			-o-animation: slideUp 1s ease-in-out;
+			animation: slideUp 1s ease-in-out;
+		}
+		@-webkit-keyframes slideUp {
+			from { top: 100px; }
+			to { top: -200px; }
+		}
+		@-o-keyframes slideUp {
+			from { top: 100px; }
+			to { top: -200px; }
+		}
+		@-moz-keyframes slideUp {
+			from { top: 100px; }
+			to { top: -200px; }
+		}
+		@keyframes slideUp {
+			from { top: 100px; }
+			to { top: -200px; }
+		}
+		.mask {
+			width: 100%;
+			height: 100%;
+			z-index: 99;
+			background: #444;
+			background: rgba(0, 0, 0, 0.6);
+			overflow: hidden;
+
+			-webkit-animation: maskFadeIn 0.7s ;
+			-o-animation: maskFadeIn 0.7s ;
+			animation: maskFadeIn 0.7s ;
+		}
+
+		@-webkit-keyframes maskFadeIn {
+			from { opacity: 0.1; }
+			to { opacity: 1; }
+		}
+		@-o-keyframes maskFadeIn {
+			from { opacity: 0.1; }
+			to { opacity: 1; }
+		}
+		@-moz-keyframes maskFadeIn {
+			from { opacity: 0.1; }
+			to { opacity: 1; }
+		}
+		@keyframes maskFadeIn {
+			from { opacity: 0.1; }
+			to { opacity: 1; }
+		}
+	</style>
+</head>
+<body>
+	<div id="mask" ></div>
+	<div id="process" ></div>
+	<input type="button" id="showAlert" value="showAlert" />
+	<input type="button" id="hideAlert" value="hideAlert" />
+</body>
+</html>
