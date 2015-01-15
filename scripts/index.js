@@ -3,13 +3,23 @@
 *     tuzkiss profile site
 */
 
+console.log('load index success.');
 
-window.onload = function () {
+// require config setting
+require.config ({
+	baseUrl : 'scripts',
+	paths : {
 
-	//ls.set( '123', '123');
-	//ls.set( '22', '1223');
-	console.log( lsModule.get( 'tuzkiss' ) );
-	//var aa = ls.showStorage();
-	//console.log(aa['tuzkiss']);
-};
+	}
+});
+
+// require js
+requirejs ( ['localStorage'], function ( ls ) {
+	//ls.showStorage();
+	//console.log( ls );
+	//ls.setStorage('fudaye', 'nihao2~');
+	var a = ls.showStorage();
+
+	console.log(a);
+});
 
