@@ -49,7 +49,7 @@ requirejs ( ['profile', 'background'], function ( tuzkiss, bg ) {
 	            ];
 	            console.log(posArray);
 
-                if( posArray[1].x < winW + f ) 
+                while( posArray[1].x < winW + f ) 
                 	draw(posArray[0], posArray[1]);
             }
 
