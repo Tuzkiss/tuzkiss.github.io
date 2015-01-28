@@ -8,9 +8,8 @@
 
 define(function () {
 	var tuzkiss = {
-		name 		: 	'',
+		name 		: 	'tuzkiss',
 		pinyin 		: 	'jianqing ding',
-		ename 		: 	'tuzkiss', 
 		university  : 	'Zhejiang Ocean University',
 		major 		: 	'computer science and technology',
 		skills 		: 	[],
