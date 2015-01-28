@@ -16,7 +16,7 @@ define(function () {
 
     // draw the background
     var canvas 	= document.createElement('canvas');
-    canvas.innerHTML = 'Sorry , your browser dose not support canvas.'
+    canvas.innerHTML = 'sorry, your browser dose not support canvas.'
 	document.body.appendChild(canvas);
 
 	var	ctx 		= canvas.getContext('2d'),

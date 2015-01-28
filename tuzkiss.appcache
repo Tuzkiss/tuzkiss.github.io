@@ -3,10 +3,13 @@ CACHE MANIFEST
 CACHE:
 
 css/reset.css
+css/font-awesome.css
+css/index.css
 
 scripts/require.js
-scripts/localStorage.js
-
+scripts/index.js
+scripts/background.js
+scripts/profile.js
 
 NETWORK:
 *
