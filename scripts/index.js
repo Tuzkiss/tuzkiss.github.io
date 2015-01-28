@@ -60,7 +60,7 @@ requirejs ( ['profile', 'background'], function ( tuzkiss, bg ) {
                 ctx.lineTo(j.x, j.y);
 
                 var k = j.x + ( rand() * 2 - 0.25 ) * f,  n = y(j.y);
-                console.log(k + ' ' + n);
+                //console.log(k + ' ' + n);
 
                 ctx.lineTo(k, n);
                 ctx.closePath();
@@ -69,7 +69,7 @@ requirejs ( ['profile', 'background'], function ( tuzkiss, bg ) {
 
                 var color = ( Math.cos(radian) * 127 + 128 << 16 | Math.cos( radian + pi * 2 / 3 ) * 127 + 128 << 8 | Math.cos( radian + pi * 2 / 3 * 2) * 127 + 128).toString(16);
 
-                console.log(color);
+                //console.log(color);
                 ctx.fillStyle = '#'+ color ;
                 ctx.fill();
 
@@ -93,6 +93,12 @@ requirejs ( ['profile', 'background'], function ( tuzkiss, bg ) {
             });
 
 
-	
+            
+	        var section = document.querySelector('section');
+            var sectionHeight = section.offsetHeight;
+            section.style.top = '50%';
+            section.style.marginTop = '-' + sectionHeight / 2 - 20 + 'px';
+
+           
 });
 

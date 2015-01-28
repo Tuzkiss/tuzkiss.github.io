@@ -14,7 +14,7 @@ define(function () {
 		university  : 	'Zhejiang Ocean University',
 		major 		: 	'computer science and technology',
 		skills 		: 	[],
-		bobby		:   [],
+		hobby		:   [],
 		goal		:   'Full Stack Developer'
 	};
 
