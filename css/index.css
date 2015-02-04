@@ -2,10 +2,15 @@
 *   (c) TuzK1ss 2014 - 2015
 *        Tuzkiss Home 
 */
+
+@font-face {
+	font-family:Myriad;
+	src:url(../font/MyriadSetPro-Thin.ttf);
+}
 html, body {
 	height: 100%;
 	background: #e1e1e1;
-	font-family: 'Helvetica', 'Verdana', sans-serif ;
+	font-family: Myriad, 'Helvetica', 'Verdana' ;
 }
 
 section {
@@ -46,6 +51,7 @@ a {
 	color: #666;
 	font-size: 20px;
 	text-decoration: none;
+	font-family: Myriad;
 
 }
 

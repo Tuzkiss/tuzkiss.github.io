@@ -2,12 +2,15 @@
 *   (c) TuzK1ss 2014 - 2015
 *     CSS3 animation demo
 */
-
+@font-face {
+	font-family:Myriad;
+	src:url(../../../font/MyriadSetPro-Thin.ttf);
+}
 
 html,body{
 	height:100%;
 	margin: 0;
-	font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif, 'Trebuchet MS';
+	font: 12px/1.5 Myriad, Tahoma, Helvetica, Arial, sans-serif, 'Trebuchet MS';
 	background: #f1f1f1;
 	
 }
