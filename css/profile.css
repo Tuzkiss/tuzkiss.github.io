@@ -126,7 +126,11 @@ footer {
 	overflow: hidden;
 	z-index: 1;
 	opacity: 0.6;
+
+
 }
+
+
 .batman > div{
 	position: absolute;
 	display: block;
@@ -213,4 +217,29 @@ footer {
 	top: 38px;
 	right: -10px;
 	border-top-left-radius: 28px;
+}
+
+.batman:hover {
+	-webkit-animation: batmanChange 4s infinite linear;
+	-moz-animation: batmanChange 4s infinite linear;
+	-o-animation: batmanChange 4s infinite linear;
+	animation: batmanChange 4s infinite linear;
+}
+
+@keyframes batmanChange {
+	0%, 100%{
+		background: #3a3a3b;
+	}	
+	20%{
+		background:#e85270;
+	}
+	40%{
+		background:#f9a24b;
+	}
+	60%{
+		background:#89cea4;
+	}
+	80%{
+		background:#4183a6;
+	}
 }

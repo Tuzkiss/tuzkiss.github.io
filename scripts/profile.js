@@ -3,23 +3,9 @@
 *
 *  				profile.js
 *
-*     last modify date on 2015-1-16
+*     last modify date on 2015-2-5
 */
 
-define(function () {
-	var tuzkiss = {
-		name 		: 	'tuzkiss',
-		pinyin 		: 	'jianqing ding',
-		university  : 	'Zhejiang Ocean University',
-		major 		: 	'computer science and technology',
-		skills 		: 	[],
-		hobby		:   [],
-		goal		:   'Full Stack Developer'
-	};
 
-	tuzkiss.skills.push('HTML5');
-
-	return tuzkiss;
-});
-
+console.log('load profile success.');
 
