@@ -39,6 +39,8 @@ header {
 	left: 200px;
 	position: absolute;
 	z-index: 10;
+
+	background: url('../images/bg.jpg') 0px -300px  no-repeat;
 	
 }
 
@@ -277,15 +279,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 }
 @-o-keyframes movebg1 {	
@@ -293,15 +292,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 }
 @-moz-keyframes movebg1 {	
@@ -309,15 +305,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 }
 @keyframes movebg1 {	
@@ -325,15 +318,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 
 }
@@ -345,15 +335,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 }
 @-o-keyframes movebg2 {	
@@ -361,31 +348,26 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
 	}
-	100% {
-		opacity: 1;
-	}
+
 }
 @-moz-keyframes movebg2 {	
 	0% {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 }
 @keyframes movebg2 {	
@@ -393,15 +375,12 @@ footer {
 		background-position: 0 -300px;
 		opacity: 1;
 	}
-	50% {
+	45%, 50% {
 		background-position: 0 -450px;
 		opacity: 1;
 	}
-	51%, 99% {
+	51%, 100% {
 		opacity: 0;
-	}
-	100% {
-		opacity: 1;
 	}
 
 }
