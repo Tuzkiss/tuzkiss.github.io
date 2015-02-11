@@ -99,6 +99,10 @@ nav > ul > li {
 	border-bottom: 1px solid #fff;
 	margin-top: -1px;
 	line-height: 40px;
+
+	-webkit-transition: background 0.3s;
+	-o-transition: background 0.3s;
+	transition: background 0.3s;
 }
 li a {
 	display: block;
@@ -112,6 +116,8 @@ li:hover a {
 .active, li:hover {
 	background:#2f87c0;
 }
+
+
 
 .main{
 	float: left;
@@ -134,6 +140,22 @@ li:hover a {
 footer {
 	margin-top: 20px;
 	text-align: center;
+}
+
+.panel {
+	width: 100%;
+	height: 100%;
+	background: #69a;
+}
+
+.active-panel {
+	-webkit-animation: fadeIn 0.6s ;
+	-o-animation: fadeIn 0.6s ;
+	animation: fadeIn 0.6s ;
+}
+
+.hidden {
+	display: none;
 }
 
 .box-shadow {
@@ -227,7 +249,6 @@ footer {
 	left: 0px;
 	top: 8px;
 	border-top-right-radius: 3px;
-
 }
 .batman > .head4:after{
 	content: '';
@@ -278,6 +299,7 @@ footer {
 	animation: batmanChange 4s infinite linear;
 }
 
+/* movebg1 */
 
 @-webkit-keyframes movebg1 {	
 	0% {
@@ -334,6 +356,7 @@ footer {
 }
 
 
+/* movebg2 */
 
 @-webkit-keyframes movebg2 {	
 	0% {
@@ -388,4 +411,23 @@ footer {
 		opacity: 0;
 	}
 
+}
+
+/* fadeIn */
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity:1; }
+}
+@-o-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity:1; }
+}
+@-moz-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity:1; }
+}
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity:1; }
 }
