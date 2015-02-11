@@ -34,14 +34,16 @@ header {
 }
 
 .user-bg {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	left: 0;
-	z-index: 1;
-	background: url(../images/user-bg.jpg) no-repeat;
-
-	background-size: 100% 100%;
+	width: 800px;
+	height: 200px;
+	left: 200px;
+	position: absolute;
+	z-index: 10;
+	background: url(../images/bg.jpg) 0px -300px  no-repeat;
+	
+	-webkit-animation: movebg 50s infinite;
+	-o-animation: movebg 50s infinite ;
+	animation: movebg 50s infinite ;
 }
 
 section {
@@ -89,6 +91,7 @@ li:hover a {
 .main{
 	float: left;
 	width: 900px;
+	min-height: 500px;
 	background: #fff;
 }
 .info {
@@ -108,7 +111,26 @@ footer {
 	text-align: center;
 }
 
+.box-shadow {
+	width: 1000px;
+	margin: 0 auto;
+	-webkit-box-shadow:  0 3px 6px rgba(0, 0, 0, 0.5);
+	box-shadow:  0 3px 6px rgba(0, 0, 0, 0.5);
+	position: relative;
+}
+.box-shadow:before{
+	content: '';
+	position: absolute;
+	top: 50px;
+	bottom: -1px;
+	left: 10px;
+	right: 10px;
+	
+	border-radius: 100px / 10px;
 
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
 
 /* batman css */
@@ -226,20 +248,39 @@ footer {
 	animation: batmanChange 4s infinite linear;
 }
 
-@keyframes batmanChange {
-	0%, 100%{
-		background: #3a3a3b;
-	}	
-	20%{
-		background:#e85270;
+
+@-webkit-keyframes movebg {	
+	0% {
+		background-position: 0 -300px;
 	}
-	40%{
-		background:#f9a24b;
-	}
-	60%{
-		background:#89cea4;
-	}
-	80%{
-		background:#4183a6;
+	100%{
+		background-position: 0 -500px;
 	}
 }
+@-o-keyframes movebg {	
+	0% {
+		background-position: 0 -300px;
+	}
+	100%{
+		background-position: 0 -500px;
+	}
+}
+@-moz-keyframes movebg {	
+	0% {
+		background-position: 0 -300px;
+	}
+	100%{
+		background-position: 0 -500px;
+	}
+}
+@keyframes movebg {	
+	0% {
+		background-position: 0 -300px;
+	}
+	100%{
+		background-position: 0 -500px;
+	}
+}
+
+
+
