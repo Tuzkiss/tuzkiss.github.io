@@ -3,7 +3,7 @@
 *
 *  				profile.js
 *
-*     last modify date on 2015-2-5
+*     last modify date on 2015-2-12
 */
 
 var profile = {};
@@ -18,26 +18,32 @@ window.onload = function () {
 profile.bindClick = function () {
 	'use strict';
 
-	var li = document.querySelectorAll('nav>ul>li');
+	var li = profile.query('nav>ul>li', true),
+		activePanel,
+		activeLi,
+		panel;
 
 	for (var i = 0; i < li.length; i ++) {
 		(function (i) {
 			li[i].addEventListener('click', function () {
-				var activePanel = document.querySelector('.active-panel'),
-					activeLi 	= document.querySelector('.active'),
-					panel 		= document.querySelectorAll('.panel');
+				
+				// if click other li 
+				if (!(profile.hasClass(li[i], 'active'))) {
+					activePanel = profile.query('.active-panel'),
+					activeLi 	= profile.query('.active'),
+					panel 		= profile.query('.panel', true);
 
-					activeLi.className = activeLi.className.replace('active', '');
-					li[i].className += 'active';
+					profile.removeClass(activeLi, 'active');
+					profile.addClass(li[i], 'active');				
 
-				if (activePanel) {
-					 
-					 activePanel.className = activePanel.className.replace('active-panel', 'hidden');;
+					if (activePanel) {
+						 
+						 profile.replaceClass(activePanel, 'active-panel', 'hidden');
+						 profile.replaceClass(panel[i], 'hidden', 'active-panel');
+					};
 
-					 panel[i].className = panel[i].className.replace('hidden', 'active-panel');
-				};
-
-				profile.replaceInfo();
+					profile.replaceInfo();
+				}
 			});
 		})(i);
 	};
@@ -47,23 +53,61 @@ profile.bindClick = function () {
 profile.replaceInfo = function () {
 	'use strict';
 
-	var activePanel 	= document.querySelector('.active-panel'),
+	var activePanel 	= profile.query('.active-panel'),
 		replaceArray 	= activePanel.innerHTML.match(/{{\w+}}/g),
 		replaceName,
-		replaceValue;
+		replaceValue,
+		isArray;
 	
 	if (replaceArray) {
 		for (var i = 0; i < replaceArray.length; i ++) {
+
 			replaceName 	= replaceArray[i];
 			replaceValue 	= tuzkiss[replaceName.substring(2, replaceName.length - 2)];
+			isValueArray	= replaceValue instanceof Array;
 
-			if (replaceValue) {
+			if (replaceValue && !isArray) {
+				activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, replaceValue);
+			} else if (replaceValue && isArray) {
+				replaceValue = '<ul><li>' + replaceValue.join('</li><li>') + '</li></ul>';
 				activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, replaceValue);
 			} else {
 				activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, 'null');
 			};
 		};
 	};
-
 };
+
+// query dom element
+profile.query = function (ele, isAll) {
+	if (!isAll) {
+		return document.querySelector(ele);
+	} else {
+		return document.querySelectorAll(ele);
+	}
+};
+
+// replace class name 
+profile.replaceClass = function (classPanel, classNameA, classNameB) {
+	classPanel.className = classPanel.className.replace(classNameA, classNameB);
+};
+
+// remove class name
+profile.removeClass = function (classPanel, classNameA) {
+	profile.replaceClass(classPanel, classNameA, '');
+};
+
+// add class name
+profile.addClass = function (classPanel, classNameB) {
+	classPanel.className += classNameB;
+};
+
+profile.hasClass = function (classPanel, className) {
+	if (classPanel.className.indexOf(className) > -1) {
+		return true;
+	} else {
+		return false ;
+	}
+}
+
 

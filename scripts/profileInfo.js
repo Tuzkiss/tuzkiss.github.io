@@ -11,5 +11,6 @@ var tuzkiss = {
 };
 
 tuzkiss.skills.push('HTML5');
+tuzkiss.skills.push('CSS3');
 
 

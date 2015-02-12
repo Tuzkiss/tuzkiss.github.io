@@ -113,7 +113,7 @@ li a {
 li:hover a {
 	text-decoration: none;
 }
-.active, li:hover {
+.active, nav > li:hover {
 	background:#2f87c0;
 }
 
