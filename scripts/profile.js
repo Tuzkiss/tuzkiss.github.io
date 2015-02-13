@@ -64,7 +64,7 @@ profile.replaceInfo = function () {
 
 			replaceName 	= replaceArray[i];
 			replaceValue 	= tuzkiss[replaceName.substring(2, replaceName.length - 2)];
-			isValueArray	= replaceValue instanceof Array;
+			isArray			= replaceValue instanceof Array;
 
 			if (replaceValue && !isArray) {
 				activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, replaceValue);
