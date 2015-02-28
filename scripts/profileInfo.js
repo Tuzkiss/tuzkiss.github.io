@@ -1,9 +1,16 @@
 /* tuzkiss infomation */
 
 var tuzkiss = {
-	name 		: 	'tuzkiss',
+	name 		: 	'tuzkiss',	
 	pinyin 		: 	'jianqing ding',
+	age			:   '24',
+	birthday	:   '1992-10-17',
+	location	:   'Zhejiang Hangzhou',
+	gallery1	:   '<img src="images/gallery1.jpg" height="200" />',
+	gallery2	:   '<img src="images/gallery2.jpg" height="200" />',
+	gallery3	:   '<img src="images/gallery3.jpg" height="200" />',
 	university  : 	'Zhejiang Ocean University',
+	university_logo : '<img src="images/school_logo.jpg" width="20" height="20" />',
 	major 		: 	'computer science and technology',
 	skills 		: 	[],
 	hobby		:   [],
@@ -22,6 +29,7 @@ var tuzkiss = {
 
 
 };
+
 
 tuzkiss.skills.push('HTML5');
 tuzkiss.skills.push('CSS3');

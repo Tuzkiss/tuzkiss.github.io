@@ -32,7 +32,6 @@
 	<div class="box-shadow">
 		<header>
 			<div class="user">
-				<div class="name">Jianqiang Ding</div>
 			</div>
 			<div class="user-bg">
 				<div class="bg1"></div>
@@ -45,10 +44,10 @@
 				<nav>
 					<ul>
 						<li class="active"><a href="javascript:;">HOME</a></li>
-						<li><a href="javascript:;">2</a></li>
-						<li><a href="javascript:;">3</a></li>
-						<li><a href="javascript:;">4</a></li>
-						<li><a href="javascript:;">5</a></li>
+						<li><a href="javascript:;">SKILL</a></li>
+						<li><a href="javascript:;">获奖经历</a></li>
+						<li><a href="javascript:;">在校经历</a></li>
+						<li><a href="javascript:;">项目经验</a></li>
 						<li><a href="javascript:;">CONTACT</a></li>
 					</ul>
 				</nav>
@@ -56,29 +55,37 @@
 			<div class="main">
 				<div class="panel active-panel">
 					<div class="info">
-						Some info 
+						<div class="info-body">
+							<div class="info-title">Name</div>
+							<div class="info-main">{{pinyin}} ({{name}})</div>
+						</div>
+						<div class="info-body">
+							<div class="info-title">Birthday</div>
+							<div class="info-main">{{birthday}} </div>
+						</div>
+						<div class="info-body">
+							<div class="info-title">Location</div>
+							<div class="info-main">{{location}}</div>
+						</div>
+						 :   
 					</div>
 					<div class="gallery">
-						gallery
+						<div class="gallery-body">{{gallery1}}</div>
+						<div class="gallery-body">{{gallery2}}</div>
+						<div class="gallery-body">{{gallery3}}</div>
 					</div>
-					main<br/>
-					main<br/>
-					main<br/>
-					main<br/>
-					main<br/>
-					main<br/>
-					v
-					main<br/>
-
-					viewportmain<br/>
-					main<br/>
-
-					v
-					main<br/>
-					v
-					 {{name}} 
-					 {{major}} 
-					 {{skills}} 
+					<div class="row">
+						<div class="row-title">University :</div>
+						<div class="row-body">{{university_logo}} {{university}}</div>
+					</div>
+					<div class="row">
+						<div class="row-title">Major :</div>
+						<div class="row-body">{{major}}</div>
+					</div>
+					<div class="row">
+						<div class="row-title"></div>
+						<div class="row-body"></div>
+					</div>
 
 				</div>
 				<div class="panel hidden">

@@ -75,6 +75,7 @@ section {
 	overflow: hidden;
 	*zoom:1;
 	background: #22292c;
+	font-size: 15px;
 }
 
 aside {
@@ -82,6 +83,7 @@ aside {
 	height: 100%;
 	float: left;
 	z-index: 10;
+	font-size: 12px;
 }
 
 nav {
@@ -127,8 +129,16 @@ li:hover a {
 	background: #fff;
 }
 
+.row-title, .row-body {
+	float:left;
+}
 .row-title {
-
+	width: 130px;
+}
+.row-body{
+	color:#2f87c0;
+	font-weight: bold;
+	font-family: '微软雅黑';
 }
 
 .main{
@@ -142,10 +152,36 @@ li:hover a {
 	height: 81px;
 	background: #fff;
 }
+.info-body {
+	width: 33%;
+	height: 100%;
+	float: left;
+
+	text-align: center;
+	border-left : 1px solid #eee;
+}
+.info-title {
+	height: 20px;
+	line-height: 20px;
+	margin-top: 15px;
+}
+.info-main {
+	height: 30px;
+	margin-top:10px;
+	color:#2f87c0;
+	font-weight: bold;
+	font-family: '微软雅黑';
+}
 .gallery {
 	width: 100%;
-	height: 120px;
+	height: 200px;
 	background: #eee;
+}
+
+.gallery-body {
+	width: 33.33%;
+	height: 100%;
+	float: left;
 }
 
 
@@ -157,7 +193,6 @@ footer {
 .panel {
 	width: 100%;
 	height: 100%;
-	background: #69a;
 }
 
 .active-panel {
