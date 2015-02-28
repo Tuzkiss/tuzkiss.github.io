@@ -27,7 +27,7 @@ header {
 .user {
 	width: 200px;
 	height: 200px;
-	background: url(../images/logo.jpg);
+	background: url(../images/tuzkiss_logo.jpg);
 	background-size: cover;
 	z-index: 10;
 	position: absolute;
@@ -117,7 +117,19 @@ li:hover a {
 	background:#2f87c0;
 }
 
+.row {
+	width: 100%;
+	height: 25px;
+	font-size: 15px;
+	text-indent: 3em;
+	line-height: 20px;
+	padding: 10px 0;
+	background: #fff;
+}
 
+.row-title {
+
+}
 
 .main{
 	float: left;
