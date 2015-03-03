@@ -131,14 +131,18 @@ li:hover a {
 
 .row-title, .row-body {
 	float:left;
+	line-height: 35px;
 }
 .row-title {
-	width: 130px;
+	width: 150px;
 }
 .row-body{
 	color:#2f87c0;
 	font-weight: bold;
 	font-family: '微软雅黑';
+}
+.info-other {
+	margin-top: 20px;
 }
 
 .main{
