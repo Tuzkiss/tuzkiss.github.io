@@ -11,9 +11,9 @@ var tuzkiss = {
 	gallery3	:   '<img src="images/gallery3.jpg" height="200" />',
 	university  : 	'Zhejiang Ocean University',
 	university_logo : '<img src="images/school_logo.jpg" width="20" height="20" />',
-	major 		: 	'computer science and technology',
+	major 		: 	'Computer science and technology',
 	skills 		: 	[],
-	hobby		:   [],
+	hobby		:   'Football, Surf the Internet, Listen to music and more ...',
 	goal		:   'Full Stack Developer',
 
 	QQ			:   '245361935',
@@ -30,7 +30,8 @@ var tuzkiss = {
 
 };
 
-
+tuzkiss.hobby.push('football');
+tuzkiss.hobby.push('');
 tuzkiss.skills.push('HTML5');
 tuzkiss.skills.push('CSS3');
 
