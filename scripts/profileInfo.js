@@ -43,26 +43,28 @@ tuzkissEn.skills.push('CSS3');
 var tuzkiss = {
 
 	// base info
-	name 		: 	'tuzkiss',	
-	pinyin 		: 	'丁建强',
-	age			:   '24',
-	birthday	:   '1992-10-17',
-	location	:   '浙江杭州',
-	gallery1	:   '<img src="images/gallery1.jpg" height="200" />',
-	gallery2	:   '<img src="images/gallery2.jpg" height="200" />',
-	gallery3	:   '<img src="images/gallery3.jpg" height="200" />',
-	university  : 	'浙江海洋学院',
-	university_logo : '<img src="images/school_logo.jpg" width="20" height="20" />',
-	major 		: 	'计算机科学与技术',
-	skills 		: 	[],
-	hobby		:   '足球，上网，听音乐，阅读等等...',
-	goal		:   '前端攻城狮  -> 全端工程师',
+	name 			: 	'tuzkiss',	
+	pinyin 			: 	'丁建强',
+	age				:   '24',
+	birthday		:   '1992-10-17',
+	location		:   '浙江杭州',
+	gallery1		:   '<img src="images/gallery1.jpg" height="200" />',
+	gallery2		:   '<img src="images/gallery2.jpg" height="200" />',
+	gallery3		:   '<img src="images/gallery3.jpg" height="200" />',
+	university  	: 	'浙江海洋学院',
+	university_logo : 	'<img src="images/school_logo.jpg" width="20" height="20" />',
+	major 			: 	'计算机科学与技术',
+	hobby			:   '足球，上网，听音乐，阅读等等...',
+	goal			:   '前端攻城狮  -> 全端工程师',
 
 	// skill info
+	skills 			: 	[],
 
 	// prize info
+	prize			:   [],
 
 	// university experence info
+
 
 	// project experence info
 	projectExperence: [],
@@ -71,22 +73,62 @@ var tuzkiss = {
 	internshipExperence : [],
 
 	// contact info
-	QQ			:   '245361935',
-	mobile 		:   '18658550504',
-	Email		:   'Tuzkiss1017#gmail.com',
-	github		:   'https://github.com/Tuzkiss',
-	CSDN		:   'http://my.csdn.net/tuzkiss1017',
-	blog		:   'http://blog.csdn.net/tuzkiss1017',
-	weibo		: 	'http://weibo.com/tuzkiss',
-	twitter     :   '@TuzK1ss',
-	facebook	:   '@TuzK1ss'
+	QQ				:   '245361935',
+	mobile 			:   '18658550504',
+	Email			:   'Tuzkiss1017#gmail.com',
+	github			:   'https://github.com/Tuzkiss',
+	CSDN			:   'http://my.csdn.net/tuzkiss1017',
+	blog			:   'http://blog.csdn.net/tuzkiss1017',
+	weibo			: 	'http://weibo.com/tuzkiss',
+	twitter     	:   '@TuzK1ss',
+	facebook		:   '@TuzK1ss'
 
 
 
 };
 
-tuzkiss.skills.push('HTML5');
-tuzkiss.skills.push('CSS3');
+tuzkiss.skills.push({
+	name:'HTML5',
+	percent:'60%',
+	icon: 'images/HTML5.png'
+});
+
+tuzkiss.skills.push({
+	name:'CSS3',
+	percent:'60%',
+	icon: 'images/CSS3.JPG'
+});
+
+tuzkiss.skills.push({
+	name:'JavaScript',
+	percent:'60%'
+});
+
+tuzkiss.skills.push({
+	name:'ASP.NET',
+	percent:'70%'
+});
+
+tuzkiss.skills.push({
+	name:'.NET MVC',
+	percent:'40%'
+});
+
+tuzkiss.skills.push({
+	name:'Less',
+	percent:'30%'
+});
+
+tuzkiss.skills.push({
+	name:'Node',
+	percent:'10%'
+});
+
+tuzkiss.skills.push({
+	name:'SQL Server',
+	percent:'40%'
+});
+
 
 tuzkiss.projectExperence.push({
 	date:'2012年7月',

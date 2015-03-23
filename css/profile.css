@@ -482,3 +482,28 @@ footer {
 	from { opacity: 0; }
 	to { opacity:1; }
 }
+
+
+.skill-ul {
+	width:100%;
+	height: 100%;
+	padding-top: 10px;
+
+}
+
+.skill-ul li {
+	width:30%;
+	height:140px;
+	background:#eee;
+	margin:10px;
+	float:left;
+	border:1px solid #ccc;
+	box-shadow: 0 0 10px #aaa;
+}
+
+.skill-icon {
+	width:120px;
+	float: left;
+	margin:10px 0 0 10px;
+
+}
