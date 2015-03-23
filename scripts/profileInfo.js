@@ -96,7 +96,7 @@ tuzkiss.skills.push({
 tuzkiss.skills.push({
 	name:'CSS3',
 	percent:'60%',
-	icon: 'images/CSS3.JPG'
+	icon: 'images/CSS3.jpg'
 });
 
 tuzkiss.skills.push({
