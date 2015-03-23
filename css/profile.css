@@ -489,12 +489,13 @@ footer {
 	height: 100%;
 	padding-top: 10px;
 
+
 }
 
 .skill-ul li {
 	width:30%;
 	height:140px;
-	background:#eee;
+	background:#fff;
 	margin:10px;
 	float:left;
 	border:1px solid #ccc;
@@ -503,7 +504,59 @@ footer {
 
 .skill-icon {
 	width:120px;
+	height:120px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 	float: left;
 	margin:10px 0 0 10px;
 
 }
+.skill-name {
+	display: none;
+}
+
+.skill-percent {
+	width: 100px;
+	height: 100px;
+	margin-top: 20px;
+	float: left;
+	position: relative;
+	margin-left: 25px;
+}
+
+/*
+.skill-percent {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	background:#69a;
+	float: left;
+	position: relative;
+	margin-left: 20px;
+	margin-top: 20px;
+	text-align: center;
+}
+
+
+.skill-percent:before {
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	background: #fff;
+	content: '';
+	position: absolute;
+	top:20px;
+	left: 20px;
+}
+
+.skill-percent:after{
+	width: 60px;
+	height: 60px;
+	background: red;
+	content: '';
+	position: absolute;
+	top:40px;
+	left:40px;
+};
+*/

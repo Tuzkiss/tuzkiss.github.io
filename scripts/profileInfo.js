@@ -101,32 +101,34 @@ tuzkiss.skills.push({
 
 tuzkiss.skills.push({
 	name:'JavaScript',
-	percent:'60%'
+	percent:'60%',
+	icon: 'images/js.png'
 });
 
 tuzkiss.skills.push({
 	name:'ASP.NET',
-	percent:'70%'
+	percent:'50%',
+	icon: 'images/net.jpg'
 });
 
-tuzkiss.skills.push({
-	name:'.NET MVC',
-	percent:'40%'
-});
+
 
 tuzkiss.skills.push({
 	name:'Less',
-	percent:'30%'
+	percent:'30%',
+	icon: 'images/less.png'
 });
 
 tuzkiss.skills.push({
 	name:'Node',
-	percent:'10%'
+	percent:'10%',
+	icon: 'images/node.png'
 });
 
 tuzkiss.skills.push({
 	name:'SQL Server',
-	percent:'40%'
+	percent:'40%',
+	icon: 'images/sql.jpg'
 });
 
 
