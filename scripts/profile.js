@@ -68,11 +68,11 @@ profile.replaceInfo = function () {
 			console.log(replaceValue);
 			var html = '<ul class="skill-ul">';
 			for (var i = 0; i < replaceValue.length; i ++) {
-				html +=  ( '<li><span class="skill-icon"><img src="' + replaceValue[i].icon + '" width="100" height="120" ></span><span class="skill-name">' + replaceValue[i].name + '</span><span class="skill-percent">' + replaceValue[i].percent + '</span></li>');
+				html +=  ( '<li><span class="skill-icon"><img src="' + replaceValue[i].icon + '" ></span><span class="skill-name">' + replaceValue[i].name + '</span><div class="skill-percent">' + replaceValue[i].percent + '</div></li>');
 			}
 			html += '</ul>'
 			activePanel.innerHTML = html;
-
+			profile.drawCircle();
 		} else if (replaceArray.indexOf('dxx') > 0) {
 
 		} else {
@@ -126,6 +126,53 @@ profile.hasClass = function (classPanel, className) {
 	} else {
 		return false ;
 	}
+};
+
+profile.drawCircle = function () {
+	var percent = profile.query('.skill-percent', true),
+		value ;
+
+	for(var i = 0 ; i < percent.length; i ++) {
+		value = percent[i].innerHTML;
+		percent[i].innerHTML = '';
+		var canvas = document.createElement('canvas');
+		canvas.id = 'percent' + i;
+		canvas.width = 100;
+		canvas.height = 100;
+		this.draw(canvas.id, parseInt(value), i);
+	    percent[i].appendChild(canvas);
+	};
+
+};
+
+profile.color = ['red', 'green', 'blue', 'orange', 'purple', 'gray', 'yellow', 'black'];
+
+profile.draw = function (canvasId, value, j) {
+	var i = 0.1;
+	var draw = setInterval(function () {
+		if (i <= value/50) {
+			var context = profile.query('#' + canvasId).getContext("2d");   
+		
+			var centerX = 50;   
+	    	var centerY = 50;   
+	    	var radius = 40;  
+			context.beginPath();   
+		    context.arc(centerX, centerY, radius, 0, i * Math.PI, false);   
+		     
+		    context.fillStyle = "#fff";   
+		    context.fill();   
+		    context.lineWidth = 15;   
+		    context.strokeStyle = profile.color[j];   
+
+		    context.stroke();  
+		    i += 0.08;
+		} else {
+			clearInterval(draw);
+			var context = profile.query('#' + canvasId).getContext("2d"); 
+			context.font = "20px Myriad"
+			context.fillStyle = "#444";
+			context.fillText (value + '%',33, 55);
+		}
+	}, 50);
+
 }
-
-
