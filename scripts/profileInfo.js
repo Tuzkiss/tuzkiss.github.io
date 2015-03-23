@@ -49,7 +49,7 @@ var tuzkiss = {
 	birthday		:   '1992-10-17',
 	location		:   '浙江杭州',
 	gallery1		:   '<img src="images/gallery1.jpg" height="200" />',
-	gallery2		:   '<img src="images/gallery2.jpg" height="200" />',
+	gallery2		:   '<img src="images/gallery2.JPG" height="200" />',
 	gallery3		:   '<img src="images/gallery3.jpg" height="200" />',
 	university  	: 	'浙江海洋学院',
 	university_logo : 	'<img src="images/school_logo.jpg" width="20" height="20" />',
