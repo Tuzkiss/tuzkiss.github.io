@@ -145,7 +145,7 @@ profile.drawCircle = function () {
 
 };
 
-profile.color = ['#e74c3c', '#e67e22', '#f39c12', '#27ae60', '#3498db', '#9b59b6', '#34495e', '#1abc9c'];
+profile.color = ['#fb4000', '#0057a4', '#f7dc4d', '#9df36d', '#0a314c', '#313232', '#cb3326', '#1abc9c'];
 
 profile.draw = function (canvasId, value, j) {
 	var i = 0.1;
