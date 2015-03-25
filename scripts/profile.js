@@ -17,15 +17,19 @@ window.onload = function () {
 // bind the li click event
 profile.bindClick = function () {
 	'use strict';
-
 	var li = profile.query('nav>ul>li', true),
+		that = this,
 		activePanel,
 		activeLi,
 		panel;
 
 	for (var i = 0; i < li.length; i ++) {
-		(function (i) {
-			li[i].addEventListener('click', function () {
+		li[i].addEventListener('click', liClickHandler(li, i));
+	}
+};
+
+function liClickHandler(li, i) {
+	return function () {
 				
 				// if click other li 
 				if (!(profile.hasClass(li[i], 'active'))) {
@@ -40,14 +44,12 @@ profile.bindClick = function () {
 						 
 						 profile.replaceClass(activePanel, 'active-panel', 'hidden');
 						 profile.replaceClass(panel[i], 'hidden', 'active-panel');
-					};
+					}
 
 					profile.replaceInfo();
 				}
-			});
-		})(i);
-	};
-};
+			};
+}
 
 // replace info html 
 profile.replaceInfo = function () {
@@ -57,7 +59,8 @@ profile.replaceInfo = function () {
 		replaceArray 	= activePanel.innerHTML.match(/{{\w+}}/g),
 		replaceName,
 		replaceValue,
-		isArray;
+		isArray,
+		i;
 	
 
 	if (replaceArray) {
@@ -67,16 +70,16 @@ profile.replaceInfo = function () {
 			replaceValue 	= tuzkiss[replaceName.substring(2, replaceName.length - 2)];
 			console.log(replaceValue);
 			var html = '<ul class="skill-ul">';
-			for (var i = 0; i < replaceValue.length; i ++) {
+			for (i = 0; i < replaceValue.length; i ++) {
 				html +=  ( '<li><span class="skill-icon"><img src="' + replaceValue[i].icon + '" ></span><span class="skill-name">' + replaceValue[i].name + '</span><div class="skill-percent">' + replaceValue[i].percent + '</div></li>');
 			}
-			html += '</ul>'
+			html += '</ul>';
 			activePanel.innerHTML = html;
 			profile.drawCircle();
 		} else if (replaceArray.indexOf('dxx') > 0) {
 
 		} else {
-			for (var i = 0; i < replaceArray.length; i ++) {
+			for (i = 0; i < replaceArray.length; i ++) {
 
 				replaceName 	= replaceArray[i];
 				replaceValue 	= tuzkiss[replaceName.substring(2, replaceName.length - 2)];
@@ -89,15 +92,16 @@ profile.replaceInfo = function () {
 					activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, replaceValue);
 				} else {
 					activePanel.innerHTML = activePanel.innerHTML.replace(replaceName, 'null');
-				};
-			};
+				}
+			}
 		}
 		
-	};
+	}
 };
 
 // query dom element
 profile.query = function (ele, isAll) {
+	isAll = isAll || false;
 	if (!isAll) {
 		return document.querySelector(ele);
 	} else {
@@ -141,7 +145,7 @@ profile.drawCircle = function () {
 		canvas.height = 100;
 		this.draw(canvas.id, parseInt(value), i);
 	    percent[i].appendChild(canvas);
-	};
+	}
 
 };
 
@@ -151,7 +155,7 @@ profile.draw = function (canvasId, value, j) {
 	var i = 0.1;
 	var draw = setInterval(function () {
 		if (i <= value/50) {
-			var context = profile.query('#' + canvasId).getContext("2d");   
+			context = profile.query('#' + canvasId).getContext("2d");   
 		
 			var centerX = 50;   
 	    	var centerY = 50;   
@@ -169,10 +173,10 @@ profile.draw = function (canvasId, value, j) {
 		} else {
 			clearInterval(draw);
 			var context = profile.query('#' + canvasId).getContext("2d"); 
-			context.font = "20px Myriad"
+			context.font = "20px Myriad";
 			context.fillStyle = "#444";
 			context.fillText (value + '%',33, 55);
 		}
 	}, 50);
 
-}
+};
