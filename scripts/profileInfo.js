@@ -67,10 +67,10 @@ var tuzkiss = {
 
 
 	// project experence info
-	projectExperence: [],
+	projectExperience: [],
 	
 	// internship experence info
-	internshipExperence : [],
+	internshipExperience : [],
 
 	// contact info
 	QQ				:   '245361935',
@@ -111,6 +111,12 @@ tuzkiss.skills.push({
 	icon: 'images/net.jpg'
 });
 
+tuzkiss.skills.push({
+	name:'Grunt',
+	percent:'50%',
+	icon: 'images/grunt.png'
+});
+
 
 
 tuzkiss.skills.push({
@@ -132,34 +138,59 @@ tuzkiss.skills.push({
 });
 
 
-tuzkiss.projectExperence.push({
+tuzkiss.projectExperience.push({
 	date:'2012年7月',
 	project:'为校海岛野外生存团队制作高等教育国家级教学成果申报网站',
 	skill: 'HTML + CSS + JAVASCRIPT',
-	experenece:'第一次制作整站，开始慢慢接触HTML,CSS,JAVASCRIPT等，并对网站制作产生浓厚兴趣'
+	experience:'第一次制作整站，开始慢慢接触HTML,CSS,JAVASCRIPT等，并对网站制作产生浓厚兴趣'
 });
 
-tuzkiss.projectExperence.push({
+tuzkiss.projectExperience.push({
 	date:' 2013年10月',
 	project:'为学校学生社团联合会开发校社联官方网站',
 	skill: 'HTML + CSS + JavaScript + ASP.NET4.0 + ACCESS+jQuery',
-	experenece: '第一次开发动态网站，了解整个网站的流程，运行，以及底层实现。开始慢慢有往前端的意识，因为更热衷于做让人愉悦的页面和动画',
+	experience: '第一次开发动态网站，了解整个网站的流程，运行，以及底层实现。开始慢慢有往前端的意识，因为更热衷于做让人愉悦的页面和动画',
 	websiteUrl: 'http://xsl.zjou.edu.cn/'
 });
 
-tuzkiss.projectExperence.push({
+tuzkiss.projectExperience.push({
 	date:' 2014年5月',
 	project:'组织团队开发分布式图片处理系统参加浙大网新组织的服务外包比赛',
 	skill: 'Gearman + OpenCV + PHP + HTML + CSS ',
-	experenece: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+});
+
+tuzkiss.projectExperience.push({
+	date:' 2014年7月',
+	project:'上海群畅票据系统开发',
+	skill: 'HTML5 + CSS3 + Jquery + Easyui + ASP.NET MVC 4',
+	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+});
+
+tuzkiss.projectExperience.push({
+	date:' 2015年3月',
+	project:'上海群畅OA系统开发',
+	skill: 'HTML5 + CSS3 + Jquery + Bootstrap + ASP.NET MVC 4 + WCF restful',
+	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+});
+
+tuzkiss.projectExperience.push({
+	date:' ····'
+});
+
+tuzkiss.projectExperience.push({
+	date:' 未来',
+	project:'某个前端项目组',
+	skill: 'HTML5 + CSS3 + Jquery + Bootstrap + ASP.NET MVC 4 + WCF restful',
+	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
 });
 
 
-tuzkiss.internshipExperence.push({
+tuzkiss.internshipExperience.push({
 	time:' 2014年7月到至今',
 	project:'.NET COE',
 	skill: '.NET , HTML, CSS, JAVASCRIPT等',
-	experenece: '在实习期间，主要负责的是组内的系统前端改进，性能优化，后端BUG修复。从2015年2月开始，在新的项目组里主要担任前端页面、组件开发以及与.NET MVC链接获取后端WCF传递数据。' +
+	experience: '在实习期间，主要负责的是组内的系统前端改进，性能优化，后端BUG修复。从2015年2月开始，在新的项目组里主要担任前端页面、组件开发以及与.NET MVC链接获取后端WCF传递数据。' +
 				'在这几个月的时间里，慢慢的开始把学习工作重心从后端转移到了前端，或许是因为我开始慢慢了解自己喜欢的也许更多的前端，因为自己会沉浸于为系统开发了一个简单实用的自定义组件，' +
 				'也因为在前端学习中获得一点代码，性能的优化而开心满怀。感谢实习，感谢时间让我明白自己想做的事情。这或许就是这段时间来最大的收获吧！'
 });

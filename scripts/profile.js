@@ -75,9 +75,20 @@ profile.replaceInfo = function() {
             html += '</ul>';
             activePanel.innerHTML = html;
             profile.drawCircle();
-        } else if (replaceArray.indexOf('dxx') > 0) {
+        } else if (replaceArray[0].indexOf('projectExperience') > 0) {
+        	replaceName = replaceArray[0];
+            replaceValue = tuzkiss[replaceName.substring(2, replaceName.length - 2)];
+            console.log(replaceValue);
 
-	} else {
+            var html = '<ul class="project-ul">';
+
+            for (i = 0; i < replaceValue.length; i ++) {
+            	html += ('<li><div class="date">' + replaceValue[i].date + '</div><div class="name">' + replaceValue[i].project +  '</div><div class="skill"> ' + replaceValue[i].skill + '</div><div class="experience"> ' + replaceValue[i].experience + '</div></li>');
+            }
+
+            html += '</ul>';
+            activePanel.innerHTML = html;
+		} else {
             for (i = 0; i < replaceArray.length; i++) {
 
                 replaceName = replaceArray[i];

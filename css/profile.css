@@ -560,3 +560,73 @@ footer {
 	left:40px;
 };
 */
+
+
+/* project experience */
+
+.project-ul {
+	width:100%;
+	height: auto;
+	padding:35px 15px 50px;
+	position:relative;
+	overflow: hidden;
+}
+
+.project-ul:after {
+	content:'';
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	left: 50px;
+	top:0;
+	background: #2f87c0;
+	z-index: 100;
+}
+
+.project-ul li {
+	width: 80%;
+	margin-left: 60px;
+	margin-bottom: 35px;
+}
+
+.project-ul li .date {
+	position: relative;
+	font-size: 18px;
+	color: #2f87c0;
+  font-weight: bold;
+  font-family: '微软雅黑';
+  width: auto;
+  float: left;
+	
+}
+
+.project-ul li .date:before {
+	content: '';
+	position:absolute;
+	width: 20px;
+	height: 20px;
+	top:0;
+	left: -32.5px;
+	border-radius:10px;
+	background: #2f87c0;
+	z-index: 100;
+
+}
+.project-ul li .name, .project-ul li .experience, .project-ul li .skill {
+	margin-top: 5px;
+}
+.project-ul li .name {
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	display:block;
+	padding-left: 5px;
+	line-height: 23px;
+}
+.project-ul li .skill{
+	margin-top: 3px;
+	color:#777;
+}
+.project-ul li .experience {
+	line-height:20px;
+}
