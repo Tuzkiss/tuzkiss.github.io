@@ -63,13 +63,13 @@ var tuzkiss = {
 	// prize info
 	prize			:   [],
 
-	// university experence info
+	// university experience info
+	universityExperience: [],
 
-
-	// project experence info
+	// project experience info
 	projectExperience: [],
 	
-	// internship experence info
+	// internship experience info
 	internshipExperience : [],
 
 	// contact info
@@ -81,10 +81,10 @@ var tuzkiss = {
 	blog			:   'http://blog.csdn.net/tuzkiss1017',
 	weibo			: 	'http://weibo.com/tuzkiss',
 	twitter     	:   '@TuzK1ss',
-	facebook		:   '@TuzK1ss'
+	facebook		:   '@TuzK1ss',
 
 
-
+	IWantToSay : ''
 };
 
 tuzkiss.skills.push({
@@ -138,6 +138,7 @@ tuzkiss.skills.push({
 });
 
 
+
 tuzkiss.projectExperience.push({
 	date:'2012年7月',
 	project:'为校海岛野外生存团队制作高等教育国家级教学成果申报网站',
@@ -175,7 +176,10 @@ tuzkiss.projectExperience.push({
 });
 
 tuzkiss.projectExperience.push({
-	date:' ····'
+	date:' ····',
+	project:'',
+	skill:'',
+	experience:'&nbsp;'
 });
 
 tuzkiss.projectExperience.push({
@@ -194,3 +198,6 @@ tuzkiss.internshipExperience.push({
 				'在这几个月的时间里，慢慢的开始把学习工作重心从后端转移到了前端，或许是因为我开始慢慢了解自己喜欢的也许更多的前端，因为自己会沉浸于为系统开发了一个简单实用的自定义组件，' +
 				'也因为在前端学习中获得一点代码，性能的优化而开心满怀。感谢实习，感谢时间让我明白自己想做的事情。这或许就是这段时间来最大的收获吧！'
 });
+
+
+tuzkiss.IWantToSay = '因为热爱，所以喜欢。热爱你的热爱。'

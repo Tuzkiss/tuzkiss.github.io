@@ -10,6 +10,11 @@
 html, body {
 	background: #e1e1e1;
 	font-family: Myriad, 'Helvetica', 'Verdana'， '微软雅黑' ;
+
+}
+
+body {
+	overflow-y:scroll;
 }
 
 header, section, footer {
@@ -84,6 +89,9 @@ aside {
 	float: left;
 	z-index: 10;
 	font-size: 12px;
+	position: absolute;
+	z-index:9999;
+	background: #22292c;
 }
 
 nav {
@@ -148,6 +156,7 @@ li:hover a {
 .main{
 	float: left;
 	width: 900px;
+	padding-left:100px;
 	min-height: 500px;
 	background: #fff;
 }
@@ -192,6 +201,7 @@ li:hover a {
 footer {
 	margin-top: 20px;
 	text-align: center;
+	font-size: 15px;
 }
 
 .panel {

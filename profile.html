@@ -47,9 +47,8 @@
 					<ul>
 						<li class="active"><a href="javascript:;">我的首页</a></li>
 						<li><a href="javascript:;">专业技能</a></li>
-						<li><a href="javascript:;">在校经历</a></li>
+						<li><a href="javascript:;">在校经历&获奖</a></li>
 						<li><a href="javascript:;">项目经验</a></li>
-						<li><a href="javascript:;">实习经验</a></li>
 						<li><a href="javascript:;">联系方式</a></li>
 						<li><a href="javascript:;">写在最后</a></li>
 					</ul>
@@ -63,7 +62,7 @@
 							<div class="info-main">{{pinyin}} ({{name}})</div>
 						</div>
 						<div class="info-body">
-							<div class="info-title">破蛋日</div>
+							<div class="info-title">出生日期</div>
 							<div class="info-main">{{birthday}} </div>
 						</div>
 						<div class="info-body">
@@ -96,23 +95,19 @@
 						</div>
 					</div>
 					
-
-
 				</div>
 				<div class="panel hidden">
-					2{{skills}} 
+					{{skills}} 
 				</div>
 				<div class="panel hidden">
-					3
+					{{universityExperience}}
+					{{prize}}
 				</div>
 				<div class="panel hidden">
-					{{projectExperience}} 
+					{{projectExperience}}
 				</div>
 				<div class="panel hidden">
-					{{internshipExperence}}
-				</div>
-				<div class="panel hidden">
-					<div class="row">CONTACT ME</div>
+					<div class="row">联系方式:</div>
 					<div class="row">QQ: {{QQ}} </div>
 					<div class="row">mobile: {{mobile}} </div>
 					<div class="row">Email: {{Email}} </div>
@@ -124,7 +119,7 @@
 					<div class="row">facebook:{{facebook}}</div>
 				</div>
 				<div class="panel hidden">
-					last word
+					{{IWantToSay}}
 				</div>
 			</div>
 		</section>
