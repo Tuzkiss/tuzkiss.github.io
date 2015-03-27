@@ -89,31 +89,31 @@ var tuzkiss = {
 
 tuzkiss.skills.push({
 	name:'HTML5',
-	percent:'60%',
+	percent:'50%',
 	icon: 'images/HTML5.png'
 });
 
 tuzkiss.skills.push({
 	name:'CSS3',
-	percent:'60%',
+	percent:'50%',
 	icon: 'images/CSS3.jpg'
 });
 
 tuzkiss.skills.push({
 	name:'JavaScript',
-	percent:'60%',
+	percent:'50%',
 	icon: 'images/js.png'
 });
 
 tuzkiss.skills.push({
 	name:'ASP.NET',
-	percent:'50%',
+	percent:'40%',
 	icon: 'images/net.jpg'
 });
 
 tuzkiss.skills.push({
 	name:'Grunt',
-	percent:'50%',
+	percent:'20%',
 	icon: 'images/grunt.png'
 });
 
@@ -165,14 +165,14 @@ tuzkiss.projectExperience.push({
 	date:' 2014年7月',
 	project:'上海群畅票据系统开发',
 	skill: 'HTML5 + CSS3 + Jquery + Easyui + ASP.NET MVC 4',
-	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+	experience: '在项目中主要负责部分前台页面的搭建，CSS样式部分统一规范，前端性能的优化和自定义简易组件的开发。'
 });
 
 tuzkiss.projectExperience.push({
 	date:' 2015年3月',
 	project:'上海群畅OA系统开发',
-	skill: 'HTML5 + CSS3 + Jquery + Bootstrap + ASP.NET MVC 4 + WCF restful',
-	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+	skill: 'HTML5 + CSS3 + Jquery + Bootstrap + Grunt + ASP.NET MVC 4 + WCF restful',
+	experience: '在项目中主要负责前台系统的搭建，数据的解析，页面的设计，以及自定义组件的开发。目前仍在进行中...'
 });
 
 tuzkiss.projectExperience.push({
@@ -185,8 +185,8 @@ tuzkiss.projectExperience.push({
 tuzkiss.projectExperience.push({
 	date:' 未来',
 	project:'某个前端项目组',
-	skill: 'HTML5 + CSS3 + Jquery + Bootstrap + ASP.NET MVC 4 + WCF restful',
-	experience: '在项目中担任项目经理一职，主要负责Gearman环境搭建，核心代码编写，统筹项目成员任务分配，并负责决赛答辩。在该项目中，学会了管理一个团队来完成一个项目，同时也学会使用Cygwin和Linux的一些基本操作，初步对分布式系统有了了解，系统的整合成一个分布式图片处理系统'
+	skill: 'HTML5 ？ CSS3 ？ Javascript  ？node ？ react？',
+	experience: '希望在一个专业的前端团队中，用青春贡献自己的激情。'
 });
 
 
