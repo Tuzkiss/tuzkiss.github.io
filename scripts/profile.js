@@ -90,15 +90,24 @@ profile.replaceInfo = function() {
             activePanel.innerHTML = html;
 		} else if (replaceArray[0].indexOf('universityExperience') > 0) {
             activePanel.innerHTML = '';
+                var isTitle = false;
             for (var i = 0; i < replaceArray.length; i ++) {
                 replaceName = replaceArray[i];
                 replaceValue = tuzkiss[replaceName.substring(2, replaceName.length - 2)];
                 
-                var html = '<ul>',
+                var html = '<ul class="university">',
                     ex;
                 for (var j = 0 ; j < replaceValue.length; j ++) {
                     ex = replaceValue[j].experience || replaceValue[j].prize;
-                    html += ('<li>' + replaceValue[j].date + ' ' + ex + '</li>');
+
+                    if (replaceValue[j].experience && !isTitle) {
+                        html += '<li><div class="title">在校经历</div></li>';
+                        isTitle = true;
+                    } else if (replaceValue[j].prize && isTitle) {
+                        html += '<li><div class="title">获奖信息</div></li>';
+                        isTitle = false;
+                    }
+                    html += ('<li><div class="date">' + replaceValue[j].date + '</div><div class="ex"> ' + ex + '</div></li>');
                 }
 
                 html += '</ul>'

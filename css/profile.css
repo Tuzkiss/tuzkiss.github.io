@@ -597,6 +597,8 @@ footer {
 	width: 80%;
 	margin-left: 60px;
 	margin-bottom: 35px;
+	padding-bottom: 30px;
+	border-bottom: 1px dashed #999;
 }
 
 .project-ul li .date {
@@ -645,4 +647,60 @@ footer {
 	color:#2f87c0;
 	font-family: '微软雅黑';
 	font-weight: bold;
+}
+
+.university {
+	margin: 15px;
+}
+
+.university li {
+	margin-top:  20px;
+	position: relative;
+	color:#444;
+}
+.university li .date {
+	position: absolute;
+	display: block;
+	background: #2f87c0;
+	color:#fff;
+	padding: 5px 10px;
+	left:15px;
+	top:-10px;
+	font-size: 13px;
+}
+
+.university li .ex:before {
+	content: '';
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	right: 20px;
+	top: -5px;
+	background: #2f87c0;
+}
+
+.university li .ex:after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: 20px;
+	top: -5px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent transparent #e9e9e9 transparent;
+}
+
+.university li .ex {
+	padding: 23px 10px 10px ;
+	text-indent: 2em;
+	background: #e9e9e9;
+}
+
+.university .title {
+	font-size: 16px;
+	padding: 10px 0 5px;
+}
+.last {
+	margin: 15px;
 }

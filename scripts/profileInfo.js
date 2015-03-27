@@ -154,11 +154,6 @@ tuzkiss.universityExperience.push({
 	experience:'参加创业团队，创立舟山市新城纳格文化传媒工作室（Nigle），在团队中主要负责宣传和网站建设方面。'
 });
 
-tuzkiss.universityExperience.push({
-	date: '&nbsp;',
-	experience:'&nbsp;'
-});
-
 tuzkiss.prize.push({
 	date: '2012年5月',
 	prize:'获得第九届浙江省大学生程序设计大赛三等奖（ACM）。'
@@ -166,7 +161,7 @@ tuzkiss.prize.push({
 
 tuzkiss.prize.push({
 	date: '2014年4月',
-	prize:'获得第第十一届浙江省大学生程序设计大赛三等奖（ACM）。'
+	prize:'获得第十一届浙江省大学生程序设计大赛三等奖（ACM）。'
 });
 
 tuzkiss.prize.push({
