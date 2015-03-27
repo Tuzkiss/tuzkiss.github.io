@@ -88,7 +88,24 @@ profile.replaceInfo = function() {
 
             html += '</ul>';
             activePanel.innerHTML = html;
-		} else {
+		} else if (replaceArray[0].indexOf('universityExperience') > 0) {
+            activePanel.innerHTML = '';
+            for (var i = 0; i < replaceArray.length; i ++) {
+                replaceName = replaceArray[i];
+                replaceValue = tuzkiss[replaceName.substring(2, replaceName.length - 2)];
+                
+                var html = '<ul>',
+                    ex;
+                for (var j = 0 ; j < replaceValue.length; j ++) {
+                    ex = replaceValue[j].experience || replaceValue[j].prize;
+                    html += ('<li>' + replaceValue[j].date + ' ' + ex + '</li>');
+                }
+
+                html += '</ul>'
+                activePanel.innerHTML = activePanel.innerHTML + html;
+            }
+
+        }else {
             for (i = 0; i < replaceArray.length; i++) {
 
                 replaceName = replaceArray[i];

@@ -640,3 +640,9 @@ footer {
 .project-ul li .experience {
 	line-height:20px;
 }
+
+.contact-title {
+	color:#2f87c0;
+	font-family: '微软雅黑';
+	font-weight: bold;
+}

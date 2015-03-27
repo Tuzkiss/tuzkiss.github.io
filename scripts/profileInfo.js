@@ -139,6 +139,42 @@ tuzkiss.skills.push({
 
 
 
+tuzkiss.universityExperience.push({
+	date: '2012 - 2013学年',
+	experience:'担任腾讯微博浙江海洋学院校园大使，浙江海洋学院校学生会信息传媒部副部长。'
+});
+
+tuzkiss.universityExperience.push({
+	date: ' 2013 ',
+	experience:'参加浙江海洋学院2013大学生志愿者暑期文化科技卫生"三下乡"社会实践活动。'
+});
+
+tuzkiss.universityExperience.push({
+	date: ' 2013 - 至今',
+	experience:'参加创业团队，创立舟山市新城纳格文化传媒工作室（Nigle），在团队中主要负责宣传和网站建设方面。'
+});
+
+tuzkiss.universityExperience.push({
+	date: '&nbsp;',
+	experience:'&nbsp;'
+});
+
+tuzkiss.prize.push({
+	date: '2012年5月',
+	prize:'获得第九届浙江省大学生程序设计大赛三等奖（ACM）。'
+});
+
+tuzkiss.prize.push({
+	date: '2014年4月',
+	prize:'获得第第十一届浙江省大学生程序设计大赛三等奖（ACM）。'
+});
+
+tuzkiss.prize.push({
+	date: '2014年6月',
+	prize:'获得第三届“浙大网新杯”服务外包创新应用大赛三等奖。'
+});
+
+
 tuzkiss.projectExperience.push({
 	date:'2012年7月',
 	project:'为校海岛野外生存团队制作高等教育国家级教学成果申报网站',
