@@ -127,7 +127,7 @@ li:hover a {
 	background:#2f87c0;
 }
 
-.row {
+.row, .contact-title {
 	width: 100%;
 	height: 25px;
 	font-size: 15px;
@@ -704,3 +704,12 @@ footer {
 .last {
 	margin: 15px;
 }
+
+.contact .row {
+	margin:10px 0 0 50px;
+	padding: 3px 0;
+	border-left: 5px solid #2f87c0;
+	font-size: 14px;
+	text-indent: 10px;
+}
+
