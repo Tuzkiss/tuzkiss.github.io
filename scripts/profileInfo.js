@@ -200,4 +200,4 @@ tuzkiss.internshipExperience.push({
 });
 
 
-tuzkiss.IWantToSay = '因为热爱，所以喜欢。热爱你的热爱。'
+tuzkiss.IWantToSay = '<br/>因为热爱，所以喜欢。热爱你的热爱。<br/> 剩余未完成profile 1、完成学校经历&获奖 2、添加使用过的其他skill 3、美化排版 4、使用CSS响应式设计，兼容小屏幕'
