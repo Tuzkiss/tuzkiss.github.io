@@ -45,7 +45,7 @@ header {
 	position: absolute;
 	z-index: 10;
 
-	background: url('../images/bg.jpg') 0px -250px  no-repeat;
+	background: url('../images/bg.jpg') 0px 0  no-repeat;
 	
 }
 
@@ -56,20 +56,20 @@ header {
 }
 .bg1 {
 	z-index: 30;
-	background: url('../images/bg.jpg') 0px -250px  no-repeat;
+	background: url('../images/bg.jpg') 0px 0  no-repeat;
 	
-	-webkit-animation: movebg1 50s infinite linear;
-	-o-animation: movebg1  50s infinite linear;
-	animation: movebg1  50s infinite linear;
+	-webkit-animation: movebg1 40s infinite linear;
+	-o-animation: movebg1  40s infinite linear;
+	animation: movebg1  40s infinite linear;
 }
 .bg2{
 	z-index: 29;
 
 	background: url('../images/bg2.jpg') 0px -250px  no-repeat;
 	
-	-webkit-animation: movebg2 50s infinite linear;
-	-o-animation: movebg2  50s infinite linear;
-	animation: movebg2  50s infinite linear;
+	-webkit-animation: movebg2 40s infinite linear;
+	-o-animation: movebg2  40s infinite linear;
+	animation: movebg2  40s infinite linear;
 
 	-webkit-animation-delay: 25s;
 	-o-animation-delay: 25s;
@@ -364,11 +364,11 @@ footer {
 
 @-webkit-keyframes movebg1 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -377,11 +377,11 @@ footer {
 }
 @-o-keyframes movebg1 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 -0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -390,11 +390,11 @@ footer {
 }
 @-moz-keyframes movebg1 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -403,11 +403,11 @@ footer {
 }
 @keyframes movebg1 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -421,11 +421,11 @@ footer {
 
 @-webkit-keyframes movebg2 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -434,11 +434,11 @@ footer {
 }
 @-o-keyframes movebg2 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 -0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -448,11 +448,11 @@ footer {
 }
 @-moz-keyframes movebg2 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
@@ -461,11 +461,11 @@ footer {
 }
 @keyframes movebg2 {	
 	0% {
-		background-position: 0 -250px;
+		background-position: 0 0;
 		opacity: 1;
 	}
 	45%, 50% {
-		background-position: 0 -500px;
+		background-position: 0 -100px;
 		opacity: 1;
 	}
 	51%, 100% {
