@@ -55,7 +55,7 @@ var tuzkiss = {
 	university_logo : 	'<img src="images/school_logo.jpg" width="20" height="20" />',
 	major 			: 	'计算机科学与技术',
 	hobby			:   '足球，上网，听音乐，阅读等等...',
-	goal			:   '前端攻城狮  -> 全端工程师',
+	goal			:   '前端攻城狮  -> 全端攻城狮',
 
 	// skill info
 	skills 			: 	[],
@@ -231,4 +231,4 @@ tuzkiss.internshipExperience.push({
 });
 
 
-tuzkiss.IWantToSay = '<br/>因为热爱，所以喜欢。热爱你的热爱。<br/> 剩余未完成profile 1、完成学校经历&获奖 2、添加使用过的其他skill 3、美化排版 4、使用CSS响应式设计，兼容小屏幕'
+tuzkiss.IWantToSay = '<br/>关于过去，告一段落。关于未来，敬请期待。';

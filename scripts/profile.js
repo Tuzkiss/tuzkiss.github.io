@@ -12,6 +12,8 @@ window.onload = function() {
     profile.bindClick();
 
     profile.replaceInfo();
+
+    profile.toggleButtonClickHandler();
 };
 
 // bind the li click event
@@ -39,6 +41,18 @@ profile.liClickHandler = function(li, i) {
 
             profile.removeClass(activeLi, 'active');
             profile.addClass(li[i], 'active');
+
+            var sectionW = profile.query('section').offsetWidth,
+                nav = profile.query('nav'),
+                aside = profile.query('aside'),
+                marginTop = 0;
+
+
+            if (sectionW < 380) {
+                nav.style.marginTop = -41 * i + 'px';
+                aside.style.height = '41px';
+            }    
+            
 
             if (activePanel) {
 
@@ -217,3 +231,34 @@ profile.draw = function(canvasId, value, j) {
     50);
 
 };
+
+profile.toggleButtonClickHandler = function () {
+    var dom = profile.query('.more');
+
+    dom.addEventListener('click', function () {
+        console.log(2);
+        var aside = profile.query('aside'),
+            asideH = aside.offsetHeight,
+            nav = profile.query('nav'),
+            index = profile.query('.active').getAttribute('data-index');
+
+        if(asideH < 50) {
+            aside.style.height = '245px';
+            nav.style.marginTop = '0';
+        } else {
+            aside.style.height = '41px';
+            nav.style.marginTop = -41 * index + 'px';
+        }
+    }, false);
+}
+
+window.onresize = function () {
+    var sectionW = profile.query('section').offsetWidth,
+        nav = profile.query('nav'),
+        aside = profile.query('aside');
+
+    if (sectionW > 380) {
+        aside.style.height = '100%';
+        nav.style.marginTop = 0;
+    }
+}
