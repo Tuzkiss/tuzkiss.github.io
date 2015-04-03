@@ -1,0 +1,107 @@
+* {
+	margin:0;
+	padding: 0;
+	font-family: '微软雅黑';
+}
+
+.paging-ul {
+	display: block;
+	margin: 100px auto;
+	
+	text-align: center;
+}
+
+.paging-ul ul {
+	display: block;
+	text-align: center;
+
+	width: 600px;
+}
+
+.paging-ul li {
+	display: inline-block;
+	margin-right: 2px;
+	min-width: 25px;
+
+	
+	border: 1px solid #ccc;
+}
+
+li.dot {
+	margin-right: 0;
+	margin-left: -2px;
+
+	width: 20px;
+	border: none;
+}
+.paging-ul li a {
+	display: block;
+	padding: 3px 5px;
+	
+	background: #fff;
+	text-decoration: none;
+	color:#3d3d3d;
+	font-size: 12px;
+	text-align: center;
+
+	-webkit-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+li.paging-total, li.paging-more {
+	margin-left: 10px;
+
+	border:none;
+	font-size: 12px;
+}
+
+li.paging-more {
+	margin-left: 0;
+}
+
+
+
+.paging-ul .active-li {
+	border-color:#2e6da4;
+}
+.paging-total {
+	color:#999;
+}
+
+.paging-ul .active-li a  {
+	
+	color:#fff;
+	background: #337ab7;
+}
+
+li.item:hover, .go-paging:hover {
+	
+	border-color: #337ab7;
+}
+.paging-ul li a:hover {
+	color: #337ab7;
+}
+li.active-li a:hover {
+	color:#fff;
+}
+
+.go-paging {
+	padding:3px 8px;
+
+	background: #fff;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	font-size: 12px;
+}
+.go-paging:focus {
+	outline: none;
+}
+.paging-index {
+	  padding: 0 1px;
+
+	  color: #337ab7;
+	  width: 34px;
+	  text-align: center;
+	    border: 1px solid #ccc;
+}
