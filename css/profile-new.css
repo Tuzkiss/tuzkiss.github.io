@@ -1,0 +1,308 @@
+/*
+KISSY CSS Reset
+理念：清除和重置是紧密不可分的
+特色：1.适应中文 2.基于最新主流浏览器
+维护：玉伯(lifesinger@gmail.com), 正淳(ragecarrier@gmail.com)
+*/
+
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+th, td { /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 设置默认字体 */
+body,
+button, input, select, textarea { /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+}
+
+h1 { font-size: 18px; /* 18px / 12px = 1.5 */ }
+h2 { font-size: 16px; }
+h3 { font-size: 14px; }
+h4, h5, h6 { font-size: 100%; }
+
+address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 统一等宽字体 */
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+/* 重置列表元素 */
+ul, ol { list-style: none; }
+
+/* 重置文本格式元素 */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+abbr[title], acronym[title] { /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+q:before, q:after { content: ''; }
+
+/* 重置表单元素 */
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: none; } /* img 搭车：让链接里的 img 无边框 */
+/* 注：optgroup 无法扶正 */
+button, input, select, textarea {
+    font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+/* 重置表格元素 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 重置 hr */
+hr {
+    border: none;
+    height: 1px;
+}
+
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+/* html { overflow-y: scroll; } */
+@font-face {
+    font-family:Myriad;
+    src:url(../font/MyriadSetPro-Thin.ttf);
+}
+
+body {
+    font-size: 62.5%;
+
+    font-family: Myriad, 'Helvetica Neue', Arial,  'Microsoft Yahei', sans-serif;
+
+    background:#3498db;
+}
+
+
+/* batman css */
+.batman-panel{
+    width: 150px;
+    height: 70px;
+    position: absolute;
+    
+    top:50%;
+    left:50%;
+
+    margin-left: -75px;
+    margin-top: -100px;
+
+    -webkit-animation: batMove 1s ease-in-out ;
+    -o-animation: batMove 1s ease-in-out ;
+    animation: batMove 1s ease-in-out ;
+   
+}
+.batman{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    opacity: 0.6;
+
+}
+
+.batman > div{
+    position: absolute;
+    display: block;
+    background: #3498db;
+    border: 0px;
+    z-index: 10;
+
+}
+.batman > .head1, .batman > .footer{
+    width: 101%;
+    height: 8px;
+}
+.batman > .head1{
+    top: -1px;
+}
+.batman > .footer{
+    bottom: -1px;
+}
+.batman > .head2{
+    width: 15px;
+    height: 15px;
+    left: 55px;
+    border-radius: 0 0 6px 21px / 15px;
+}
+.batman > .head3{
+    width: 15px;
+    height: 15px;
+    left: 80px;
+    border-radius: 0 0  21px 6px / 15px;
+}
+.batman > .head4{
+    width: 10px;
+    height: 10px;
+    left: 70px;
+}
+.batman > .head4:before{
+    content: '';
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    background: #444;
+    left: 0px;
+    top: 8px;
+    border-top-right-radius: 3px;
+}
+.batman > .head4:after{
+    content: '';
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    background: #444;
+    left: 7px;
+    top: 8px;
+    border-top-left-radius: 3px;
+}
+.batman > .wing1, .batman > .wing3{
+    width: 32px;
+    height: 31px;
+    top: 8px;
+    bottom: -1px
+}
+.batman > .wing1{
+    left: -1px;
+
+    border-radius:  0 30px 0 0 ;
+}
+.batman > .wing3{
+    right: -1px;
+    border-radius:  30px 0 0 0;
+
+}
+.batman > .wing2{
+    width: 85px;
+    height: 28px;
+    top: 38px;
+    left: -10px;
+    border-top-right-radius: 28px;
+}
+
+.batman > .wing4{
+    width: 85px;
+    height: 28px;
+    top: 38px;
+    right: -10px;
+    border-top-left-radius: 28px;
+}
+
+
+@-webkit-keyframes batMove {
+    from { 
+        opacity: 0;
+        margin-top: -20px;
+     }
+    to {  
+        opacity: 1;
+        margin-top: -100px;
+    }
+}
+@-o-keyframes batMove {
+    from { 
+        opacity: 0;
+        margin-top: -20px;
+     }
+    to {  
+        opacity: 1;
+        margin-top: -100px;
+    }
+}
+@-moz-keyframes batMove {
+    from { 
+        opacity: 0;
+        margin-top: -20px;
+     }
+    to {  
+        opacity: 1;
+        margin-top: -100px;
+    }
+}
+@keyframes batMove {
+    from { 
+        opacity: 0;
+        margin-top: -20px;
+     }
+    to {  
+        opacity: 1;
+        margin-top: -100px;
+    }
+}
+
+.welcome {
+    position: absolute;
+    top: 50%;
+    margin-top: 30px;
+    
+    text-align: center;
+    width: 100%;
+    font-size: 2.4rem;
+    color:#222;
+    opacity: 0;
+
+    -webkit-animation: welcomeMove 0.7s ease-in-out forwards;
+    -o-animation: welcomeMove 0.7s ease-in-out forwards;
+    animation: welcomeMove 0.7s ease-in-out forwards;
+
+    -webkit-animation-delay: 0.3s;
+    -o-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+
+@-webkit-keyframes welcomeMove {
+    from { 
+        opacity: 0;
+        margin-top: 80px;
+     }
+    to { 
+        opacity: 1;
+        margin-top: 20px;
+     }
+}
+@-o-keyframes welcomeMove {
+    from { 
+        opacity: 0;
+        margin-top: 80px;
+     }
+    to { 
+        opacity: 1;
+        margin-top: 20px;
+     }
+}
+@-moz-keyframes welcomeMove {
+    from { 
+        opacity: 0;
+        margin-top: 80px;
+     }
+    to { 
+        opacity: 1;
+        margin-top: 20px;
+     }
+}
+@keyframes welcomeMove {
+    from { 
+        opacity: 0;
+        margin-top: 80px;
+     }
+    to { 
+        opacity: 1;
+        margin-top: 20px;
+     }
+}
+
+
+
+
+/* common css */
+.hidden {
+    display: none;
+}
