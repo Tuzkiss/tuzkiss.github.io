@@ -249,13 +249,10 @@ body {
     color:#222;
     opacity: 0;
 
-    -webkit-animation: welcomeMove 0.7s ease-in-out forwards;
-    -o-animation: welcomeMove 0.7s ease-in-out forwards;
-    animation: welcomeMove 0.7s ease-in-out forwards;
+    -webkit-animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
+    -o-animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
+    animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
 
-    -webkit-animation-delay: 0.3s;
-    -o-animation-delay: 0.3s;
-    animation-delay: 0.3s;
 }
 
 @-webkit-keyframes welcomeMove {
@@ -300,7 +297,94 @@ body {
 }
 
 
+.next {
+    position: absolute;
+    bottom: 40px;
+    left:50%;
+    margin-left: -20px;
 
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background:#1abc9c;
+    opacity: 0;
+    cursor: pointer;
+    overflow: hidden;
+
+    -webkit-animation: nextMove 1.5s infinite ease-in-out 2s  ;
+    -o-animation: nextMove 1.5s infinite ease-in-out 2s ;
+    animation: nextMove 1.5s infinite ease-in-out 2s ;
+}
+
+.next:before, .next:after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top:10px;
+
+
+    width: 15px;
+    height: 15px;
+
+    border : 2px solid #fff;
+    border-left-color: transparent;
+    border-top-color:transparent;
+    z-index: 100;
+
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.next:after {
+    top: 5px;
+    left: 14px;
+    width: 9px;
+    height: 9px;
+    z-index: 90;
+}
+
+@-webkit-keyframes nextMove {
+    0%, 100% {
+       opacity: 0.5;
+       bottom: 30px;
+    }
+    50% {
+        opacity: 1;
+        bottom:50px;
+    }
+}
+@-o-keyframes nextMove {
+    0%, 100% {
+        opacity: 0.5;
+       bottom: 30px;
+    }
+    50% {
+        opacity: 1;
+        bottom:50px;
+    }
+}
+@-moz-keyframes nextMove {
+    0%, 100% {
+        opacity: 0.5;
+       bottom: 30px;
+    }
+    50% {
+        opacity: 1;
+        bottom:50px;
+    }
+}
+@keyframes nextMove {
+    0%, 100% {
+        opacity: 0.5;
+       bottom: 30px;
+    }
+    50% {
+        opacity: 1;
+        bottom:50px;
+    }
+}
 
 /* common css */
 .hidden {
