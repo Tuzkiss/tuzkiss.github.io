@@ -72,12 +72,21 @@ hr {
     src:url(../font/MyriadSetPro-Thin.ttf);
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-size: 62.5%;
 
     font-family: Myriad, 'Helvetica Neue', Arial,  'Microsoft Yahei', sans-serif;
+    
+    -webkit-font-smoothing: antialiased;
 
     background:#3498db;
+    
+    height:100%;
+    overflow: hidden;
 }
 
 
@@ -92,6 +101,11 @@ body {
 
     margin-left: -75px;
     margin-top: -100px;
+
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 
     -webkit-animation: batMove 1s ease-in-out ;
     -o-animation: batMove 1s ease-in-out ;
@@ -200,41 +214,65 @@ body {
 @-webkit-keyframes batMove {
     from { 
         opacity: 0;
-        margin-top: -20px;
+        -webkit-transform: translate3d(0, 70px, 0);
+        -ms-transform: translate3d(0, 70px, 0);
+        -o-transform: translate3d(0, 70px, 0);
+        transform: translate3d(0, 70px, 0);
      }
     to {  
         opacity: 1;
-        margin-top: -100px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
 @-o-keyframes batMove {
     from { 
         opacity: 0;
-        margin-top: -20px;
+        -webkit-transform: translate3d(0, 70px, 0);
+        -ms-transform: translate3d(0, 70px, 0);
+        -o-transform: translate3d(0, 70px, 0);
+        transform: translate3d(0, 70px, 0);
      }
     to {  
         opacity: 1;
-        margin-top: -100px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
 @-moz-keyframes batMove {
     from { 
         opacity: 0;
-        margin-top: -20px;
+        -webkit-transform: translate3d(0, 70px, 0);
+        -ms-transform: translate3d(0, 70px, 0);
+        -o-transform: translate3d(0, 70px, 0);
+        transform: translate3d(0, 70px, 0);
      }
     to {  
         opacity: 1;
-        margin-top: -100px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
 @keyframes batMove {
     from { 
         opacity: 0;
-        margin-top: -20px;
+        -webkit-transform: translate3d(0, 70px, 0);
+        -ms-transform: translate3d(0, 70px, 0);
+        -o-transform: translate3d(0, 70px, 0);
+        transform: translate3d(0, 70px, 0);
      }
     to {  
         opacity: 1;
-        margin-top: -100px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -249,6 +287,11 @@ body {
     color:#222;
     opacity: 0;
 
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+
     -webkit-animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
     -o-animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
     animation: welcomeMove 0.7s ease-in-out forwards 0.3s;
@@ -258,41 +301,65 @@ body {
 @-webkit-keyframes welcomeMove {
     from { 
         opacity: 0;
-        margin-top: 80px;
+       -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        -o-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
      }
     to { 
         opacity: 1;
-        margin-top: 20px;
-     }
-}
-@-o-keyframes welcomeMove {
-    from { 
-        opacity: 0;
-        margin-top: 80px;
-     }
-    to { 
-        opacity: 1;
-        margin-top: 20px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
      }
 }
 @-moz-keyframes welcomeMove {
     from { 
         opacity: 0;
-        margin-top: 80px;
+       -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        -o-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
      }
     to { 
         opacity: 1;
-        margin-top: 20px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+     }
+}
+@-o-keyframes welcomeMove {
+    from { 
+        opacity: 0;
+       -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        -o-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
+     }
+    to { 
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
      }
 }
 @keyframes welcomeMove {
     from { 
         opacity: 0;
-        margin-top: 80px;
+       -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        -o-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
      }
     to { 
         opacity: 1;
-        margin-top: 20px;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
      }
 }
 
@@ -310,6 +377,11 @@ body {
     opacity: 0;
     cursor: pointer;
     overflow: hidden;
+
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 
     -webkit-animation: nextMove 1.5s infinite ease-in-out 2s  ;
     -o-animation: nextMove 1.5s infinite ease-in-out 2s ;
@@ -386,7 +458,39 @@ body {
     }
 }
 
+
+section {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+
+    -webkit-transition: all 2s;
+    -o-transition: all 2s;
+    transition: all 2s;
+}
+
+section ul {
+    height: 100%;
+}
+
+section li {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    font-size: 20rem;
+
+}
+
 /* common css */
 .hidden {
     display: none;
+}
+.blue {
+    background:#3498db;
 }
