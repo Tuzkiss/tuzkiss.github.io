@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>中文打字效果 demo</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			position: relative;
+
+		}
+		html, body {
+			font-size:62.5%;
+		}
+		@font-face {font-family: 'webfont';
+		    src: url('fonts/webfont.eot'); /* IE9*/
+		    src: url('fonts/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		    url('fonts/webfont.woff') format('woff'), /* chrome、firefox */
+		    url('fonts/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+		    url('fonts/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+		}
+		.web-font{
+		    font-family:"webfont" !important;
+		    font-size:16px;
+		    font-style:normal;
+		    -webkit-font-smoothing: antialiased;
+		    -webkit-text-stroke-width: 0.2px;
+		    -moz-osx-font-smoothing: grayscale;
+		}
+		::selection { 
+			color:#fff; 
+			background: #3468db;
+		}
+
+		section {
+			margin: 100px auto;
+			padding: 20px;
+
+			width: 600px;
+			border: 1px solid #eee;
+			-webkit-box-shadow: 0 1px 1px #444;
+			box-shadow: 0 1px 1px #444;
+
+			-webkit-transition: all 0.5;
+			-o-transition: all 0.5;
+			transition: all 0.5;
+		}
+		
+
+		p {
+			text-indent: 2em;
+			font-size:1.5rem;
+			line-height: 2rem;
+
+			position: relative;
+		}
+		
+		.flash:after{
+			-webkit-animation: flashGo 1s infinite linear;
+			-o-animation: flashGo 1s infinite linear;
+			animation: flashGo 1s infinite linear;
+			
+			content: '|';
+			position: absolute;
+			top: -2px;
+			color:#000;
+			left: 2px;
+		}
+		@-webkit-keyframes flashGo {
+			0%{
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@-o-keyframes flashGo {
+			0%{
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@-moz-keyframes flashGo {
+			0%{
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@keyframes flashGo {
+			0%{
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		.hidden {
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<section>
+		<span id="print1" class="web-font hidden">
+			姓名:
+		</span>
+		<span id="print2" class="web-font hidden">
+			Tuzk1ss
+		</span>
+		<span id="print3" class="web-font hidden">
+			姓名:
+		</span>
+		<span id="print4" class="web-font hidden">
+			Tuzk1ss
+		</span>
+		<span id="print5" class="web-font hidden">
+			姓名:
+		</span>
+		<span id="print6" class="web-font hidden">
+			Tuzk1ss
+		</span>
+		<span id="print7" class="web-font hidden">
+			姓名:
+		</span>
+		<span id="print8" class="web-font hidden">
+			Tuzk1ss
+		</span>
+		<span id="print9" class="web-font hidden">
+			姓名:
+		</span>
+		<span id="print10" class="web-font hidden">
+			Tuzk1ss
+		</span>
+	</section>
+		
+	<div id="sound">
+		<embed autoPlay="false" src="type.wav" hidden="true" type="video/quicktime"></embed>
+	</div>
+
+
+	<script>
+
+	function TypeWrite (config) {
+
+		// 需要填写的id Array
+		this.idArray = config.idArray || [];
+
+		// 打印每个字符的时间
+		this.wirteTime = config.writeTime || 400;
+
+		// 打印每个id延时时间
+		this.delay = config.delay || 1000;
+
+		// 打印这个id完停止时间
+		this.stop = config.stop || 500;
+
+		// 打印下个id暂停的时间
+		this.pause = config.pasue || 0;
+	}; 
+
+	// 初始化
+	TypeWrite.prototype.init = function () {
+		if (this.idArray) {
+			this.write(this.idArray, 0);
+		}
+	};
+
+	// 打印函数
+	TypeWrite.prototype.write = function (idArray, index) {
+		var dom = document.getElementById(idArray[index]),
+			words = dom.innerHTML,
+			charArray = words.trim().split(''),
+			len = charArray.length,
+			i = 0,
+			writeInterval,
+			writeTimeout,
+			flash;
+
+		var that = this;
+
+		dom.innerHTML = '&nbsp;';
+		dom.className = dom.className.replace(/hidden/, '');
+
+		if (!writeTimeout) {
+			dom.innerHTML += '<span class="flash"></span>';
+
+			writeTimeout = setTimeout(function () {
+				that.playSound();
+
+				typeInterval = setInterval(function () {
+					flash = document.getElementsByClassName('flash')[0];
+								
+					if (flash && i < len) {
+
+						flash.parentNode.removeChild(flash);
+						dom.innerHTML += charArray[i] + '<span class="flash"></span>';
+						i++;
+
+						
+					} else if(flash && i === len) {
+
+						//dom.innerHTML = dom.innerHTML.replace(/&nbsp;/, '');
+						clearInterval(typeInterval);
+
+						setTimeout(function () {
+							flash.parentNode.removeChild(flash);
+
+							that.stopSound();
+
+							if (index < idArray.length - 1) {
+
+								// 进行下一个
+								setTimeout(function (){
+
+									that.write(idArray, index + 1);
+								}, that.pause);
+
+							}
+						}, that.stop);
+						
+					}
+
+				}, that.wirteTime);
+			}, this.delay);
+		}
+	};
+
+	TypeWrite.prototype.playSound = function (){
+		var sound = '<embed loop="true" src="type.wav" hidden="true" type="video/quicktime"></embed>' ;
+
+		document.getElementById('sound').innerHTML = sound;
+	}
+
+	TypeWrite.prototype.stopSound = function () {
+		document.getElementById('sound').innerHTML = '';
+	}
+
+	var arr = [];
+
+	for (var i = 1; i < 11; i ++) {
+		arr.push('print' + i);
+	}
+
+	var typeWrite = new TypeWrite({
+		idArray: arr,
+		wirteTime: 400,
+		stop: 500,
+		delay: 1000,
+		pause: 0
+	});
+
+	typeWrite.init();
+
+	</script>
+
+
+</body>
+</html>
