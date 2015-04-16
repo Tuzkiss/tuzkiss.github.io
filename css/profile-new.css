@@ -375,7 +375,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    background:#1abc9c;
+    background:#1abc9c transparent;
     opacity: 0;
     cursor: pointer;
     overflow: hidden;
@@ -486,7 +486,49 @@ section li {
     position: relative;
     
     font-size: 20rem;
+    overflow: hidden;
 
+}
+
+section ul li:nth-child(2) {
+    background: #1abc9c;
+}
+
+.home {
+    margin: 0 auto;
+    padding: 20% 0;
+
+    width: 600px;
+    height: auto;
+    font-size:1.4rem;
+
+
+}
+
+.avatar {
+    float: left;
+
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background: url(../images/tuzkiss_logo.jpg) no-repeat;
+
+    -webkit-transition: all 2s;
+    -o-transition: all 2s;
+    transition: all 2s;
+
+}
+
+.home-info {
+    float: left;
+    margin:50px 0 0 120px;
+
+    width: auto;
+}
+
+.home-info-body {
+    color: #fff;
+    height: 50px;
 }
 
 /* common css */
@@ -495,4 +537,17 @@ section li {
 }
 .blue {
     background:#3498db;
+}
+.clearfix{
+    *zoom:1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: '';
+    position: relative;
+    display: table;
+    overflow: hidden;
+}
+.clearfix:after{
+    clear:both;
 }
