@@ -67,10 +67,12 @@ hr {
 
 /* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
 /* html { overflow-y: scroll; } */
+/*
 @font-face {
     font-family:Myriad;
     src:url(../font/MyriadSetPro-Thin.ttf);
 }
+*/
 
 html {
     height: 100%;
@@ -79,7 +81,7 @@ html {
 body {
     font-size: 62.5%;
 
-    font-family: Myriad, 'Helvetica Neue', Arial,  'Microsoft Yahei', sans-serif;
+    font-family: 'Titillium Web', 'Helvetica Neue', Arial,  'Microsoft Yahei', sans-serif;
     
     -webkit-font-smoothing: antialiased;
 
@@ -284,7 +286,7 @@ body {
     text-align: center;
     width: 100%;
     font-size: 2.4rem;
-    color:#222;
+    color:#343434;
     opacity: 0;
 
     -webkit-transform: translate3d(0, 0, 0);
