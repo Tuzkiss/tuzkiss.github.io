@@ -1,0 +1,187 @@
+/* 
+*     CSS3 Clock CSS
+*
+*     Author Tuzkiss
+*
+*       2015-4-19
+*/
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, 
+dl, dt, dd, ul,  li,
+pre,
+fieldset, lengen, button, input, textarea,
+th, td {
+  padding: 0;
+  margin: 0;
+} 
+
+li {
+  list-style: none;
+}
+
+
+
+body {
+  background:#f1f1f1;
+}
+
+
+section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -250px 0 0 -150px;
+
+  width: 300px;
+  height: auto;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0 1px 5px #444;
+  box-shadow: 0 1px 5px #444;
+}
+.title, .time {
+  position: relative;
+  margin: 10px auto;
+  padding: 10px;
+
+  font-family: 'Microsoft Yahei';
+  width: 70%;
+  border-bottom: 1px solid #bbb;
+  color:#444;
+  text-align: center;
+}
+
+.time {
+    border-top: 1px solid #bbb;
+    border-bottom:none;
+
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+
+.clock {
+  position: relative;
+  margin: 30px auto;
+
+  width: 240px;
+  height: 240px;
+  border-radius: 100%;
+  background: #444;
+  -webkit-box-shadow: 0 0 10px #444;
+  box-shadow: 0 0 10px #444;
+}
+
+.clock .title {
+  width: 100px;
+}
+
+.pointer li.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -5px;
+
+  -webkit-transform-origin: left center ;
+  -moz-transform-origin: left center ;
+  -ms-transform-origin: left center ;
+  -o-transform-origin: left center ;
+  transform-origin: left center ;
+
+  background: #f1f1f1;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%
+}
+
+.line-hour li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  -webkit-transform-origin: left top ;
+  -moz-transform-origin: left top ;
+  -ms-transform-origin: left top ;
+  -o-transform-origin: left top ;
+  transform-origin: left top ;
+
+  width: 18px;
+  height: 4px;
+  background: #f1f1f1;
+  z-index: 1;
+}
+
+.line-min li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  -webkit-transform-origin: left top ;
+  -moz-transform-origin: left top ;
+  -ms-transform-origin: left top ;
+  -o-transform-origin: left top ;
+  transform-origin: left top ;
+
+  width: 10px;
+  height: 2px;
+  background: #f1f1f1;
+  z-index: 1;
+  color: #fff;
+}
+
+.number {
+  position: absolute;
+  top:50%;
+  left: 50%;
+
+  margin-left: -85px;
+  margin-top: -85px;
+
+  width: 130px;
+  height: 170px;
+  
+  color: #fff;
+  font-family: 'Microsoft Yahei';
+}
+
+.number li {
+  position: absolute;
+
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+ 
+}
+.pointer li {
+    position: absolute;
+    left: 50%;
+    top:50%;
+    
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    -ms-transform-origin: left center;
+    -o-transform-origin: left center;
+    transform-origin: left center;
+    
+    -webkit-transition: all 1s linear;
+    -o-transition: all 1s linear;
+    transition: all 1s linear;
+
+    background:#fff;
+}
+.pointer li.hour {
+    width: 40px;
+    height: 5px;
+    margin-top: -2px;
+}
+.pointer li.min {
+    width: 55px;
+    height: 3px;
+    margin-top: -1px;
+}
+.pointer li.sec {
+    width: 70px;
+    height: 1px;
+}
