@@ -7,10 +7,25 @@
 	font-family:Myriad;
 	src:url(../font/MyriadSetPro-Thin.ttf);
 }
+
+@font-face {font-family: 'words';
+    src: url('words.eot'); /* IE9*/
+    src: url('words.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('words.woff') format('woff'), /* chrome、firefox */
+    url('words.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('words.svg#words') format('svg'); /* iOS 4.1- */
+}
+.myWords{
+    font-family:"words" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
 html, body {
 	background: #e1e1e1;
 	font-family: Myriad, 'Helvetica', 'Verdana'， '微软雅黑' ;
-
+	-webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -710,6 +725,23 @@ footer {
 .last {
 	margin: 15px;
 }
+.last img {
+	margin-left: 4%;
+}
+
+.words{
+	margin: 20px 5% 5px;
+  text-indent: 2em;
+  line-height: 35px;
+}
+.bold {
+	font-weight: bold;
+}
+ .sp {
+	color:#2f87c0;
+	font-size: 20px ;
+	margin:0 3px;
+}
 
 .contact .row {
 	margin:10px 0 0 50px;
@@ -719,6 +751,14 @@ footer {
 	text-indent: 10px;
 }
 
+.pic-word {
+	text-align: center;
+	margin: 15px 0 10px;
+}
+
+.world {
+
+}
 
 @media screen and (max-width: 1020px) {
 	header, section, footer {
@@ -745,6 +785,11 @@ footer {
 	.skill-ul li {
 		width: 46%;
 	}
+
+	.last img {
+		margin-left: 3%;
+	}
+
 }
 
 
@@ -786,6 +831,11 @@ footer {
 	.project-ul:after {
 		left: 35px;
 	}
+
+	.last img {
+		margin-left: 6%;
+	}
+
 }
 
 @media screen and (max-width: 620px) {
@@ -891,6 +941,11 @@ footer {
 	.row {
 		text-indent: 12px;
 	}
+
+	.last img {
+	margin-left: 3%;
+}
+
 }
 
 @media screen and (max-width: 420px) {
@@ -975,4 +1030,9 @@ footer {
 		background: url(../images/toggle.png) no-repeat;
 		background: url(../images/toggle.svg) no-repeat;
 	}
+
+	.last img {
+	margin-left: 5%;
+}
+
 }

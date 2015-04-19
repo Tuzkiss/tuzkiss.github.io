@@ -231,4 +231,12 @@ tuzkiss.internshipExperience.push({
 });
 
 
-tuzkiss.IWantToSay = '<br/>关于过去，告一段落。关于未来，敬请期待。';
+tuzkiss.IWantToSay = '<div class="words">大学四年，学过<span class="sp bold">C</span>，路过<span class="sp bold">JAVA</span>，留过<span class="sp bold">.NET</span>，最后在<span class="sp bold">FE</span>的路上越走越远，还梦想这成为一个牛逼哄哄的<span class="sp bold">Full Stack Developer</span>。' + 
+					'<p>当然，也不忘买过<span class="sp">空间</span>，备过<span class="sp">案</span>，挂过<span class="sp">游戏</span>，第一天的<span class="sp bold">4000+PV</span>让我激动的睡不着觉。</p>'	+
+					'<p>同时，还搞过<span class="sp bold">ACM</span>， <span class="sp">服务外包</span>，虽然成绩仅止步<span class="sp">省三</span>。干过<span class="sp">苦力</span>，当过<span class="sp">部长</span>，参与过<span class="sp">创业</span>，可最终还是发现自己内心深处的<span class="sp">梦想</span>。</p>' + 
+					'<p>不谈其他，但至少还设计过<span class="sp bold">PPT</span>，拍过<span class="sp">微电影</span>，配过<span class="sp">小说剧</span>，做过<span class="sp bold">AE、PR</span>，踢过<span class="sp">足球赛</span>，下过<span class="sp">乡</span>，出过<span class="sp">岛</span>，露过<span class="sp">营</span>， 但依旧要面临现实，' +
+					'临近毕业，却依旧还未找到<span class="sp">心仪</span>的工作。</p>' + 
+					'<div class="world sp">世界那么大，我多么想出去看看。</div>' +
+					'</div>' + 
+					'<img src="images/desktop.jpg" width="90%" />' + 
+					'<div class="pic-word"><span class="sp bold">PS.</span> 他们说看一个人的桌面就能知道这个人的大概。</div>' ;
