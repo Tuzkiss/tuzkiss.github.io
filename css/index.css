@@ -7,8 +7,20 @@
 html, body {
 	height: 100%;
 	background: #e1e1e1;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Oxygen', sans-serif;
 	font-size:62.5%;
+}
+
+.warn {
+	position: absolute;
+	top: 0;left: 0;
+	width: 100%;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	background: #c0392b;
+	font-family: 'Mircosoft Yahei';
+	font-size: 12px;
 }
 
 section {
@@ -32,8 +44,9 @@ header {
 
 }
 header h1 {
-	font-size: 3rem;
+	font-size: 2.5rem;
 	color: #3498db;
+	font-family: 'Orbitron', sans-serif;
 }
 
 nav {
@@ -79,4 +92,8 @@ footer {
 canvas {
 	position: absolute;
 	z-index: 0;
+}
+
+.hidden {
+	display: none;
 }

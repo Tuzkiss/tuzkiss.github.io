@@ -14,6 +14,15 @@ define(function () {
     //section.style.top = '50%';
     //section.style.marginTop = '-' + ( section.offsetHeight / 2 + 30) + 'px';
 
+    var ie =  document.querySelector('.lt-ie9') ;
+
+    if (ie) {
+    	document.getElementById('warn').className = 'warn';
+    	document.getElementsByTagName('section')[0].className = 'hidden';
+    }
+
+
+
     // draw the background
     var canvas 	= document.createElement('canvas');
     canvas.innerHTML = 'sorry, your browser dose not support canvas.'
