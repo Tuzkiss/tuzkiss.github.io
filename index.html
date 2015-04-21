@@ -1,15 +1,22 @@
 <!DOCTYPE html>
+
 <html manifest="tuzkiss.appcache">
+<!--[if lt IE 9]>
+   <html class="lt-ie9"  > 
+<![endif]-->
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="tuzkiss.github.io">
+    <meta name="keywords" content="tuzkiss tuzkiss.net">
     <meta name="author" content="tuzkiss">
 
     <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/font-awesome.css">
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link rel="stylesheet"  href="css/index.css" />
+
 
     <link rel="icon " href="favicon.ico">
 
@@ -17,10 +24,12 @@
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>TuzKiss' Home</title>
+    <title>TuzKiss' Home -- tuzkiss.github.io</title>
   </head>
 
   <body>
+   
+
     <section>
       <header>
         <h1>Tuzk1ss' Home</h1>
@@ -30,22 +39,22 @@
           <ul>
             <li>
               <a href="profile.html" target="_blank">
-                <i class="icon-user"></i>Profile
+                Profile
               </a>
             </li>
             <li>
               <a href="web_app/css3_animation/css3_animation.html" target="_blank">
-                <i class="icon-gift"></i>CSS3 animtaion
+                CSS3 animtaion
               </a>
             </li>
             <li>
               <a href="web_app/js_animation/CSS3-CLOCK/clock.html" target="_blank">
-                <i class="icon-magnet"></i>Js animtaion
+                Js animtaion
               </a>
             </li>
             <li>
               <a href="https://github.com/Tuzkiss" target="_blank">
-                <i class="icon-github-alt"></i>Github
+                Github
               </a>
             </li>
           </ul>
@@ -55,6 +64,10 @@
         <p>&copy; TuzK1ss 2015 </p> 
       </footer>
      </section>
+      
+       <div id="warn" class="warn hidden">
+      请使用高版本浏览器打开
+    </div>
 
     <script src="scripts/require.js" data-main="scripts/index" ></script>    
   </body>
