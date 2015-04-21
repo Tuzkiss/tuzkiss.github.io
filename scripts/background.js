@@ -10,9 +10,9 @@ define(function () {
     console.log('load background js success.');
 
     // set the section be center
-    var section = document.querySelector('section');
-    section.style.top = '50%';
-    section.style.marginTop = '-' + ( section.offsetHeight / 2 + 50) + 'px';
+    //var section = document.querySelector('section');
+    //section.style.top = '50%';
+    //section.style.marginTop = '-' + ( section.offsetHeight / 2 + 30) + 'px';
 
     // draw the background
     var canvas 	= document.createElement('canvas');

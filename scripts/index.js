@@ -14,12 +14,7 @@ require.config ({
 });
 
 // require js
-requirejs ( ['profile', 'background'], function ( tuzkiss, bg ) {
-	
-	//bg.setBackground();
-    
-
-    console.log(tuzkiss);
+requirejs ( ['background'], function (bg ) {
            
 });
 

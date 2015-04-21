@@ -3,19 +3,24 @@
 *        Tuzkiss Home 
 */
 
-@font-face {
-	font-family:Myriad;
-	src:url(../font/MyriadSetPro-Thin.ttf);
-}
+
 html, body {
 	height: 100%;
 	background: #e1e1e1;
-	font-family: Myriad, 'Helvetica', 'Verdana' ;
+	font-family: 'Open Sans', sans-serif;
+	font-size:62.5%;
 }
 
 section {
-	width: 100%;
+	width: 270px;
+	height: 270px;
 	position: absolute;
+
+	left: 50%;
+	top: 50%;
+
+	margin-top: -135px;
+	margin-left: -135px;
 	z-index: 10;
 }
 
@@ -24,11 +29,11 @@ header {
 	width: 100%;
 	height: 70px;
 	text-align: center;
-	
+
 }
 header h1 {
-	color:#565656;
-	font-size: 30px;
+	font-size: 3rem;
+	color: #3498db;
 }
 
 nav {
@@ -44,14 +49,14 @@ ul {
 
 ul li {
 	height: 40px;
-	font: 16em;
+	text-align: center;
 }
 
 a {
-	color: #666;
-	font-size: 20px;
+	color: #2c3e50;
+	font-size: 2rem;
 	text-decoration: none;
-	font-family: Myriad;
+
 
 }
 
@@ -64,18 +69,14 @@ footer {
 	width: 170px;
 	height: 40px;
 	margin: 0 auto;
-	text-align: left;
 	line-height: 40px;
-	font-size: 16px;
-	color:#777;
-	color: rgba(0, 0, 0, 0.7);
+	font-size: 1.4rem;
+	text-align: center;
+
+	text-indent: -9999px;
 }
 
 canvas {
 	position: absolute;
 	z-index: 0;
 }
-
-
-/* profile css */
-
