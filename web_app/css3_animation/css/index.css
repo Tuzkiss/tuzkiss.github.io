@@ -1374,3 +1374,85 @@ footer{
 		display: none;
 	}
 }
+
+
+
+.circleFour {
+            width: 60px;
+            height: 60px;
+            margin: 0px auto;
+        }
+
+        .circleFour ul {
+            width: 100%;
+            position: relative;
+            background: red;
+        }
+        .circleFour ul li {
+            position: absolute;
+            float: left;
+            width: 20px;
+            height: 20px;
+
+            list-style: none;
+            border-radius: 100%;
+            border: 1px solid transparent;
+        }
+
+        .circleFour ul li:first-child {
+            background: #3498db;
+
+            -webkit-animation: moveRB 1.4s ease-in-out infinite;
+        }
+        .circleFour ul li:nth-child(2) {
+            background: #27ae60;
+            right: 0;
+
+            -webkit-animation: moveLB 1.4s ease-in-out infinite;
+        }
+        .circleFour ul li:nth-child(3) {
+            background: #c0392b;
+            bottom: -60px;
+
+            -webkit-animation: moveRT 1.4s ease-in-out infinite;
+        }
+        .circleFour ul li:nth-child(4) {
+            background: #f39c12;
+            right: 0;
+            bottom: -60px;
+
+            -webkit-animation: moveLT 1.4s ease-in-out infinite;
+        }
+
+        @-webkit-keyframes moveRB {
+            0%, 100% { 
+                transform: translate(0px, 0px);
+             }
+            50% { 
+                transform: translate(40px, 40px);
+             }
+        }
+        @-webkit-keyframes moveLB {
+            0%, 100% { 
+                transform: translate(0, 0);
+             }
+            50% { 
+                transform: translate(-40px, 40px);
+             }
+        }
+        @-webkit-keyframes moveLT {
+            0%, 100% { 
+                transform: translate(0px, 0px);
+             }
+            50% { 
+                transform: translate(-40px, -40px);
+             }
+        }
+        @-webkit-keyframes moveRT {
+            0%, 100% { 
+                transform: translate(0px, 0px);
+             }
+            50% { 
+                transform: translate(40px, -40px);
+             }
+        }

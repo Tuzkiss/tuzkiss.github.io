@@ -114,3 +114,15 @@ var showMask = function () {
 	mask.className = 'mask';
 	document.body.appendChild(mask);
 };
+
+
+var li = document.getElementById('circleFour').getElementsByTagName('li');
+var k = 0;
+setInterval(function () {
+	for (var i = 0; i < li.length; i ++) {
+    	li[i].style.zIndex = 10;
+	}
+
+    li[k%4].style.zIndex = 100;
+    k ++;
+}, 700);
