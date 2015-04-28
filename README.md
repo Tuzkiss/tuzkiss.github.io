@@ -11,4 +11,3 @@ Tuzkiss personal website
 
 and something else...
 
-google "tuzkiss"
