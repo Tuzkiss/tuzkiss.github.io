@@ -1,17 +1,17 @@
 ﻿/*
 *   Paging module js
 *    author tuzkiss
-*	   2015-4-3
-*	 Version 1.1.3
+*      2015-4-3
+*    Version 1.1.3
 *
-*	   update info
-*	1、采用构造函数重构
-*	2、修复当前页大于总页数显示bug
-*	
-*	   to do list
-*	1、兼容ie低版本
-*	2、多种皮肤
-*	3、其他
+*      update info
+*   1、采用构造函数重构
+*   2、修复当前页大于总页数显示bug
+*   
+*      to do list
+*   1、兼容ie低版本
+*   2、多种皮肤
+*   3、其他
 *   4、重新渲染
 *   5、摧毁
 *      
@@ -20,7 +20,7 @@
 'use strict'
 
 function Paging() {
-    this.version = '1.1.3';
+    this.version = '1.1.4';
     this.author = 'TuzK1ss';
 
     this.config = {
@@ -28,10 +28,13 @@ function Paging() {
         pageIndex: 1,
         total: 10,
         parentId: 'document.body',
+        align : 'right',
         callback: function (index) {
             console.log(index);
         }
     }
+
+    this.align = 'right';
 };
 
 Paging.prototype = {
@@ -39,14 +42,16 @@ Paging.prototype = {
         var CFG = this.mixConfig(this.config, config);
 
         var domId = CFG.parentId,
-			size = CFG.pageSize,
-			index = CFG.pageIndex,
-			total = CFG.total,
-			callback = CFG.callback;
+            size = CFG.pageSize,
+            index = CFG.pageIndex,
+            total = CFG.total,
+            callback = CFG.callback;
 
-        this.readerPaging(domId, size, index, total, callback)
-			.pagingClickHandler(domId, size, total, callback)
-			.formSubmitHandler(domId, size, total, callback);
+        this.align = CFG.align;
+
+        this.renderPaging(domId, size, index, total, callback)
+            .pagingClickHandler(domId, size, total, callback)
+            .formSubmitHandler(domId, size, total, callback);
 
         return this;
 
@@ -60,16 +65,16 @@ Paging.prototype = {
 
         return config;
     },
-    readerPaging: function (domId, size, index, total, callback) {
+    renderPaging: function (domId, size, index, total, callback) {
         var dom = document.getElementById(domId),
-			totalPage = Math.ceil(total / size),
-			last = 0,
-			html = '';
+            totalPage = Math.ceil(total / size),
+            last = 0,
+            html = '';
 
 
         dom.innerHTML = "";
 
-        html += '<ul class="paging-ul">';
+        html += '<ul class="paging-ul paging-' + this.align + '">';
 
         html += '<li class="prev"><a data-size="prev" href="javascript:;">上一页</a></li>';
 
@@ -132,8 +137,8 @@ Paging.prototype = {
         html += '<li class="next"><a data-size="next"  href="javascript:;">下一页</a></li>';
 
         html += '<li class="paging-total">';
-        html += ('<span id="' + domId + 'PageForm" class="form">共&nbsp;<span id="' + domId + 'Total">' + totalPage + '</span>&nbsp;页, 到第&nbsp;<input id="' + domId + 'Index" type="number" value="' + index + '" min="1" max="' + total + '" class="paging-index" value="' + index + '"</input>&nbsp;</div>页 ' +
-		        '<input id="' + domId + 'Comfirm" class="go-paging" type="submit"  value="确定"></span>');
+        html += ('共' + total + '条数据，' + '<span id="' + domId + 'PageForm" class="form">总计&nbsp;<span id="' + domId + 'Total">' + totalPage + '</span>&nbsp;页, 到第&nbsp;<input id="' + domId + 'Index" type="number" value="' + index + '" min="1" max="' + totalPage + '" class="paging-index" value="' + index + '"</input>&nbsp;</div>页 ' +
+                '<input id="' + domId + 'Comfirm" class="go-paging" type="submit"  value="确定"></span>');
         html += '</li></ul>';
 
         dom.innerHTML = html;
@@ -144,8 +149,8 @@ Paging.prototype = {
     },
     readerActiveLi: function (domId, index, totalPage) {
         var item = document.querySelectorAll('#' + domId + ' .item a'),
-			indexA,
-			tmp, tpp;
+            indexA,
+            tmp, tpp;
 
         if (1 == index) {
             tmp = document.querySelector('#' + domId + ' .prev a');
@@ -168,9 +173,6 @@ Paging.prototype = {
                 return this;
             }
         }
-
-
-
         return this;
     },
     pagingClickHandler: function (domId, size, total, callback) {
@@ -182,17 +184,17 @@ Paging.prototype = {
             var target = e.target || e.srcElement;
 
             var index = target.getAttribute('data-size'),
-				isDisabled = target.getAttribute('disabled'),
-				//total = document.getElementById(domId + 'Total').innerHTML,
-				active = parseInt(document.querySelector('#' + domId + ' .active-li a').getAttribute('data-size'));
+                isDisabled = target.getAttribute('disabled'),
+                //total = document.getElementById(domId + 'Total').innerHTML,
+                active = parseInt(document.querySelector('#' + domId + ' .active-li a').getAttribute('data-size'));
 
             if (index && !isDisabled) {
                 if (index === 'prev') {
-                    that.readerPaging(domId, size, active - 1, total, callback);
+                    that.renderPaging(domId, size, active - 1, total, callback);
                 } else if (index === 'next') {
-                    that.readerPaging(domId, size, active + 1, total, callback);
+                    that.renderPaging(domId, size, active + 1, total, callback);
                 } else {
-                    that.readerPaging(domId, size, index, total, callback);
+                    that.renderPaging(domId, size, index, total, callback);
                 }
 
                 that.clickHandlerCallback(domId, callback);
@@ -211,19 +213,20 @@ Paging.prototype = {
     },
     formSubmitHandler: function (domId, size, total, callback) {
         var that = this,
-			input = document.getElementById(domId + 'Comfirm');;
+            input = document.getElementById(domId + 'Comfirm');;
 
         input.addEventListener('click', function (e) {
             e = e || window.event;
             e.preventDefault();
+            var totalPage = Math.ceil(total / size);
 
             var form = document.getElementById(domId + 'PageForm'),
                 index = parseInt(form.getElementsByTagName('input')[0].value),
                 active = that.getIndex(domId);
 
-            if (index !== active && index <= total && index > 0) {
-                that.readerPaging(domId, size, index, total, callback)
-					.clickHandlerCallback(domId, callback);
+            if (index !== active && index <= totalPage  && index > 0) {
+                that.renderPaging(domId, size, index, total, callback)
+                    .clickHandlerCallback(domId, callback);
             } else if (index !== active) {
                 form.getElementsByTagName('input')[0].value = 1;
             }
@@ -235,11 +238,13 @@ Paging.prototype = {
 };
 
 
+
 var paging1 = new Paging().init({
 	pageSize : 1,
 	pageIndex : Math.random() * 20,
 	total : 20,
 	parentId : 'paging',
+    align:'center',
 	callback: function (index) {
 		alert('回发事件111111~ : \n点击之后的页码为:' + index);
 	}
@@ -251,6 +256,7 @@ var paging2 = new Paging().init({
 	pageIndex : Math.random() * 10,
 	total : 10,
 	parentId : 'paging2',
+    align: 'center',
 	callback: function (index) {
 		alert('回发事件22222~ : \n点击之后的页码为:' + index);
 	}

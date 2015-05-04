@@ -14,8 +14,18 @@
 .paging-ul ul {
 	display: block;
 	text-align: center;
+}
 
-	width: 600px;
+.paging-left {
+    text-align:left;
+}
+
+.paging-center {
+    text-align:center;
+}
+
+.paging-right {
+    text-align:right;
 }
 
 .paging-ul li {
