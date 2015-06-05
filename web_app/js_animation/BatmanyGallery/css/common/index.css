@@ -1,0 +1,47 @@
+h3 {
+    width: 800px;
+    margin: 40px auto 60px;
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
+    color: #444;
+}
+
+.options {
+    width: 800px;
+    margin: 30px auto 50px;
+    position:relative;
+    display: table;
+    color:#444;
+
+    
+}
+
+.col-1 {
+    width: 33.333333%;
+    float: left;
+    font-family: 'Microsoft YaHei';
+    margin-top: 25px;
+}
+
+.col-1 input,
+.col-1 select {
+    width: 65px;
+    text-align: center;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-family: 'Microsoft YaHei';
+}
+.col-1 select {
+    width: 90px;
+}
+.btn a {
+    width: 160px;
+    height: 100%;
+    display: block;
+    background: #3498db;
+    color:#fff;
+    text-align: center;
+    padding: 7px 0;
+    text-decoration: none;
+    font-size: 14px;
+}

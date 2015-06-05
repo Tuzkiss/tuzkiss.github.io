@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery gallery demo</title>
+    <link rel="stylesheet" href="css/common/gallery.css">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/common/index.css">
+</head>
+<body>
+    <h3>Batmany Gallery</h3>
+    <div class="options">
+        <div class="col-1">
+            容&ensp;器&ensp;宽&nbsp;: <input id="parentWidth" type="text" value="1280" /> px
+        </div>
+        <div class="col-1">
+            容&emsp;器&emsp;高&emsp;&nbsp;: <input id="parentHeight" type="text" value="250" /> px
+        </div>
+        <div class="col-1">
+            延时&nbsp;: <input id="delay" type="text" value="5000" />ms
+        </div>
+        <div class="col-1">
+            切换时间&nbsp;: <input id="duration" type="text" value="1000" />ms
+        </div>
+        <div class="col-1">
+            手动切换形式&nbsp;: 
+            <select id="eventStyle">
+                <option value="0">click</option>
+                <option value="1">hover</option>
+            </select>
+        </div>
+        <div class="col-1 btn">
+            <a id="reInit" href="javascript:;">重置相册</a>
+        </div>
+    </div>
+
+    <div id="gallery" class="gallery">
+        <ul >
+            <li><img src="images/banner1.jpg" alt=""></li>
+            <li><img src="images/banner2.jpg" alt=""></li>
+            <li><img src="images/banner3.jpg" alt=""></li>
+        </ul>
+       
+    </div>
+
+    <script src="scripts/libs/jquery-1.11.3.min.js"></script>
+    <script src="scripts/common/batmanyGallery.js"></script>
+    <script>
+    
+    // 初始化Gallery
+    var gallery = new BatmanGallery().init({
+        parentId: 'gallery',
+        delay : 5000,
+        duration : 1000,
+        eventStyle: 'click'
+    });
+
+    // 重置Gallery
+    var reInit = function () {
+        
+        //if (gallery.destroy) {
+            //gallery.destroy();
+        //}
+
+        var parentWidth = $('#parentWidth').val(),
+            parentHeight = $('#parentHeight').val(),
+            delay = parseInt($('#delay').val()),
+            duration = parseInt($('#duration').val()),
+            eventStyle = $('#eventStyle').val() == 0 ? 'click' : 'hover';
+
+        $('#gallery').width(parentWidth).height(parentHeight);
+
+        var gallery = new BatmanGallery().init({
+            parentId: 'gallery',
+            delay : delay,
+            duration : duration,
+            eventStyle: eventStyle
+        });
+    }
+
+    $('#reInit').bind('click', function () {
+        reInit();
+    });
+    </script>
+</body>
+</html>
