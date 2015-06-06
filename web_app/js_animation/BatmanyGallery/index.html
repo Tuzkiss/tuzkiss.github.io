@@ -11,7 +11,7 @@
     <h3>Batmany Gallery</h3>
     <div class="options">
         <div class="col-1">
-            容&ensp;器&ensp;宽&nbsp;: <input id="parentWidth" type="text" value="1280" /> px
+            容&ensp;器&ensp;宽&nbsp;: <input id="parentWidth" type="text" value="" /> px
         </div>
         <div class="col-1">
             容&emsp;器&emsp;高&emsp;&nbsp;: <input id="parentHeight" type="text" value="250" /> px
@@ -47,6 +47,8 @@
     <script src="scripts/common/batmanyGallery.js"></script>
     <script>
     
+    $('#parentWidth').val($('body').width());
+
     // 初始化Gallery
     var gallery = new BatmanGallery().init({
         parentId: 'gallery',
