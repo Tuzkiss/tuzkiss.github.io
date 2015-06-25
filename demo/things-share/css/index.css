@@ -1,4 +1,4 @@
-﻿* {
+* {
 	margin: 0;
 	padding: 0;
 
@@ -6,14 +6,13 @@
 }
 
 body {
-	width:640px;
+	width: 640px;
 	margin: 0 auto;
 }
-
 .header {
 	position: relative;
 
-	width: 100%;
+	width: 640px;
 	height: 550px;
 	background: top center no-repeat;
 	background-size: 100% 550px;
