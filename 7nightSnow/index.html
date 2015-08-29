@@ -186,10 +186,6 @@
             color:#eee;
         }
 
-        .batman-nav ul li a:visited {
-            color:#999 !important;
-            background: #ddd;;
-        }
 
         .batman-audio audio {
             width: 100%;
@@ -198,6 +194,9 @@
             text-align: center;
             margin-top: 10px;
             color:#777;
+        }
+        .visited {
+            background: rgba(52, 152, 219, 0.2) !important;
         }
     </style>
 
@@ -242,7 +241,7 @@
 
     function bindNavChange(id, src, text) {
         document.getElementById(id).addEventListener('click', function () {
-            document.getElementById(id).classsName = 'visited';
+            document.getElementById(id).parentNode.className = 'visited';
 //            var audio = document.getElementById('batmany_audio');
             bindChangeAudioSrc(src);
             document.getElementById('batmany_audio').play();
