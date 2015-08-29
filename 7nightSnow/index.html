@@ -21,6 +21,9 @@
         * {
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
+            font-smoothing: antialiased;
+            font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft Yahei","WenQuanYi Micro Hei", sans-serif;
         }
         html, body {
             width: 100%;
@@ -29,7 +32,7 @@
 
         body {
             width:auto;
-            padding:20px;
+            padding:50px 20px ;
             overflow: hidden;
             background: #e1e1e1;
         }
@@ -131,13 +134,70 @@
             border-top-right-radius: 28px;
         }
 
-        .batman > .wing4{
+        .batman > .wing4 {
             width: 85px;
             height: 28px;
             top: 38px;
             right: -10px;
             border-top-left-radius: 28px;
+        }
 
+        .batman-nav {
+
+        }
+
+        .batman-nav h1 {
+            font-weight: 100;
+            text-align: center;
+            font-size: 50px;
+            color:#444;
+        }
+
+        .batman-nav ul {
+            width: 100%;
+            margin: 40px 0 50px;
+        }
+
+        .batman-nav ul li {
+            width: 100%;
+            height: 70px;
+            list-style: none;
+            margin: 10px 0;
+            background: rgba(52, 152, 219, 0.4);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+        .batman-nav ul li a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 70px;
+            text-decoration: none;
+            font-size:25px;
+            font-weight: 100;
+        }
+
+        .batman-nav ul li a:link,
+        .batman-nav ul li a:hover,
+        .batman-nav ul li a:active{
+            color:#eee;
+        }
+
+        .batman-nav ul li a:visited {
+            color:#999 !important;
+            background: #ddd;;
+        }
+
+        .batman-audio audio {
+            width: 100%;
+        }
+        .batmany-audio-result {
+            text-align: center;
+            margin-top: 10px;
+            color:#777;
+        }
     </style>
 
 </head>
@@ -157,19 +217,42 @@
 </div>
 
 <div class="batman-nav">
-    <h1>7 Night Snow :)</h1>
+    <h1>7 Night Snow</h1>
     <ul>
-        <li><a href="javascript:void(0);">片头成品</a></li>
-        <li><a href="javascript:void(0);">第一集</a></li>
-        <li><a href="javascript:void(0);">第二集</a></li>
+        <li><a id="subLease" href="javascript:void(0);">片头成品</a></li>
+        <li><a id="firstEpisode" href="javascript:void(0);">第一集</a></li>
+        <li><a id="secondEpisode" href="javascript:void(0);">第二集</a></li>
     </ul>
 </div>
 
-<div class="batman-audio">
-    <audio autoplay loop controls >
-        <source src="" type="audio/mpeg">
+<div id="batmany_audio_content" class="batman-audio">
+    <audio id="batmany_audio" controls >
+        <source id="batmany_source" type="audio/mpeg">
     </audio>
 </div>
+<div id="batmany_audio_result" class="batmany-audio-result">
+    暂无播放
+</div>
 
+<script>
+    function bindChangeAudioSrc(src) {
+        document.getElementById('batmany_audio_content').innerHTML = '<audio id="batmany_audio" controls ><source id="batmany_source" src="' + src + '" type="audio/mpeg"></audio>';
+    }
+
+    function bindNavChange(id, src, text) {
+        document.getElementById(id).addEventListener('click', function () {
+            document.getElementById(id).classsName = 'visited';
+//            var audio = document.getElementById('batmany_audio');
+            bindChangeAudioSrc(src);
+            document.getElementById('batmany_audio').play();
+            document.getElementById('batmany_audio_result').innerHTML = text;
+        });
+    };
+
+    bindNavChange('subLease', 'mp3/subLease.mp3', '正在播放片头...');
+    bindNavChange('firstEpisode', 'mp3/firstEpisode.mp3', '正在播放第一集...');
+    bindNavChange('secondEpisode', 'mp3/secondEpisode.mp3', '正在播放第二集...');
+
+</script>
 </body>
 </html>
