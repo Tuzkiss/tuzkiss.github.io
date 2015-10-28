@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="tuzkiss">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+
+    <title>Oh, Blue Shit</title>
+
+    <link rel="shortcut icon" href="http://tuzkiss.github.io/favicon.ico"/>
+
+    <!-- [if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <! [endif] -->
+
+    <link rel="stylesheet" href="../base/css/base.css"/>
+    <link rel="stylesheet" href="./css/index.css"/>
+
+</head>
+<body>
+    <div style="display: none" >
+        <img src="./images/wechatShare.jpg"/>
+    </div>
+
+    <div id="game" class="game">
+        <div class="container">
+            <h1>
+                校园大富翁
+                <img src="./images/light.png" alt="" width="280" height="263"/>
+            </h1>
+            <div class="name-input">
+                <input type="text" id="gamer_name" placeholder="输入你的名字" spellcheck="false"/>
+            </div>
+            <div class="start">
+                <button type="submit" id="game_start">开始游戏</button>
+            </div>
+            <div class="footer">
+                &copy; 2015 <a href="//10years.me" target="_blank">10years</a>
+            </div>
+        </div>
+        <div class="container next">
+            <div class="title"><span id="gamer_name_span"></span>你是一个家里非常穷、且高考失手以至于上不起大学的孩子,有一天落魄的你在路边救了一只猫,为了报恩,它答应为你实现一个愿望——免费上大学,你会选择什么学校?</div>
+            <div class="choices">
+                <button class="choice">蓝翔</button>
+                <button class="choice">普通大学</button>
+            </div>
+            <div class="illustration">
+                <img src="./images/0.png" alt="illustration">
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./scripts/libs/zepto.min.js"></script>
+    <script src="./scripts/libs/detect.js"></script>
+    <script src="./scripts/libs/event.js"></script>
+    <script src="./scripts/libs/touch.js"></script>
+    <script src="./scripts/common/gameObj.js"></script>
+    <script src="./scripts/common/index.js"></script>
+</body>
+</html>
