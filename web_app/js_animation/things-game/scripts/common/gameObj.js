@@ -26,7 +26,7 @@ var gameObj = {},
 function getGamerName () { 'use strict'; return gamerName; }
 
 // get reach ending of the total ending percent function
-function getGameEndingPercent () {
+function getGameEndingPercent (isReturnCount) {
     'use strict';
     var count = 0;
 
@@ -36,6 +36,10 @@ function getGameEndingPercent () {
         if (gameEnding) {
             count = gameEnding.split(',').length;
         }
+    }
+
+    if (isReturnCount) {
+        return count;
     }
 
     if (count < gameEndingCount) {
@@ -60,13 +64,13 @@ gameObj["-1"] = {
 // gamer first container object
 gameObj["0"] = {
     type : 0,
-    title : '是一个家里非常穷、且高考失手以至于上不起大学的孩子,有一天落魄的你在路边救了一只猫,为了报恩,它答应为你实现一个愿望——免费上大学,你会选择什么学校?',
+    title : '你是一个家里非常穷、且高考失手以至于上不起大学的孩子,有一天落魄的你在路边救了一只猫,为了报恩,它答应为你实现一个愿望——免费上大学,你会选择什么学校?',
     choices : [
         { name : '蓝翔', nextKey : 'A1'},
-        { name : '普通大学', nextKey : 'B1'}
+        { name : '贱桥大学', nextKey : 'B1'}
     ],
     imgUrl : './images/0.png',
-    shareTitle: '0'
+    shareTitle:  '没有拿到毕业证书，你们不用看他了'
 };
 
 // all of following are normal container object
@@ -79,18 +83,18 @@ gameObj.A1 = {
         { name : '拓展人脉,与当地包工头搞好关系。', nextKey : 'B2'}
     ],
     imgUrl : './images/A1.png',
-    shareTitle: 'A1'
+    shareTitle: '没有拿到毕业证书，你们不用看他了'
 };
 
 gameObj.B1 = {
     type : 0,
-    title : '你立马收到了A大的录取通知书,开启A大求学之路。 进入了A大,你立志要在毕业后成为大富翁。为了答到目标, 你选择在接下来的几年里:',
+    title : '你立马收到了贱桥大学的录取通知书,开启贱桥大学求学之路。 进入了贱桥大学,你立志要在毕业后成为大富翁。为了答到目标, 你选择在接下来的几年里:',
     choices : [
         { name : '好好学习,成为学霸,参加各种竞赛和考试。', nextKey : 'C2' },
         { name : '拓展人脉,加入学生会', nextKey : 'D2' }
     ],
     imgUrl : './images/B1.png',
-    shareTitle: 'B1'
+    shareTitle: '没有拿到毕业证书，你们不用看他了'
 };
 
 gameObj.A2 = {
@@ -101,7 +105,7 @@ gameObj.A2 = {
         { name : '开始接私活。', nextKey : 'B3' }
     ],
     imgUrl : './images/A2.png',
-    shareTitle: 'A2'
+    shareTitle: ''
 };
 
 gameObj.B2 = {
@@ -112,7 +116,7 @@ gameObj.B2 = {
         { name : '包庇他。', nextKey : 'D3' }
     ],
     imgUrl : './images/B2.png',
-    shareTitle: 'B2'
+    shareTitle: ''
 };
 
 gameObj.C2 = {
@@ -124,21 +128,20 @@ gameObj.C2 = {
         { name : '申请交流。', nextKey : 'A1' }
     ],
     imgUrl : './images/C2.png',
-    shareTitle: 'C2'
+    shareTitle: ''
 };
 
 gameObj.D2 = {
     type : 0,
-    title : '进入学生会后,你发现学生会其实是被境外敌对势力控制的邪恶组织,目的是潜移默化地控制同学们的思想, 让大家信仰邪教,把A大变成某邪教大学,于是你:',
+    title : '进入学生会后,你发现学生会其实是被境外敌对势力控制的邪恶组织,目的是潜移默化地控制同学们的思想, 让大家信仰邪教,把贱桥大学变成某邪教大学,于是你:',
     choices : [
-        { name : '那也要举报他。', nextKey : 'G3' },
-        { name : '包庇他。', nextKey : 'H3' },
+        { name : '邪教是没有前途的，退出学生会，加入创业团队。', nextKey : 'G3' },
+        { name : '邪教好啊！我要成为教主！', nextKey : 'H3' },
         { name : '申请交流。', nextKey : 'A1' }
     ],
     imgUrl : './images/D2.png',
-    shareTitle: 'D2'
+    shareTitle: ''
 };
-
 
 gameObj.A3 = {
     type : 0,
@@ -148,7 +151,7 @@ gameObj.A3 = {
         { name : '买一双滑板鞋。', nextKey : 'B4' }
     ],
     imgUrl : './images/A3.png',
-    shareTitle: 'A3'
+    shareTitle: ''
 };
 
 gameObj.B3 = {
@@ -159,7 +162,7 @@ gameObj.B3 = {
         { name : '暂停业务,出国进修高级挖掘魔法技术。', nextKey : 'D4' }
     ],
     imgUrl : './images/B3.png',
-    shareTitle: 'B3'
+    shareTitle: ''
 };
 
 gameObj.C3 = {
@@ -170,7 +173,7 @@ gameObj.C3 = {
         { name : '开始创业。', nextKey : 'E4' }
     ],
     imgUrl : './images/C3.png',
-    shareTitle: 'C3'
+    shareTitle: ''
 };
 
 gameObj.D3 = {
@@ -181,9 +184,8 @@ gameObj.D3 = {
         { name : '婉拒,我做好自己的事就行,不多管闲事。。', nextKey : 'G4' }
     ],
     imgUrl : './images/D3.png',
-    shareTitle: 'D3'
+    shareTitle: ''
 };
-
 
 gameObj.E3 = {
     type : 0,
@@ -193,9 +195,8 @@ gameObj.E3 = {
         { name : '买身帅气西装。', nextKey : 'I4' }
     ],
     imgUrl : './images/E3.png',
-    shareTitle: 'E3'
+    shareTitle: ''
 };
-
 
 gameObj.F3 = {
     type : 0,
@@ -205,7 +206,7 @@ gameObj.F3 = {
         { name : '赌球。', nextKey : 'K4' }
     ],
     imgUrl : './images/F3.png',
-    shareTitle: 'F3'
+    shareTitle: ''
 };
 
 gameObj.G3 = {
@@ -216,7 +217,7 @@ gameObj.G3 = {
         { name : '变成了傻逼。', nextKey : 'M4' }
     ],
     imgUrl : './images/G3.png',
-    shareTitle: 'G3'
+    shareTitle: ''
 };
 
 gameObj.H3 = {
@@ -227,9 +228,8 @@ gameObj.H3 = {
         { name : '算了,文化需要兼容包并,就让我们跟他们和谐相处。', nextKey : 'O4' }
     ],
     imgUrl : './images/H3.png',
-    shareTitle: 'H3'
+    shareTitle: ''
 };
-
 
 gameObj.A4 = {
     type : 0,
@@ -239,9 +239,8 @@ gameObj.A4 = {
         { name : '偷偷拿去黑市卖了。', nextKey : 'B5' }
     ],
     imgUrl : './images/A4.png',
-    shareTitle: 'A4'
+    shareTitle: ''
 };
-
 
 gameObj.B4 = {
     type : 0,
@@ -251,7 +250,7 @@ gameObj.B4 = {
         { name : '扶他。', nextKey : 'D5' }
     ],
     imgUrl : './images/B4.png',
-    shareTitle: 'B4'
+    shareTitle: ''
 };
 
 gameObj.C4 = {
@@ -262,7 +261,7 @@ gameObj.C4 = {
         { name : '此处不留爷自有留爷处。大不了天桥底下办个假证。', nextKey : 'F5' }
     ],
     imgUrl : './images/C4.png',
-    shareTitle: 'C4'
+    shareTitle: ''
 };
 
 gameObj.D4 = {
@@ -273,9 +272,8 @@ gameObj.D4 = {
         { name : '你打败了它。', nextKey : 'H5' }
     ],
     imgUrl : './images/D4.png',
-    shareTitle: 'D4'
+    shareTitle: ''
 };
-
 
 gameObj.E4 = {
     type : 0,
@@ -285,7 +283,7 @@ gameObj.E4 = {
         { name : '发动工友们成立义和团。', nextKey : 'J5' }
     ],
     imgUrl : './images/D4.png',
-    shareTitle: 'E4'
+    shareTitle: ''
 };
 
 gameObj.F4 = {
@@ -296,7 +294,7 @@ gameObj.F4 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'F4'
+    shareTitle: '毕业之后：他的结局很惨我都不忍心看...'
 };
 
 gameObj.G4 = {
@@ -307,9 +305,8 @@ gameObj.G4 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'G4'
+    shareTitle: '毕业之后：成为了一名普通的挖掘机司机，然后他老掉了'
 };
-
 
 gameObj.H4 = {
     type : 0,
@@ -319,10 +316,8 @@ gameObj.H4 = {
         { name : '存钱罐里。', nextKey : 'L5' }
     ],
     imgUrl : './images/H4.png',
-    shareTitle: 'H4'
+    shareTitle: ''
 };
-
-
 
 gameObj.I4 = {
     type : 1,
@@ -332,7 +327,7 @@ gameObj.I4 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'I4'
+    shareTitle: '毕业之后：他除了帅没什么特别的，你就不用去看了'
 };
 
 
@@ -344,20 +339,18 @@ gameObj.J4 = {
         { name : '成为了一名成功的微商创业者。', nextKey : 'N5' }
     ],
     imgUrl : './images/J4.png',
-    shareTitle: 'J4'
+    shareTitle: ''
 };
-
-
 
 gameObj.K4 = {
     type : 1,
-    title : '赢了五百万,成功富裕。',
+    title : '你在赌球倾家荡产并且连续卖掉自己的肾之后,终于赢了五百万,买回了自己曾经的两个肾中的一个,成功实现富裕。',
     choices : [
         { name : 'restart', url : './images/restart-0.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'K4'
+    shareTitle: '毕业之后：赢了五百万,成功富裕'
 };
 
 gameObj.L4 = {
@@ -368,45 +361,40 @@ gameObj.L4 = {
         { name : '接受。', nextKey : 'P5' }
     ],
     imgUrl : './images/L4.png',
-    shareTitle: 'L4'
+    shareTitle: ''
 };
-
-
 
 gameObj.M4 = {
     type : 1,
-    title : '你说的对',
+    title : '在坚持念叨创业圣经一年之后,你突然醒悟,去问高僧:"我是不是傻逼啊"<br/>高僧回复你:"你说的对啊,你说的对啊,你说的很对啊……"',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'M4'
+    shareTitle: '毕业之后：沉迷于创业，然后他炸了'
 };
-
 
 gameObj.N4 = {
     type : 0,
-    title : '你在饮水机里下毒把团委团灭了,并安排学生会的人全部替代他们空出来的位置,统一了全校。此时邪教总会找到你, 想要让你加入九大教主,成为 东亚区的头目,你:',
+    title : '你在饮水机里下毒把团委团灭了,并安排学生会的人全部替代他们空出来的位置,统一了全校。此时邪教总会找到你, 想要让你加入九大教主,成为东亚区的头目,你:',
     choices : [
         { name : '我是要成为邪教王的人,当然接受。', nextKey : 'Q5' },
         { name : '杀死总会使者,自立新教。', nextKey : 'R5' }
     ],
     imgUrl : './images/L4.png',
-    shareTitle: 'N4'
+    shareTitle: ''
 };
-
-
 
 gameObj.O4 = {
     type : 1,
-    title : '连排除异端的觉悟都没有,邪教失格,最后你的教派因为信仰缺失,画风渐渐改变,量变累积成质变,最后干脆改名叫做安利。某种意义上,你还是成功成为了成为邪教王,并实现了富裕。',
+    title : '连排除异端的觉悟都没有,邪教失格,最后你的教派信仰缺失,量变累积成质变,最后干脆改名叫做安利。某种意义上,你还是成功成为了成为邪教王,并实现了富裕。',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'O4'
+    shareTitle: '毕业之后：成为一代教主，千秋万代，一桶浆糊'
 };
 
 gameObj.A5 = {
@@ -417,18 +405,18 @@ gameObj.A5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'A5'
+    shareTitle: '毕业之后：成为了一名光荣的人民挖掘机司机'
 };
 
 gameObj.B5 = {
     type : 1,
-    title : '你卖了五百万,非常开心。成为小富翁后有一天去参观一个拍卖会,你发现自己挖出来的光一把宝剑就拍了五千万,当场气卒。——这个故事告诉我们考完试了就别对答案了啊孩子。',
+    title : '你卖了五百万,非常开心。成为小富翁后有一天去参观一个拍卖会,你发现自己挖出来的光一把宝剑就拍了五千万,当场气卒。——这个故事告诉我们考完试了就别再对答案了啊孩子。',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'B5'
+    shareTitle: '毕业之后：因大宝剑一夜暴富，因大宝剑一夜暴卒'
 };
 
 gameObj.C5 = {
@@ -439,62 +427,62 @@ gameObj.C5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'C5'
+    shareTitle: '毕业之后：被来自赛博坦星球的猫神抓走当宠物，人间消失连他妈都找不到'
 };
 
 gameObj.D5 = {
     type : 1,
-    title : '你扶起了这个老人,他并没有讹你,原来他是之前那只猫变的,目的是考验你在蓝翔是否有所成长,你通过了考验。“只有这种勇敢且有担当的人才会成为优秀的挖掘机师。”他掘机师。”他说。你获得了他珍藏的宝物——毛线团。<br/>从此你成为了一个脚踩滑板鞋腰挂毛线团勇敢有担当的挖掘机师。',
+    title : '你扶起了这个老人,他并没有讹你,原来他是之前那只猫变的,你通过了考验。“只有这种勇敢的人才会成为优秀的挖掘机师”。你获得了他珍藏的宝物——毛线团。<br/>从此你成了传说中的勇敢有担当的毛线团挖掘机师。',
     choices : [
         { name : 'restart', url : './images/restart-2.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : '',
-    shareTitle: 'D5'
+    shareTitle: '毕业之后：因为勇敢和担当，被奖赏了代表了挖掘王标志的毛线团，从此被江湖尊称毛线挖掘师！'
 };
 
 gameObj.E5 = {
     type : 1,
-    title : '你花了二十万贿赂校长,结果因为只给了钱没给小学女生,校长很不满意,虽然保留了你的学籍,但把你从蓝翔挖掘专业转到了隔壁A大计算机专业做交流生学习写代码,于是毕业后你成为了一个微秃的农民阶级。',
+    title : '你花了二十万贿赂校长,结果因为只给了钱没给小学女生,校长很不满意,虽然保留了你的学籍,但把你转到了隔壁计算机专业学习写代码,于是毕业后你成为了一个微秃的农民阶级。',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'E5'
+    shareTitle: '毕业之后：改学习计算机编程，然后成为一名光荣的农民'
 };
 
 gameObj.F5 = {
     type : 1,
-    title : '你被退学了,去天桥底下办了个假证。几年下来你承包了整个小县城的挖掘市场。后来你打着“蓝翔辍学生自我拼搏获得成功”的旗号在附近县城里到处开讲座,有了名气后,又到全国各地给各种中小企业老板和创业人士开成功学讲座,每天输出10000ml心灵鸡汤,靠着讲座收入,你真的成为了富翁。“挖掘机烧的不是油,是情怀。”你说。',
+    title : '你被退学了,去办了个假证。几年下来你承包了整个挖掘市场。后来你打着“蓝翔辍学生自我拼搏获成功”的旗号到处开成功学讲座,每天输出大量心灵鸡汤,靠着讲座收入,你真的成为了富翁。“挖掘机烧的不是油,是情怀。”你说。',
     choices : [
         { name : 'restart', url : './images/restart-2.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : '',
-    shareTitle: 'F5'
+    shareTitle: '在被蓝翔开除之后励志奋斗，最终买下蓝翔，实现“明天让你高攀不起”，成为一代心灵鸡汤宗师'
 };
 
 gameObj.G5 = {
     type : 1,
-    title : '它弄坏挖掘机并把你打翻在地,这时魔法学校的校长赶紧出面救你,把龙降伏,并让它变成了你的挖掘机,你开着小白龙挖掘机,一路向西,取得真经,回国后成为方丈,发表了《量子佛学》等学术著作,成为了受万人敬仰的民族科学学者。',
+    title : '它弄坏挖掘机并把你打翻在地,这时魔法学校的校长赶紧出面救你,把龙降伏,并让它变成了你的挖掘机,你开着小白龙挖掘机,一路向西,取得真经,回国后发表了《量子佛学》等学术著作,成为了万人敬仰的民族科学学者。',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'G5'
+    shareTitle: '毕业之后：因为西天取经饶有成果，成为一代佛学宗师'
 };
 
 gameObj.H5 = {
     type : 1,
-    title : '你打败了它。结果受到了世界动物保护协会的强烈谴责并发动舆论攻击,在舆论的重压下,你不得不退学,但退学后在社会上没有任何一家公司愿意聘用你。对动物没有爱心的人,对人也会是冷漠的。他们拒绝你的时候这么说道。',
+    title : '你打败了它。结果受到了世界动物保护协会的强烈谴责,在舆论的重压下,你不得不退学,但退学后在社会上没有任何一家公司愿意聘用你。对动物没有爱心的人,对人也会是冷漠的。他们拒绝你的时候这么说道。',
     choices : [
         { name : 'restart', url : './images/restart-1.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'H5'
+    shareTitle: '毕业之后：成为拯救了世界的英雄，然后因为找不到工作而流落街头'
 };
 
 gameObj.I5 = {
@@ -505,7 +493,7 @@ gameObj.I5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'I5'
+    shareTitle: '毕业之后：因为所加入的公司全部倒闭，从此过上了领低保衣食无忧的日子'
 };
 
 gameObj.J5 = {
@@ -516,7 +504,7 @@ gameObj.J5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'J5'
+    shareTitle: '毕业之后：成立义和团，然后因非法集会被捕'
 };
 
 gameObj.K5 = {
@@ -527,7 +515,7 @@ gameObj.K5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'K5'
+    shareTitle: '毕业之后：他没什么特别的，你就不用去看了'
 };
 
 gameObj.L5 = {
@@ -538,7 +526,7 @@ gameObj.L5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : '',
-    shareTitle: 'L5'
+    shareTitle: '毕业之后：成为了超级富豪，每天最愁的事情就是怎么花钱'
 };
 
 gameObj.M5 = {
@@ -549,19 +537,19 @@ gameObj.M5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'M5'
+    shareTitle: '毕业之后：成为了一代微商，然后被朋友圈拉黑了'
 };
 
 
 gameObj.N5 = {
     type : 1,
-    title : '快醒醒,傻逼。',
+    title : '你做了很长很长的一个梦,梦里面看到你成了一个成功的微商,代理上千,收入百万.<br/>然后你发现你的舍友在摇你:"快醒醒,傻逼。"',
     choices : [
         { name : 'restart', url : './images/restart-0.png' },
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'N5'
+    shareTitle: '毕业之后：认为自己成为了一个成功的微商，然后因为面膜有问题被捕'
 };
 
 gameObj.O5 = {
@@ -572,7 +560,7 @@ gameObj.O5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'O5'
+    shareTitle: '毕业之后：创业成为CEO，然后被大公司收并，月薪800'
 };
 
 gameObj.P5 = {
@@ -583,7 +571,7 @@ gameObj.P5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-0.png',
-    shareTitle: 'P5'
+    shareTitle: '毕业之后：创业成为CEO，然后被大公司收并，因为颜值高，拿到月薪一万'
 };
 
 gameObj.Q5 = {
@@ -594,7 +582,7 @@ gameObj.Q5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'Q5'
+    shareTitle: '毕业之后：因为太帅，太有钱，手下人太多，然后被正义使者暗杀了'
 };
 
 gameObj.R5 = {
@@ -605,7 +593,7 @@ gameObj.R5 = {
         { name : 'download', url : './images/download.png' }
     ],
     imgUrl : './images/ending-1.png',
-    shareTitle: 'R5'
+    shareTitle: '毕业之后：成为邪教重要头目，功高震主，然后被正义使者暗杀了'
 };
 
 
