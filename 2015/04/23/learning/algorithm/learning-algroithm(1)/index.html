@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构和算法（一） | TuzK1ss&#39; Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="他们说数据结构和算法是程序猿进化成高级程序猿的一个重要指标。哈哈，当然也顺便为了最近的面试笔试啥的 = = 好吧，其实没有大公司要我T T 错过了太多秋季招聘的时机，只能在临近毕业之前的个把月在努力一把。毕竟世界那么大，谁都想出去看看。
+好了，不说扯远了。
+这两天开始复习排序算法了= = 哈哈，最基础的算法。说起来自己也参加过3届ACM，但是打代码这种事，从来没有比现在更有感觉，也许是做久了吧，养">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构和算法（一）">
+<meta property="og:url" content="http://www.tuzkiss.com/2015/04/23/learning/algorithm/learning-algroithm(1)/index.html">
+<meta property="og:site_name" content="TuzK1ss' Home">
+<meta property="og:description" content="他们说数据结构和算法是程序猿进化成高级程序猿的一个重要指标。哈哈，当然也顺便为了最近的面试笔试啥的 = = 好吧，其实没有大公司要我T T 错过了太多秋季招聘的时机，只能在临近毕业之前的个把月在努力一把。毕竟世界那么大，谁都想出去看看。
+好了，不说扯远了。
+这两天开始复习排序算法了= = 哈哈，最基础的算法。说起来自己也参加过3届ACM，但是打代码这种事，从来没有比现在更有感觉，也许是做久了吧，养">
+<meta property="og:updated_time" content="2017-02-13T10:52:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构和算法（一）">
+<meta name="twitter:description" content="他们说数据结构和算法是程序猿进化成高级程序猿的一个重要指标。哈哈，当然也顺便为了最近的面试笔试啥的 = = 好吧，其实没有大公司要我T T 错过了太多秋季招聘的时机，只能在临近毕业之前的个把月在努力一把。毕竟世界那么大，谁都想出去看看。
+好了，不说扯远了。
+这两天开始复习排序算法了= = 哈哈，最基础的算法。说起来自己也参加过3届ACM，但是打代码这种事，从来没有比现在更有感觉，也许是做久了吧，养">
+  
+    <link rel="alternate" href="/atom.xml" title="TuzK1ss&#39; Home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">TuzK1ss&#39; Home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.tuzkiss.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-learning/algorithm/learning-algroithm(1)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/23/learning/algorithm/learning-algroithm(1)/" class="article-date">
+  <time datetime="2015-04-23T00:00:00.000Z" itemprop="datePublished">2015-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构和算法（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>他们说数据结构和算法是程序猿进化成高级程序猿的一个重要指标。哈哈，当然也顺便为了最近的面试笔试啥的 = = 好吧，其实没有大公司要我T T 错过了太多秋季招聘的时机，只能在临近毕业之前的个把月在努力一把。毕竟世界那么大，谁都想出去看看。</p>
+<p>好了，不说扯远了。</p>
+<p>这两天开始复习排序算法了= = 哈哈，最基础的算法。说起来自己也参加过3届ACM，但是打代码这种事，从来没有比现在更有感觉，也许是做久了吧，养成一个习惯了。或者说是开始慢慢入门面向对象，慢慢喜欢上了打代码的感觉= = 这两天晚上回去复习了几个排序算法，今天先总结一下：</p>
+<h3 id="1-冒泡排序-（bubble-sort）"><a href="#1-冒泡排序-（bubble-sort）" class="headerlink" title="1.  冒泡排序 （bubble sort）"></a>1.  冒泡排序 （bubble sort）</h3><p>冒泡排序是最简单也是最常用的排序算法，核心是两层for循环依次比较大小，时间负责度为O(n^2);</p>
+<p>具体代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// bubble sort function </div><div class="line">// @param &#123;Array&#125; the arr </div><div class="line">var bubbleSort = function (arr) &#123;</div><div class="line">    var tmp;</div><div class="line">    for (var i = 0 , len = arr.length; i &lt; len; i ++) &#123;</div><div class="line">        for (var j = i; j &lt; len; j ++) &#123;</div><div class="line">            if (arr[i] &gt; arr[j]) &#123;</div><div class="line">                tmp = arr[j];</div><div class="line">                arr[j] = arr[i];</div><div class="line">                arr[i] = tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-选择排序-（selection-sort）"><a href="#2-选择排序-（selection-sort）" class="headerlink" title="2.  选择排序 （selection sort）"></a>2.  选择排序 （selection sort）</h3><p>选择排序是每次去选择数组中最小或者最大的那个数字并交换， 核心也是两次for循环，第二次循环去寻找剩余中最小或最大的数字，记录下下标，交换，时间负责的O(n^2)</p>
+<p>具体代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// selection sort function </div><div class="line">// @param &#123;Array&#125; the arr</div><div class="line">var selectionSort = function (arr) &#123;</div><div class="line">    var min, last, tmp;</div><div class="line"></div><div class="line">    for (var i = 0, len = arr.length; i &lt; len; i ++) &#123;</div><div class="line">        min = arr[i];</div><div class="line">        for (j = i + 1; j &lt; len; j ++) &#123;</div><div class="line">            if (arr[j] &lt; min) &#123;</div><div class="line">                last = j;</div><div class="line">                min = arr[j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        tmp = arr[last];</div><div class="line">        arr[last] = arr[i];</div><div class="line">        arr[i] = tmp;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-插入排序-（insertion-sort）"><a href="#3-插入排序-（insertion-sort）" class="headerlink" title="3.  插入排序 （insertion sort）"></a>3.  插入排序 （insertion sort）</h3><p>插入排序是选择小的元素插入到数组的最前面，剩下的依次向后移， 其核心也是两层循环，不过与上面的稍微有点区别，内层循环分别取寻找比当前记录下的数字小或大的，然后依次移动，最后把找到的数字插入到外层循环下标位置。时间负责度为O(n^2)</p>
+<p>具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// insertion srot function</div><div class="line">// @param &#123;Array&#125; the arr</div><div class="line">var insertionSort = function (arr) &#123;</div><div class="line">    var tmp, last;</div><div class="line"></div><div class="line">    for (var i = 1, len = arr.length; i &lt; len; i ++) &#123;</div><div class="line">        tmp = arr[i];</div><div class="line">        last = i;</div><div class="line"></div><div class="line">        while (last &gt; 0 &amp;&amp; (arr[last - 1] &gt;= tmp)) &#123;</div><div class="line">            arr[last] = arr[last - 1];</div><div class="line">            last --;</div><div class="line">        &#125;</div><div class="line">        arr[last] = tmp;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="上述这三种算法都是稳定的算法，而且时间负责度均为O-n-2-，但是数据量越大的情况下，排序效率还是有区别的，插入排序-gt-选择排序-gt-冒泡排序"><a href="#上述这三种算法都是稳定的算法，而且时间负责度均为O-n-2-，但是数据量越大的情况下，排序效率还是有区别的，插入排序-gt-选择排序-gt-冒泡排序" class="headerlink" title="上述这三种算法都是稳定的算法，而且时间负责度均为O(n^2)，但是数据量越大的情况下，排序效率还是有区别的，插入排序 &gt; 选择排序 &gt; 冒泡排序"></a>上述这三种算法都是稳定的算法，而且时间负责度均为O(n^2)，但是数据量越大的情况下，排序效率还是有区别的，插入排序 &gt; 选择排序 &gt; 冒泡排序</h4><p>啊哈，等把哈希排序，归并排序看完之后再总结下= =</p>
+<p>Good luck ~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.tuzkiss.com/2015/04/23/learning/algorithm/learning-algroithm(1)/" data-id="ciz3zgmup0004ig9ukg13pvtg" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/01/project/player/player-loader/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Player Loader (播放器加载容器)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/22/learning/algorithm/quick-sort-remind/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">快排大坑</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BILIBILI/">BILIBILI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ONE/">ONE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Player/">Player</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Player-Loader/">Player-Loader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plugins/">Plugins</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/BILIBILI/" style="font-size: 10px;">BILIBILI</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/ONE/" style="font-size: 10px;">ONE</a> <a href="/tags/Player/" style="font-size: 10px;">Player</a> <a href="/tags/Player-Loader/" style="font-size: 10px;">Player-Loader</a> <a href="/tags/Plugins/" style="font-size: 10px;">Plugins</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/02/07/demo/">DEMO</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/07/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/01/project/player/player-loader/">Player Loader (播放器加载容器)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/23/learning/algorithm/learning-algroithm(1)/">数据结构和算法（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/22/learning/algorithm/quick-sort-remind/">快排大坑</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Tuzk1ss<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
