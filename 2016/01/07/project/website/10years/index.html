@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 十年后WEB架构 · TuzK1ss' Home</title><meta name="description" content="十年后WEB架构 - Tuzk1ss"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.tuzkiss.com/atom.xml" title="TuzK1ss' Home"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/tuzkiss" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/tuzkiss" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/resume.html" target="_self" class="nav-list-link">RESUME</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">十年后WEB架构</h1><div class="post-info">Jan 7, 2016</div><div class="post-content"><p>现在是北京时间的2016年01月07日16:32:35，准备开始整理下十年后项目的架构，主要是WEB。大致上使用了baidu的脑图，下面的链接可以打开到具体的页面查看脑图(如果打不开或者错误，请刷新页面重试下)。</p>
+<blockquote>
+<p>版本 1.0.0</p>
+<p>作者 TuzK1ss</p>
+<p>更新 2016-01-07</p>
+<h2 id="1、十年后产品"><a href="#1、十年后产品" class="headerlink" title="1、十年后产品"></a>1、十年后产品</h2></blockquote>
+<p>产品介绍 ： 十年后是 …</p>
+<p>首先是整个十年后产品的的架构：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12226386/2f68dd08-b856-11e5-8947-457fe0ac8798.png" alt="image"></p>
+<p>脑图地址为： <a href="http://naotu.baidu.com/file/07fa728db9eac3cd01d1922ceea4b199?token=0966a24059040fa5" target="_blank" rel="external">地址</a></p>
+<p>十年后的产品主要分为三大块:</p>
+<h3 id="1、Server-（服务端）"><a href="#1、Server-（服务端）" class="headerlink" title="1、Server （服务端）"></a>1、Server （服务端）</h3><p>服务端主要是服务器（apache），数据库（mysql），后台（php）等。</p>
+<h3 id="2、Web-（网页端）"><a href="#2、Web-（网页端）" class="headerlink" title="2、Web （网页端）"></a>2、Web （网页端）</h3><p>网页端主要是两个站点，一个<a href="http://10years.me" target="_blank" rel="external">正式服</a>，一个<a href="http://dev.10years.me" target="_blank" rel="external">测试服</a></p>
+<h3 id="3、App-（应用端）"><a href="#3、App-（应用端）" class="headerlink" title="3、App （应用端）"></a>3、App （应用端）</h3><p>App端主要分为Android和iOS客户端。</p>
+<h2 id="2、十年后WEB架构"><a href="#2、十年后WEB架构" class="headerlink" title="2、十年后WEB架构"></a>2、十年后WEB架构</h2><p>首先是十年后WEB的及架构</p>
+<p><img src="" alt="十年后WEB架构"></p>
+<p>百度脑图地址为 : <a href="http://naotu.baidu.com/file/175bc1e6e65f063703810780a91e34b2?token=37607bc5dd4922da" target="_blank" rel="external">地址</a></p>
+<p>十年后WEB主要分为以下几块：</p>
+<h4 id="1、开发语言"><a href="#1、开发语言" class="headerlink" title="1、开发语言"></a>1、开发语言</h4><p>主要使用了HTML, CSS, Javascript，不过新的采用的CSS的预处理器SASS，可以在最大程度上重用代码和管理代码。</p>
+<h4 id="2、第三方类库-主要"><a href="#2、第三方类库-主要" class="headerlink" title="2、第三方类库 (主要)"></a>2、第三方类库 (主要)</h4><p>WEB主要使用一些Javascript的第三方类库：</p>
+<ul>
+<li>jQuery.js                 基础类库</li>
+<li>require.js                基础模块化类库</li>
+<li>timeline.js               时间轴类库</li>
+<li>simditor.js               HTML5日志编辑器类库</li>
+<li>jQuery.fullPage.js    登陆页面全屏滚动类库</li>
+<li>Zepto.js              移动端页面基础类库<h4 id="3、模板引擎"><a href="#3、模板引擎" class="headerlink" title="3、模板引擎"></a>3、模板引擎</h4></li>
+</ul>
+<p>WEB中使用到了2中模板引擎，分别是：</p>
+<ul>
+<li>Twig (php后台渲染模板) <a href="http://twig.sensiolabs.org/" target="_blank" rel="external">官网地址</a> </li>
+<li>doT   (js前台渲染模板) <a href="http://olado.github.io/doT/index.html" target="_blank" rel="external">官网地址</a><h4 id="4、模块化加载"><a href="#4、模块化加载" class="headerlink" title="4、模块化加载"></a>4、模块化加载</h4></li>
+</ul>
+<p>WEB中使用AMD的加载方式，所以引入requrire.js作为加载js。</p>
+<h6 id="PS-在开发中会书写Javascript会同一使用UMD（Universal-Module-Definition）加载方式书写，如下："><a href="#PS-在开发中会书写Javascript会同一使用UMD（Universal-Module-Definition）加载方式书写，如下：" class="headerlink" title="PS:在开发中会书写Javascript会同一使用UMD（Universal Module Definition）加载方式书写，如下："></a>PS:在开发中会书写Javascript会同一使用UMD（Universal Module Definition）加载方式书写，如下：</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">root, factory</span>) </span>&#123;</div><div class="line"><span class="meta">    'use strict'</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd) &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 define(['jquery'], factory);</span></div><div class="line">        define([], factory);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">module</span>.export === <span class="string">'Object'</span>) &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 module.export = factory(require('jquery'));</span></div><div class="line">        <span class="built_in">module</span>.export = factory();  </div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 root.module = factory(jQuery);</span></div><div class="line">        <span class="comment">// 同时需要修改具体方法中的传入值，例如 （this, function ($)&#123;&#125;)</span></div><div class="line">        <span class="comment">// 修改module name</span></div><div class="line">        root.module = factory();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;(<span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"><span class="meta">    'use strict'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 创建具体的模块内容</span></div><div class="line">    <span class="keyword">var</span> <span class="built_in">module</span> = &#123;</div><div class="line">        <span class="attr">initialize</span> : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">// </span></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 返回模块初始化话函数</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.initialize();</div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<h4 id="5、自动化构建"><a href="#5、自动化构建" class="headerlink" title="5、自动化构建"></a>5、自动化构建</h4><p>使用gulp来作为自动化构建工具，教程可参考 <a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/32" target="_blank" rel="external">地址1</a> 和 <a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/37" target="_blank" rel="external">地址2</a></p>
+<p>主要使用到gulp作为自动化构建工具的功能有：</p>
+<ul>
+<li>编译SASS</li>
+<li>编译ES2015（后期）</li>
+<li>为静态文件添加md5后缀<h4 id="6、文件夹结构"><a href="#6、文件夹结构" class="headerlink" title="6、文件夹结构"></a>6、文件夹结构</h4></li>
+</ul>
+<p>·</p>
+<p>├─ application      （WEB应用文件夹啊）</p>
+<p>|   ├── …           （其他文件夹）</p>
+<p>|   └── views          (HTML页面)</p>
+<p>├─ static           （静态资源）</p>
+<p>|   ├── build          (gulp编译之后自动生成的文件夹)</p>
+<p>|   ├── css           （静态CSS文件）</p>
+<p>|   ├── images        （静态图片文件）</p>
+<p>|   ├── sass          （SCSS文件）</p>
+<p>|   ├── scripts       （静态Javascript文件）</p>
+<p>其中有些文件夹下面会存在三个子文件夹 ：</p>
+<ul>
+<li>common  通用文件</li>
+<li>libs     第三方文件</li>
+<li>view/core 页面文件/核心文件<h4 id="7、页面结构"><a href="#7、页面结构" class="headerlink" title="7、页面结构"></a>7、页面结构</h4></li>
+</ul>
+<p>还是看图比较直观吧：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12226392/3b9abd4e-b856-11e5-9672-34f5d6e2d09e.png" alt="image"></p>
+<h2 id="3、十年后WEB系统功能"><a href="#3、十年后WEB系统功能" class="headerlink" title="3、十年后WEB系统功能"></a>3、十年后WEB系统功能</h2><p>十年后WEB作为一个SNS的社交网站，主要分为 <strong>用户未登录</strong> 和 <strong>用户已登录</strong> 的状态。</p>
+<p><img src="" alt="十年后WEB系统功能图"></p>
+<p>具体的脑图地址为: <a href="http://naotu.baidu.com/file/ea1f87bee2c9ccafa790c357d6d2fe25?token=9d631ed5d43fbb82" target="_blank" rel="external">地址</a></p>
+<h4 id="1、未登录"><a href="#1、未登录" class="headerlink" title="1、未登录"></a>1、未登录</h4><p><img src="https://cloud.githubusercontent.com/assets/5539512/12226396/4f3c99e4-b856-11e5-9789-3a6fbf9dd1e3.png" alt="image"></p>
+<p>在未登录的情况下，用户可以注册，查看一些允许的页面。<br>如果该用户进行一些操作，例如点赞，评论等需要提示该用户登录或者注册。</p>
+<h4 id="2、登录"><a href="#2、登录" class="headerlink" title="2、登录"></a>2、登录</h4><p><img src="https://cloud.githubusercontent.com/assets/5539512/12226398/5430f756-b856-11e5-87ff-e2df9f015ea7.png" alt="image"></p>
+<p>用户在登录情况下允许以下操作:</p>
+<ul>
+<li>查看公开的所有页面</li>
+<li>查看个人的消息通知（即来往）</li>
+<li>进行一系列的操作 （包括发布状态，点赞，评论等等）</li>
+</ul>
+<p>未完待续…</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/01/24/learning/front-end/javascripts/learning-2016-1/" class="prev">PREV</a><a href="/2015/12/30/project/build-tools/webpack-first-experience/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://www.tuzkiss.com">Tuzk1ss</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/tuzkiss/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

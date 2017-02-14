@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>TuzK1ss&#39; Home</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.tuzkiss.com/"/>
+  <updated>2017-02-07T07:32:33.000Z</updated>
+  <id>http://www.tuzkiss.com/</id>
+  
+  <author>
+    <name>Tuzk1ss</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.tuzkiss.com/2017/02/07/hello-world/"/>
+    <id>http://www.tuzkiss.com/2017/02/07/hello-world/</id>
+    <published>2017-02-07T07:32:33.000Z</published>
+    <updated>2017-02-07T07:32:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Player Loader (播放器加载容器)</title>
+    <link href="http://www.tuzkiss.com/2017/01/01/project/player/player-loader/"/>
+    <id>http://www.tuzkiss.com/2017/01/01/project/player/player-loader/</id>
+    <published>2017-01-01T00:00:00.000Z</published>
+    <updated>2017-02-14T10:37:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、架构"><a href="#一、架构" class="headerlink" title="一、架构"></a>一、架构</h2><p><strong>背景</strong>： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。</p>
+<p><strong>设想</strong>： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：</p>
+<p><img src="http://7xoebg.com1.z0.glb.clouddn.com/170208160913.png?imageMogr2/strip" alt=""></p>
+<a id="more"></a>
+<p>情况如下：</p>
+<h4 id="1-1、初次加载，默认Flash-播放器："><a href="#1-1、初次加载，默认Flash-播放器：" class="headerlink" title="1.1、初次加载，默认Flash 播放器："></a>1.1、初次加载，默认Flash 播放器：</h4><p> <code>① （创建实例，准备加载Flash播放器） -&gt; ②（加载并实例化Flash播放器）-&gt; ③ （成功创建，并触发回调函数）</code></p>
+<h4 id="1-2、Flash播放器切换至HTML5-播放器"><a href="#1-2、Flash播放器切换至HTML5-播放器" class="headerlink" title="1.2、Flash播放器切换至HTML5 播放器"></a>1.2、Flash播放器切换至HTML5 播放器</h4><ul>
+<li>如果该浏览器支持HTML5播放器，则：<code>③（准备切换至HTML5播放器） -&gt; ①（检测该浏览器是否支持HTML5播放器，如果支持） -&gt; ④ （成功加载并实例化HTML5播放器）</code></li>
+<li>如果该浏览器不支持HTML5播放器，则：<code>（准备切换至HTML5播放器） -&gt; ①（检测该浏览器是否支持HTML5播放器，如果不支持） -&gt; ② （重新创建Flash播放器）</code></li>
+</ul>
+<h4 id="1-3、HTML5播放器切换至Flash播放器："><a href="#1-3、HTML5播放器切换至Flash播放器：" class="headerlink" title="1.3、HTML5播放器切换至Flash播放器："></a>1.3、HTML5播放器切换至Flash播放器：</h4><p> <code>⑤（准备切换至Flash播放器） -&gt; ①（准备加载Flash播放器） -&gt; ② （成功加载Flash播放器）</code></p>
+<h4 id="1-4、再次加载时，会根据上次使用播放器类型："><a href="#1-4、再次加载时，会根据上次使用播放器类型：" class="headerlink" title="1.4、再次加载时，会根据上次使用播放器类型："></a>1.4、再次加载时，会根据上次使用播放器类型：</h4><ul>
+<li>若为Flash播放器，则为： <code>① -&gt; ②</code></li>
+<li>若为HTML5播放器, 则为：  <code>① -&gt; ④</code></li>
+</ul>
+<h4 id="1-5、外部调用播放器API时，则会根据播放器类型："><a href="#1-5、外部调用播放器API时，则会根据播放器类型：" class="headerlink" title="1.5、外部调用播放器API时，则会根据播放器类型："></a>1.5、外部调用播放器API时，则会根据播放器类型：</h4><ul>
+<li>若为Flash播放器，则为： <code>① -&gt; ②</code></li>
+<li>若为HTML5播放器, 则为：  <code>① -&gt; ④</code></li>
+</ul>
+<h2 id="二、实现"><a href="#二、实现" class="headerlink" title="二、实现"></a>二、实现</h2><h4 id="2-1、概述"><a href="#2-1、概述" class="headerlink" title="2.1、概述"></a>2.1、概述</h4><p>使用单例模式，创建一个名为EmbedPlayer的构造器函数，传入创建播放器所需的参数，根据用户选择实例化Flash播放器或者HTML5播放器，并绑定外部调用API接口函数。</p>
+<h4 id="2-2、默认配置项"><a href="#2-2、默认配置项" class="headerlink" title="2.2、默认配置项"></a>2.2、默认配置项</h4><pre><code>var config = {
+ revision: &apos;&apos;,       // 版本号, 用于记录和更新缓存
+ defaultType: &apos;&apos;,  // 播放器默认类型
+ localName: &apos;&apos;,    // 播放器LocalStorage Key Name
+ typeMap: {},     // 播放器类型枚举
+ mapping: {},     //  Feedback 弹窗隐射表
+ autoFeedback: {},   // 自动Feedback 弹窗
+ options: {},       //  播放器通用参数
+ flashvars: {},     // 播放器
+ param: {},         // Flash播放器参数
+ prefilter: function (options) {}    // 前置过滤函数 
+};
+</code></pre><h4 id="2-3、API接口"><a href="#2-3、API接口" class="headerlink" title="2.3、API接口"></a>2.3、API接口</h4><pre><code>// Construcor 
+EmbedPlayer: function (options) {}
+
+// Portotype Method
+done: function () {}        // 成功回调函数
+loader: function () {type, callback}      // 切换播放器
+reload: function () {callback}      // 重新载入播放器
+
+// Static Method
+feedback: function () {}  // 显示播放器反馈面板
+loader: function (type, callback) {}       // 切换播放器
+reload: function (callback) {}       // 重新载入播放器
+</code></pre><h4 id="2-4、Example"><a href="#2-4、Example" class="headerlink" title="2.4、Example"></a>2.4、Example</h4><pre><code>var player = new EmbedPlayer({
+   container: document.getElementById(&apos;player_container&apos;),
+   cid: 110
+});
+</code></pre><h2 id="三、存在问题及优化方向"><a href="#三、存在问题及优化方向" class="headerlink" title="三、存在问题及优化方向"></a>三、存在问题及优化方向</h2><h5 id="3-1-目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。"><a href="#3-1-目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。" class="headerlink" title="3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。"></a>3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。</h5><h5 id="3-2-目前使用手动修改-Config-revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。"><a href="#3-2-目前使用手动修改-Config-revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。" class="headerlink" title="3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。"></a>3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。</h5><h5 id="3-3-…"><a href="#3-3-…" class="headerlink" title="3.3 …"></a>3.3 …</h5>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、架构&quot;&gt;&lt;a href=&quot;#一、架构&quot; class=&quot;headerlink&quot; title=&quot;一、架构&quot;&gt;&lt;/a&gt;一、架构&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;背景&lt;/strong&gt;： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;设想&lt;/strong&gt;： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xoebg.com1.z0.glb.clouddn.com/170208160913.png?imageMogr2/strip&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+      <category term="Player" scheme="http://www.tuzkiss.com/tags/Player/"/>
+    
+      <category term="BILIBILI" scheme="http://www.tuzkiss.com/tags/BILIBILI/"/>
+    
+      <category term="Player-Loader" scheme="http://www.tuzkiss.com/tags/Player-Loader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016前端学习（四）</title>
+    <link href="http://www.tuzkiss.com/2016/01/27/learning/front-end/javascripts/learning-2016-4/"/>
+    <id>http://www.tuzkiss.com/2016/01/27/learning/front-end/javascripts/learning-2016-4/</id>
+    <published>2016-01-27T00:00:00.000Z</published>
+    <updated>2017-02-14T09:50:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="2016前端学习（四）"><a href="#2016前端学习（四）" class="headerlink" title="2016前端学习（四）"></a>2016前端学习（四）</h1><h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>写过Ajax一般都知道，通过XHR实现Ajax通信的一个主要限制就是<strong>跨域安全策略</strong></p>
+<p>当然，有些开发中必然少不了跨域开发的问题，所以就出现了CORS</p>
+<h4 id="1、CORS"><a href="#1、CORS" class="headerlink" title="1、CORS"></a>1、CORS</h4><p>CORS （Cross-orgin Resource Sharing） 跨域资源共享。</p>
+<p>CORS的基本思想是，使用自定义的HTTP头部信息让浏览器跟服务器沟通，从而决定请求或相应的成功或失败。</p>
+<p>有那么两个跨域可能造成的危害</p>
+<blockquote>
+<p>CSRF (Cross-site Resource Forgery) 跨站点请求伪造<br>XSS (Cross-site Scripting) 跨站点脚本</p>
+</blockquote>
+<p>当然，目前主流的浏览器都支持XHR的CORS，但是需要服务端的配合修改。那么，机智的前端们总会想出写完美解决的方法，例如JSONP。</p>
+<h4 id="2、JSONP"><a href="#2、JSONP" class="headerlink" title="2、JSONP"></a>2、JSONP</h4><p>JSONP （JSON with padding） 填充式JSON 或者说参数式JSON。</p>
+<p>JSONP是目前用的比较广泛的跨域技术。</p>
+<p>JSONP的原理是动态添加script标签，并处理返回的json数据。例如 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * jsonp function</div><div class="line"> *</div><div class="line"> * @param &#123;string&#125; url</div><div class="line"> * @param &#123;string&#125; callback</div><div class="line"> */</div><div class="line">function jsonp (url, callback) &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    var _script = document.createElement(&apos;script&apos;),</div><div class="line">        _head = document.getElementsByTagName(&apos;head&apos;)[0];</div><div class="line"></div><div class="line">    _script.src = url + &apos;?callback=&apos; + callback;</div><div class="line">    _head.appendChild(_script);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">jsonp(&apos;http://pr.10years.me/webschool&apos;, &apos;jsonpCallback&apos;);</div><div class="line">window.jsonpCallback = function (res) &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    // do something</div><div class="line">    console.log(res);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>注意点： 传入的callback为string类型。。</p>
+<p>当然， JSONP也存在不足：<br>1、因为JSONP是从不同域加载，所以如果不是信任的站点可能存在不安全的现象<br>2、要确定JSONP请求是否失败并不容易（虽然说HTML5有了script的onerror属性，但是目前浏览器支持情况并不是很好。貌似只能通过很恶心的轮训来判断是否加载成功。）</p>
+<h4 id="3、Comet"><a href="#3、Comet" class="headerlink" title="3、Comet"></a>3、Comet</h4><p>Comet 服务器推送， 分为长轮询 和流。</p>
+<h4 id="4、Web-Scokets"><a href="#4、Web-Scokets" class="headerlink" title="4、Web Scokets"></a>4、Web Scokets</h4><p>… 更多请自行Google了解</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;2016前端学习（四）&quot;&gt;&lt;a href=&quot;#2016前端学习（四）&quot; class=&quot;headerlink&quot; title=&quot;2016前端学习（四）&quot;&gt;&lt;/a&gt;2016前端学习（四）&lt;/h1&gt;&lt;h2 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;head
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016前端学习（三）</title>
+    <link href="http://www.tuzkiss.com/2016/01/26/learning/front-end/javascripts/learning-2016-3/"/>
+    <id>http://www.tuzkiss.com/2016/01/26/learning/front-end/javascripts/learning-2016-3/</id>
+    <published>2016-01-26T00:00:00.000Z</published>
+    <updated>2017-02-14T09:50:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="三、闭包生成唯一ID"><a href="#三、闭包生成唯一ID" class="headerlink" title="三、闭包生成唯一ID"></a>三、闭包生成唯一ID</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var createUniqueId = function () &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    var _id = 0;</div><div class="line">    return function () &#123;</div><div class="line">        return _id ++;</div><div class="line">    &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var createId = createUniqueId();</div><div class="line"></div><div class="line">createId(); // 0</div><div class="line">createId(); // 1</div><div class="line">createId(); // 2</div><div class="line">createId(); // 3</div></pre></td></tr></table></figure>
+<p>上述代码挺简单的，但是要理解闭包原理还是蛮复杂的。</p>
+<p>所谓闭包，在Javascript高级程序设计书中指<strong>有权访问另一个函数作用域中的变量的函数</strong></p>
+<p>理解闭包，首先等先理解<strong>作用域</strong></p>
+<p>所谓作用域主要是指全局作用域和局部作用域，在局部作用域内可以直接读取全局作用域，而全局作用域无法直接读取局部作用域的变量。</p>
+<p>那么，如果要在全局作用域中读取局部作用域中的变量呢？ 这时，就可以使用闭包。</p>
+<p>闭包的好处有：<br>1、外部作用域可以访问内部作用域的变量<br>2、可以是变量在内存中持久化</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;三、闭包生成唯一ID&quot;&gt;&lt;a href=&quot;#三、闭包生成唯一ID&quot; class=&quot;headerlink&quot; title=&quot;三、闭包生成唯一ID&quot;&gt;&lt;/a&gt;三、闭包生成唯一ID&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;t
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016前端学习（二）</title>
+    <link href="http://www.tuzkiss.com/2016/01/25/learning/front-end/javascripts/learning-2016-2/"/>
+    <id>http://www.tuzkiss.com/2016/01/25/learning/front-end/javascripts/learning-2016-2/</id>
+    <published>2016-01-25T00:00:00.000Z</published>
+    <updated>2017-02-14T09:49:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前总结了基本类型的判断和检测，现在来总结下Javascript中对象的原型和继承</p>
+<h2 id="二、对象与原型"><a href="#二、对象与原型" class="headerlink" title="二、对象与原型"></a>二、对象与原型</h2><p>首先建立各一个简单的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &apos;tuzkiss&apos;;</div><div class="line">person.age = 24;</div><div class="line">person.job = &apos;Front-end developer&apos;;</div><div class="line"></div><div class="line">person.sayHi = function () &#123;</div><div class="line">    alert(this.name)</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>在ECMAScript中有两种属性，<strong>数据属性</strong>和<strong>访问器属性</strong>。</p>
+<p><strong>数据属性</strong> ： 包含一个数据值位置，在这个位置可以读取或者写入值。有4个特性<br>1、【Configurable】 ： 表示是否通过delete删除属性， 是是否能修改属性的特性， 或者是否能把修改成访问器属性。默认为true。<br>2、【Enumerable】 : 表示能否通过for-in循环返回属性。默认为true。<br>3、【Writable】 : 表示能否修改属性的值。默认为true。<br>4、【Value】 : 包含这个属性的值。默认值为undefined。</p>
+<p>如果要修改默认属性的特性的话，必须使用ECMAScript5中的<strong>Object.defineProperty()</strong>方法。这个方法介绍三个参数，<strong>属性所在的对象</strong>， <strong>属性的名称</strong>， <strong>一个描述符的对象</strong>。 描述符的属性是上面4种种的。</p>
+<p>例如 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;</div><div class="line">Object.defineProperty(person, &apos;name&apos;, &#123;</div><div class="line">    writable : false,</div><div class="line">    value : &apos;tuzkiss&apos;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">console.log(person.name);   // tuzkiss</div><div class="line">person.name = &apos;tom&apos;;</div><div class="line">console.log(person.name);   // tuzkiss</div></pre></td></tr></table></figure>
+<p>上述person对象中配置了writable为false，之后的修改都无法生效。</p>
+<p>可以多次使用Object.defineProperty()方法修改同一个属性，但在把configurable特性设置为false之后就会有限制了。</p>
+<p><strong>访问器属性</strong></p>
+<p>访问器属性不包含数据值，包含一堆getter和setter函数。同样，访问器属性也拥有4个特性</p>
+<p>1、【Configurabel】 :  表示能否通过delete删除属性重新定义属性，能否修改属性的特性，或者说修改成数据属性。默认值为true。<br>2、【Enumerable】 : 表示能否通过for-in循环返回属性。默认为true。<br>3、【Get】 : 在读取属性是调用的函数，默认为undefined。<br>4、【Set】 : 在写入属性是调用的函数，默认为undefined。</p>
+<p>例如 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var book = &#123;</div><div class="line">    _year : 2004, </div><div class="line">    edition : 1</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Object.defineProperty(book, &apos;year&apos;, &#123;</div><div class="line">    get : function () &#123;</div><div class="line">        return  this._year;</div><div class="line">    &#125;,</div><div class="line">    set : function (newValue) &#123;</div><div class="line"></div><div class="line">        if (newValue &gt; 2004) &#123;</div><div class="line">            this._year = newValue;</div><div class="line">            this.edition += newValue - 2004;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">book.year = 2005;</div><div class="line">console.log(book.edition);  // 2</div></pre></td></tr></table></figure>
+<p>以上代码创建了一个book对象，给它定义了两个默认的属性： _year和edition。然后使用Object.defineProperty()添加year属性，同时改写get和set方法。</p>
+<p>当然 也可以同时创建多个属性。</p>
+<p>那么，现在才进入正题 ： </p>
+<h3 id="1、创建对象"><a href="#1、创建对象" class="headerlink" title="1、创建对象"></a>1、创建对象</h3><p><strong>工厂模式</strong></p>
+<p>例如，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function createPerson (name ,age, job) &#123;</div><div class="line">    var o = new Object();</div><div class="line"></div><div class="line">    o.name = name;</div><div class="line">    o.age = age;</div><div class="line">    o.job = job;</div><div class="line"></div><div class="line">    o.sayHi = function () &#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return o;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var tuzkiss = createPerson(&apos;tuzkiss&apos;, 24, &apos;FEer&apos;);</div></pre></td></tr></table></figure>
+<p><strong>构造函数模式</strong></p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line"></div><div class="line">    this.sayHi = function () &#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var tuzkiss = new Person(&apos;tuzkiss&apos;, 24, &apos;FEer&apos;);</div></pre></td></tr></table></figure>
+<p>构造函数模式（Person）跟 工厂模式（createPerson）有以下区别之处：</p>
+<ul>
+<li>没有显式的创建对象</li>
+<li>直接降属性或方法付给了this对象</li>
+<li>没有return 语句</li>
+</ul>
+<p>使用构造函数创建对象时实际经历4个步骤：<br>1、创建一个新的对象<br>2、将构造函数的作用域赋给新对象（所以this指向了这个新对象）<br>3、执行构造函数中的代码 （为这个新对象添加属性）<br>4、返回新对象</p>
+<p>所以 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tuzkiss.constructor === Person;  // true</div><div class="line"></div><div class="line">tuzkiss instanceof Person;      // true</div></pre></td></tr></table></figure>
+<p><strong>原型模式</strong></p>
+<p>我们创建的每一个函数都有一个prototype属性，这个属性是一个指针，指向一个对象。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Person () &#123;&#125;;</div><div class="line"></div><div class="line">Person.prototype.name = &apos;tuzkiss&apos;;</div><div class="line">Person.prototype.age = 24;</div><div class="line">Person.prototype.job = &apos;FEer&apos;;</div><div class="line">Person.prototype.sayHi = function () &#123;</div><div class="line">    alert(this.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var tuzkiss = new Person();</div><div class="line">tuzkiss.sayHi();    // &apos;tuzkiss&apos;</div></pre></td></tr></table></figure>
+<h3 id="2、理解原型"><a href="#2、理解原型" class="headerlink" title="2、理解原型"></a>2、理解原型</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前总结了基本类型的判断和检测，现在来总结下Javascript中对象的原型和继承&lt;/p&gt;
+&lt;h2 id=&quot;二、对象与原型&quot;&gt;&lt;a href=&quot;#二、对象与原型&quot; class=&quot;headerlink&quot; title=&quot;二、对象与原型&quot;&gt;&lt;/a&gt;二、对象与原型&lt;/h2&gt;&lt;p&gt;首
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016前端学习（一）</title>
+    <link href="http://www.tuzkiss.com/2016/01/24/learning/front-end/javascripts/learning-2016-1/"/>
+    <id>http://www.tuzkiss.com/2016/01/24/learning/front-end/javascripts/learning-2016-1/</id>
+    <published>2016-01-24T00:00:00.000Z</published>
+    <updated>2017-02-14T09:43:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前说了那么多雄心壮志的话，包括喝了浓浓的鸡汤，总要做点什么咯？是吧，没有人可以动动嘴皮子或者码点字就去改变世界的（特定的人除外）。so， 向着前端架构师的方向，有距离不可怕，可怕的是想要前进的渴望和信仰。</p>
+<p>会慢慢总结一些关于前端学习方面的知识，同时也要跟上看书的节奏。<br>首先先回顾下这些呗，听说是某个面试官leader出的题：js 数据类型以及判断，原型和继承，基于闭包实现唯一生成id，跨域，jsonp 具体实现代码，dom 事件和自定义事件系统，前端路由，具体组件api设计和开发；css 常用布局属性，盒模型相关，position，sticky 效果，flex 布局</p>
+<h2 id="一、JS数据类型已经判断"><a href="#一、JS数据类型已经判断" class="headerlink" title="一、JS数据类型已经判断"></a>一、JS数据类型已经判断</h2><p>javascript中的数据类型主要分为以下几种：</p>
+<p><strong>1、Number</strong><br><strong>2、String</strong><br><strong>3、Boolean</strong><br><strong>4、Null</strong><br><strong>5、Undefined</strong><br><strong>6、Object</strong></p>
+<p>前五种是JS的基本类型，最后一种Object 包括几种特殊的类型，包括有Function, Array等等。</p>
+<p>首先先回顾一下判断类型的几种方法：</p>
+<p>1、typeof   // 直接判断类型</p>
+<p>2、instance  // 判断变量是否从某个对象中构造器来？</p>
+<p>3、Object.prototype.toString.call() // 使用对象原型链上的方法</p>
+<h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p>首先定义一些常用的变量，例如下面 并且输入它们的typeof的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var i = 233;</div><div class="line">var s = &apos;string&apos;;</div><div class="line">var b = true;</div><div class="line">var n = null;</div><div class="line">var u;</div><div class="line">var o = new Object();</div><div class="line"></div><div class="line">var w = new RegExp();</div><div class="line">var x = [];</div><div class="line">var y = &#123;&#125;;</div><div class="line">var z = function () &#123;&#125;;</div></pre></td></tr></table></figure>
+<p>输入上面各个值的typeof</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">console.log(typeof i);  // number</div><div class="line">console.log(typeof s); // string</div><div class="line">console.log(typeof b); //boolean</div><div class="line">console.log(typeof n); // object </div><div class="line">console.log(typeof u); // undefined</div><div class="line">console.log(typeof o); // object</div><div class="line"></div><div class="line">console.log(typeof w); // object</div><div class="line">console.log(typeof x); // object</div><div class="line">console.log(typeof y); // object</div><div class="line">console.log(typeof z); // function</div></pre></td></tr></table></figure>
+<p>上述代码中可以看到，基本类型中，除了null之外都会返回正常的类型判断。至于typeof null 为什么会等于object? 1995年JS诞生时，根本没把null当作数据类型，而是Object的一种特殊值。下面是当年C源码，其中完全没考虑null。这就是typeof null === object的根本原因。。。<br><img src="https://cloud.githubusercontent.com/assets/5539512/12551894/e23dcbac-c3a8-11e5-807e-81bd0aed2ca5.png" alt="image"></p>
+<p><strong>那么简单的number，string， boolean， undefined可以直接使用typeof 进行判断。</strong></p>
+<p><strong>而下面其中特殊的对象类型function使用typeof检测也可以返回正确的值</strong></p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>如果变量是给定引用类型的实例时，instanceof操作符就会返回ture。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var instanceofVariable = function (variable, type) &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    console.log(variable instanceof type);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">instanceofVariable(i, Number);   // false</div><div class="line">instanceofVariable(s, String);     // false</div><div class="line">instanceofVariable(b, Boolean); // false</div><div class="line">instanceofVariable(n, Object);   // false</div><div class="line">// instanceofVariable(u, ...); </div><div class="line">instanceofVariable(o, Object);   // true</div><div class="line"></div><div class="line">instanceofVariable(w, RegExp); // true</div><div class="line">instanceofVariable(x, Array);     // true</div><div class="line">instanceofVariable(y, Object);   // true</div><div class="line">instanceofVariable(z, Object);   // true</div></pre></td></tr></table></figure>
+<p><strong>上述代码的结果可见，instanceof只能用于检测对象类型的数据, 然后null instanceof Object === false</strong></p>
+<h4 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call"></a>Object.prototype.toString.call</h4><p>那么问题来了？ 如果判断一个对象类型呢？不可能去每一种对象类型都去判断一下，所以我们使用Object.prototype.toString.call， 已经每个对象的原型链末端均为Object， 也就是说每个对象都是Obect的实例，使用可以调用Object原型链上的toString方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var toStringCall = function (variable) &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    console.log(Object.prototype.toString.call(variable));</div><div class="line">&#125;;</div><div class="line"></div><div class="line">toStringCall(i);  // [object Number]</div><div class="line">toStringCall(s);  // [object String]</div><div class="line">toStringCall(b);  // [object Boolean]</div><div class="line">toStringCall(n);  // [object Null]</div><div class="line">toStringCall(u);  // [object Undefined]</div><div class="line">toStringCall(o);  // [object Object]</div><div class="line"></div><div class="line">toStringCall(w);  // [object RegExp]</div><div class="line">toStringCall(x);  // [object Array]</div><div class="line">toStringCall(y);  // [object Object]</div><div class="line">toStringCall(z);  // [object Function]</div></pre></td></tr></table></figure>
+<p><strong>WOW</strong></p>
+<p><strong>使用Object.prototype.toString.call返回了所以的正确结果咯， 然后为什么基本类型也会返回？</strong></p>
+<p>在ES5中Object.prototype.toString规范如下</p>
+<blockquote>
+<p>15.2.4.2 Object.prototype.toString ( )<br>在toString方法被调用时,会执行下面的操作步骤:<br>1、如果this的值为undefined,则返回”[object Undefined]”.<br>2、如果this的值为null,则返回”[object Null]”.<br>3、让O成为调用ToObject(this)的结果.<br>4、让class成为O的内部属性[[Class]]的值.<br>5、返回三个字符串”[object “, class, 以及 “]”连接后的新字符串.</p>
+<h3 id="总结-："><a href="#总结-：" class="headerlink" title="总结 ："></a>总结 ：</h3></blockquote>
+<p>1、那么对于基本类型的判断除null以外可以使用typeof<br>2、对于特性的对象可以使用instanceof判断<br>3、对于未知的对象类型，使用Object.prototype.toString判断即可。</p>
+<p>不过貌似ES6中能有新的类型，到时候在添上。</p>
+<p>PS，上述中遗漏了Date类型的对象，可以自行添加</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前说了那么多雄心壮志的话，包括喝了浓浓的鸡汤，总要做点什么咯？是吧，没有人可以动动嘴皮子或者码点字就去改变世界的（特定的人除外）。so， 向着前端架构师的方向，有距离不可怕，可怕的是想要前进的渴望和信仰。&lt;/p&gt;
+&lt;p&gt;会慢慢总结一些关于前端学习方面的知识，同时也要跟上看
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>十年后WEB架构</title>
+    <link href="http://www.tuzkiss.com/2016/01/07/project/website/10years/"/>
+    <id>http://www.tuzkiss.com/2016/01/07/project/website/10years/</id>
+    <published>2016-01-07T00:00:00.000Z</published>
+    <updated>2017-02-14T09:40:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2016年01月07日16:32:35，准备开始整理下十年后项目的架构，主要是WEB。大致上使用了baidu的脑图，下面的链接可以打开到具体的页面查看脑图(如果打不开或者错误，请刷新页面重试下)。</p>
+<blockquote>
+<p>版本 1.0.0</p>
+<p>作者 TuzK1ss</p>
+<p>更新 2016-01-07</p>
+<h2 id="1、十年后产品"><a href="#1、十年后产品" class="headerlink" title="1、十年后产品"></a>1、十年后产品</h2></blockquote>
+<p>产品介绍 ： 十年后是 …</p>
+<p>首先是整个十年后产品的的架构：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12226386/2f68dd08-b856-11e5-8947-457fe0ac8798.png" alt="image"></p>
+<p>脑图地址为： <a href="http://naotu.baidu.com/file/07fa728db9eac3cd01d1922ceea4b199?token=0966a24059040fa5" target="_blank" rel="external">地址</a></p>
+<p>十年后的产品主要分为三大块:</p>
+<h3 id="1、Server-（服务端）"><a href="#1、Server-（服务端）" class="headerlink" title="1、Server （服务端）"></a>1、Server （服务端）</h3><p>服务端主要是服务器（apache），数据库（mysql），后台（php）等。</p>
+<h3 id="2、Web-（网页端）"><a href="#2、Web-（网页端）" class="headerlink" title="2、Web （网页端）"></a>2、Web （网页端）</h3><p>网页端主要是两个站点，一个<a href="http://10years.me" target="_blank" rel="external">正式服</a>，一个<a href="http://dev.10years.me" target="_blank" rel="external">测试服</a></p>
+<h3 id="3、App-（应用端）"><a href="#3、App-（应用端）" class="headerlink" title="3、App （应用端）"></a>3、App （应用端）</h3><p>App端主要分为Android和iOS客户端。</p>
+<h2 id="2、十年后WEB架构"><a href="#2、十年后WEB架构" class="headerlink" title="2、十年后WEB架构"></a>2、十年后WEB架构</h2><p>首先是十年后WEB的及架构</p>
+<p><img src="" alt="十年后WEB架构"></p>
+<p>百度脑图地址为 : <a href="http://naotu.baidu.com/file/175bc1e6e65f063703810780a91e34b2?token=37607bc5dd4922da" target="_blank" rel="external">地址</a></p>
+<p>十年后WEB主要分为以下几块：</p>
+<h4 id="1、开发语言"><a href="#1、开发语言" class="headerlink" title="1、开发语言"></a>1、开发语言</h4><p>主要使用了HTML, CSS, Javascript，不过新的采用的CSS的预处理器SASS，可以在最大程度上重用代码和管理代码。</p>
+<h4 id="2、第三方类库-主要"><a href="#2、第三方类库-主要" class="headerlink" title="2、第三方类库 (主要)"></a>2、第三方类库 (主要)</h4><p>WEB主要使用一些Javascript的第三方类库：</p>
+<ul>
+<li>jQuery.js                 基础类库</li>
+<li>require.js                基础模块化类库</li>
+<li>timeline.js               时间轴类库</li>
+<li>simditor.js               HTML5日志编辑器类库</li>
+<li>jQuery.fullPage.js    登陆页面全屏滚动类库</li>
+<li>Zepto.js              移动端页面基础类库<h4 id="3、模板引擎"><a href="#3、模板引擎" class="headerlink" title="3、模板引擎"></a>3、模板引擎</h4></li>
+</ul>
+<p>WEB中使用到了2中模板引擎，分别是：</p>
+<ul>
+<li>Twig (php后台渲染模板) <a href="http://twig.sensiolabs.org/" target="_blank" rel="external">官网地址</a> </li>
+<li>doT   (js前台渲染模板) <a href="http://olado.github.io/doT/index.html" target="_blank" rel="external">官网地址</a><h4 id="4、模块化加载"><a href="#4、模块化加载" class="headerlink" title="4、模块化加载"></a>4、模块化加载</h4></li>
+</ul>
+<p>WEB中使用AMD的加载方式，所以引入requrire.js作为加载js。</p>
+<h6 id="PS-在开发中会书写Javascript会同一使用UMD（Universal-Module-Definition）加载方式书写，如下："><a href="#PS-在开发中会书写Javascript会同一使用UMD（Universal-Module-Definition）加载方式书写，如下：" class="headerlink" title="PS:在开发中会书写Javascript会同一使用UMD（Universal Module Definition）加载方式书写，如下："></a>PS:在开发中会书写Javascript会同一使用UMD（Universal Module Definition）加载方式书写，如下：</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">root, factory</span>) </span>&#123;</div><div class="line"><span class="meta">    'use strict'</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd) &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 define(['jquery'], factory);</span></div><div class="line">        define([], factory);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">module</span>.export === <span class="string">'Object'</span>) &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 module.export = factory(require('jquery'));</span></div><div class="line">        <span class="built_in">module</span>.export = factory();  </div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">        <span class="comment">// 引入所需模块，例如 root.module = factory(jQuery);</span></div><div class="line">        <span class="comment">// 同时需要修改具体方法中的传入值，例如 （this, function ($)&#123;&#125;)</span></div><div class="line">        <span class="comment">// 修改module name</span></div><div class="line">        root.module = factory();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;(<span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"><span class="meta">    'use strict'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 创建具体的模块内容</span></div><div class="line">    <span class="keyword">var</span> <span class="built_in">module</span> = &#123;</div><div class="line">        <span class="attr">initialize</span> : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">// </span></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 返回模块初始化话函数</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.initialize();</div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<h4 id="5、自动化构建"><a href="#5、自动化构建" class="headerlink" title="5、自动化构建"></a>5、自动化构建</h4><p>使用gulp来作为自动化构建工具，教程可参考 <a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/32" target="_blank" rel="external">地址1</a> 和 <a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/37" target="_blank" rel="external">地址2</a></p>
+<p>主要使用到gulp作为自动化构建工具的功能有：</p>
+<ul>
+<li>编译SASS</li>
+<li>编译ES2015（后期）</li>
+<li>为静态文件添加md5后缀<h4 id="6、文件夹结构"><a href="#6、文件夹结构" class="headerlink" title="6、文件夹结构"></a>6、文件夹结构</h4></li>
+</ul>
+<p>·</p>
+<p>├─ application      （WEB应用文件夹啊）</p>
+<p>|   ├── …           （其他文件夹）</p>
+<p>|   └── views          (HTML页面)</p>
+<p>├─ static           （静态资源）</p>
+<p>|   ├── build          (gulp编译之后自动生成的文件夹)</p>
+<p>|   ├── css           （静态CSS文件）</p>
+<p>|   ├── images        （静态图片文件）</p>
+<p>|   ├── sass          （SCSS文件）</p>
+<p>|   ├── scripts       （静态Javascript文件）</p>
+<p>其中有些文件夹下面会存在三个子文件夹 ：</p>
+<ul>
+<li>common  通用文件</li>
+<li>libs     第三方文件</li>
+<li>view/core 页面文件/核心文件<h4 id="7、页面结构"><a href="#7、页面结构" class="headerlink" title="7、页面结构"></a>7、页面结构</h4></li>
+</ul>
+<p>还是看图比较直观吧：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12226392/3b9abd4e-b856-11e5-9672-34f5d6e2d09e.png" alt="image"></p>
+<h2 id="3、十年后WEB系统功能"><a href="#3、十年后WEB系统功能" class="headerlink" title="3、十年后WEB系统功能"></a>3、十年后WEB系统功能</h2><p>十年后WEB作为一个SNS的社交网站，主要分为 <strong>用户未登录</strong> 和 <strong>用户已登录</strong> 的状态。</p>
+<p><img src="" alt="十年后WEB系统功能图"></p>
+<p>具体的脑图地址为: <a href="http://naotu.baidu.com/file/ea1f87bee2c9ccafa790c357d6d2fe25?token=9d631ed5d43fbb82" target="_blank" rel="external">地址</a></p>
+<h4 id="1、未登录"><a href="#1、未登录" class="headerlink" title="1、未登录"></a>1、未登录</h4><p><img src="https://cloud.githubusercontent.com/assets/5539512/12226396/4f3c99e4-b856-11e5-9789-3a6fbf9dd1e3.png" alt="image"></p>
+<p>在未登录的情况下，用户可以注册，查看一些允许的页面。<br>如果该用户进行一些操作，例如点赞，评论等需要提示该用户登录或者注册。</p>
+<h4 id="2、登录"><a href="#2、登录" class="headerlink" title="2、登录"></a>2、登录</h4><p><img src="https://cloud.githubusercontent.com/assets/5539512/12226398/5430f756-b856-11e5-87ff-e2df9f015ea7.png" alt="image"></p>
+<p>用户在登录情况下允许以下操作:</p>
+<ul>
+<li>查看公开的所有页面</li>
+<li>查看个人的消息通知（即来往）</li>
+<li>进行一系列的操作 （包括发布状态，点赞，评论等等）</li>
+</ul>
+<p>未完待续…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2016年01月07日16:32:35，准备开始整理下十年后项目的架构，主要是WEB。大致上使用了baidu的脑图，下面的链接可以打开到具体的页面查看脑图(如果打不开或者错误，请刷新页面重试下)。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;版本 1.0.0&lt;/
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="http://www.tuzkiss.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初识webpack</title>
+    <link href="http://www.tuzkiss.com/2015/12/30/project/build-tools/webpack-first-experience/"/>
+    <id>http://www.tuzkiss.com/2015/12/30/project/build-tools/webpack-first-experience/</id>
+    <published>2015-12-30T00:00:00.000Z</published>
+    <updated>2017-02-14T09:36:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前看了点gulp的工作流，能基本使用gulp合并压缩并可以在项目中使用SASS和ES2015。然后听说前端业界还有个叫做webpack的比较火的module bundler，就抽空学习了下webpack，可以简单的打包SASS与ES2015的项目。</p>
+<p>首先需要安装webpack</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g webpack</div></pre></td></tr></table></figure>
+<p>然后创建项目，大致目录和文件如下：<br><img src="https://cloud.githubusercontent.com/assets/5539512/12051903/6872bfd0-af44-11e5-884d-195ae11d6e1b.png" alt="image"></p>
+<p>其中 build， 和node_modules是自动生成的文件夹</p>
+<p>之后创建我们的入口文件 entry.js和webpack配置文件  ： webpack.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    entry : path.join(__dirname, &apos;./src/entry.js&apos;),</div><div class="line">    output : &#123;</div><div class="line">        path : path.join(__dirname, &apos;./build&apos;),</div><div class="line">        filename : &apos;bundle.js&apos;</div><div class="line">    &#125;,</div><div class="line">    module : &#123;</div><div class="line">        loaders :[</div><div class="line">            &#123; test : /\.es6/, loader : &apos;babel?presets[]=es2015&apos;&#125;,</div><div class="line">            &#123; test : /\.css$/, loader : &apos;style!css&apos;&#125;,</div><div class="line">            &#123; test : /\.(png|jpg)$/, loader : &apos;url!limit=8192&apos;&#125;,</div><div class="line">            &#123; test : /\.scss/, loader : &apos;style!css!sass&apos;&#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>具体配置可以去webpack官网中查看，具体需要知道的是需要之前引入一些sass和es2015编译需要的module 和一些loader</p>
+<p>下面是package.json 文件中的依赖配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">    &quot;babel-core&quot;: &quot;^6.3.26&quot;,</div><div class="line">    &quot;babel-loader&quot;: &quot;^6.2.0&quot;,</div><div class="line">    &quot;babel-preset-es2015&quot;: &quot;^6.3.13&quot;,</div><div class="line">    &quot;css-loader&quot;: &quot;^0.23.1&quot;,</div><div class="line">    &quot;file-loader&quot;: &quot;^0.8.5&quot;,</div><div class="line">    &quot;node-sass&quot;: &quot;^3.4.2&quot;,</div><div class="line">    &quot;sass-loader&quot;: &quot;^3.1.2&quot;,</div><div class="line">    &quot;style-loader&quot;: &quot;^0.13.0&quot;,</div><div class="line">    &quot;url-loader&quot;: &quot;^0.5.7&quot;,</div><div class="line">    &quot;webpack&quot;: &quot;^1.12.9&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>然后在SASS文件夹下创建index.scss， 简单的写。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$primary-color: #00b498;</div><div class="line">body &#123;</div><div class="line">  background : $primary-color;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在ES2015文件夹下创建index.es6,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let a = 2;</div><div class="line">module.exports = a;</div></pre></td></tr></table></figure>
+<p>最后编写我们的入口文件entry.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">require(&apos;./es2015/index.es6&apos;);</div><div class="line">require(&apos;./sass/index.scss&apos;);</div></pre></td></tr></table></figure>
+<p>这样之后，输入简单的webpack，就可以成功运行webpack打包程序。。</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12051999/833203ac-af45-11e5-838d-5223f2d0d561.png" alt="image"></p>
+<p>写的好乱好乱。。。哎。。看来没有状态，到时候在整理吧。。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前看了点gulp的工作流，能基本使用gulp合并压缩并可以在项目中使用SASS和ES2015。然后听说前端业界还有个叫做webpack的比较火的module bundler，就抽空学习了下webpack，可以简单的打包SASS与ES2015的项目。&lt;/p&gt;
+&lt;p&gt;首先需要
+    
+    </summary>
+    
+    
+      <category term="Build Tool" scheme="http://www.tuzkiss.com/tags/Build-Tool/"/>
+    
+      <category term="Webpack" scheme="http://www.tuzkiss.com/tags/Webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>快排（二）</title>
+    <link href="http://www.tuzkiss.com/2015/12/29/learning/algorithm/quick-sort-object/"/>
+    <id>http://www.tuzkiss.com/2015/12/29/learning/algorithm/quick-sort-object/</id>
+    <published>2015-12-29T00:00:00.000Z</published>
+    <updated>2017-02-14T09:35:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在看到排序的时候突然想到自己很久没复习算法了，就随手把快排的算法写了一遍。</p>
+<h4 id="最基本的代码如下："><a href="#最基本的代码如下：" class="headerlink" title="最基本的代码如下："></a>最基本的代码如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var quickSort = function (arr) &#123;</div><div class="line"></div><div class="line">    var len = arr.length, </div><div class="line">        val = arr[0],</div><div class="line">        left = [],</div><div class="line">        right = [];</div><div class="line"></div><div class="line">    if (len &lt;= 1) &#123;</div><div class="line">        return arr;</div><div class="line">    &#125;   </div><div class="line"></div><div class="line">    for (var i = 1; i &lt; len; i ++) &#123;</div><div class="line"></div><div class="line">        if (arr[i] &lt; val) &#123;</div><div class="line">            left.push(arr[i]);</div><div class="line">        &#125; else &#123;</div><div class="line">            right.push(arr[i]);</div><div class="line">        &#125;   </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arguments.callee(left).concat(val, arguments.callee(right));</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这段代码中用到了arguments.callee， 之前在看《JS高程》的时候看到，觉得有时候还是蛮有用的。<br>arguments.callee指向的是该函数，这样就可以随意更改quickSort的函数名而不影响正常的运行。<br>但是，这样存在一个小问题，就是在严格模式下无法使用arguments.callee。。。</p>
+<p>上述是最基本的快排代码，跟默认的array.sort原理差不多，类似与下列代码，但是数据越大时快排的优势就体现出来了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var arr = [2, 1, 3, 4, 0];</div><div class="line"></div><div class="line">arr.sort(function (a, b) &#123;</div><div class="line">    return a - b;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>但是这样只能排序一个数值数组，如果是一个object-array呢？ 那么先从简单的开始改写： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var objArr = [</div><div class="line">    &#123; id : 2, name : &apos;tuzkiss&apos; &#125;,</div><div class="line">    &#123; id : 1, name : &apos;john&apos; &#125;,</div><div class="line">    &#123; id : 3, name : &apos;eric&apos; &#125;,</div><div class="line">    &#123; id : 4, name : &apos;tom&apos; &#125;,</div><div class="line">    &#123; id : 0, name : &apos;cherry&apos; &#125;</div><div class="line">];</div><div class="line"></div><div class="line">objArr.sort(function (a, b) &#123;</div><div class="line">    return a.id - b.id;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上述代码中改写了sort中传入的函数返回，即带上了需要比较的key（”id”）, 控制台中输出如下：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12029196/b894b908-ae1f-11e5-9f57-01897ce86987.png" alt="image"></p>
+<h4 id="那么？-怎么改写快排呢？让它也支持对象排序呢？"><a href="#那么？-怎么改写快排呢？让它也支持对象排序呢？" class="headerlink" title="那么？ 怎么改写快排呢？让它也支持对象排序呢？"></a>那么？ 怎么改写快排呢？让它也支持对象排序呢？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var quickSort = function (arr, key) &#123;</div><div class="line"></div><div class="line">    var len = arr.length, </div><div class="line">        val = arr[0],</div><div class="line">        left = [],</div><div class="line">        right = [];</div><div class="line"></div><div class="line">    if (len &lt;= 1) &#123;</div><div class="line">        return arr;</div><div class="line">    &#125;   </div><div class="line"></div><div class="line">    for (var i = 1; i &lt; len; i ++) &#123;</div><div class="line"></div><div class="line">        if (!key) &#123;</div><div class="line">            if (arr[i] &lt; val) &#123;</div><div class="line">                left.push(arr[i]);</div><div class="line">            &#125; else &#123;</div><div class="line">                right.push(arr[i]);</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line"></div><div class="line">            if (arr[i][key] &lt; val[key]) &#123;</div><div class="line">                left.push(arr[i]);</div><div class="line">            &#125; else &#123;</div><div class="line">                right.push(arr[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arguments.callee(left).concat(val, arguments.callee(right));</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>添加了一个参数key，用于传递是否要比较对象中的某个key，如果key参数存在的话，则按照对象数组的方式去比较。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">quickSort(objArr, &apos;id&apos;);</div></pre></td></tr></table></figure>
+<p>输出跟上面的图片是一样。</p>
+<h4 id="然后你说，你想测试下性能？-行啊-接着看"><a href="#然后你说，你想测试下性能？-行啊-接着看" class="headerlink" title="然后你说，你想测试下性能？ 行啊~ 接着看"></a>然后你说，你想测试下性能？ 行啊~ 接着看</h4><p>先创建一个随机生成数组的函数，可以传入数组个数的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var count = 100;</div><div class="line"></div><div class="line">var createArr = function (count) &#123;</div><div class="line">    var arr = [];</div><div class="line">    for (var i = 0 ; i &lt; count ; i ++) &#123;</div><div class="line">        arr.push(Math.floor(Math.random() * 1000));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return arr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var arr = createArr(count);</div></pre></td></tr></table></figure>
+<p>结果如下图：<br><img src="https://cloud.githubusercontent.com/assets/5539512/12029246/fc51b44c-ae20-11e5-92f3-42352fb9ebe9.png" alt="image"></p>
+<p>稍后有空再补上</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在看到排序的时候突然想到自己很久没复习算法了，就随手把快排的算法写了一遍。&lt;/p&gt;
+&lt;h4 id=&quot;最基本的代码如下：&quot;&gt;&lt;a href=&quot;#最基本的代码如下：&quot; class=&quot;headerlink&quot; title=&quot;最基本的代码如下：&quot;&gt;&lt;/a&gt;最基本的代码如下：&lt;/h
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="http://www.tuzkiss.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>点击事件绑定</title>
+    <link href="http://www.tuzkiss.com/2015/12/26/project/front-end/bind-events/"/>
+    <id>http://www.tuzkiss.com/2015/12/26/project/front-end/bind-events/</id>
+    <published>2015-12-26T00:00:00.000Z</published>
+    <updated>2017-02-14T09:33:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>昨天把项目中的动态页面样式用SASS改写完成，今天开始写动态交互事件。基于之前的项目使用方式，都是一个单独的事件绑定在body元素上，但是这样存在一个问题，就是如果需要绑定的事件太多，就存在一个body元素上绑定了N个click事件。作为一个有强迫症+些许代码设计优美的码农是不能忍，所以就在考虑是否用一些更加优美简洁的语法来写。</p>
+<p>在google了下之后，找到了“CSS魔法哥”的一篇日志，看了还是蛮有启发的。</p>
+<p>具体正文地位为： (<a href="https://github.com/cssmagic/blog/issues/48" target="_blank" rel="external">https://github.com/cssmagic/blog/issues/48</a>)</p>
+<p>在魔法哥的日志中从基础到完善的介绍了事件绑定的原理和比较优秀的做法。</p>
+<h4 id="那么我稍微总结一下呗-："><a href="#那么我稍微总结一下呗-：" class="headerlink" title="那么我稍微总结一下呗 ："></a>那么我稍微总结一下呗 ：</h4><p>在动态页面中，需要绑定的事件大概有点赞，获取评论等等，大约10个左右。准备使用统一的class来只使用一个事件绑定，例如使用class “js-action” : </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$(document.body).on(&apos;click&apos;, &apos;.js-action&apos;, function () &#123;</div><div class="line">    $this = $(this);</div><div class="line"></div><div class="line">    config = &#123;</div><div class="line">        id : parseInt($this.data(&apos;id&apos;), 10),</div><div class="line">        type : parseInt($this.data(&apos;type&apos;), 10)</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    action = $this.data(&apos;action&apos;);</div><div class="line"></div><div class="line">    typeof actionList[action] === &apos;function&apos;  &amp;&amp; actionList[action]($this, config);</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>使用事件代理， 让通用的class来作为事件的唯一入口，通过该元素上的自定义属性data-action来具体判断是什么操作，以及为一些必要的添加自定义属性，例如data-id等。</p>
+<p>这样的好处就是可以减少事件绑定，减少代码量，同时具体拓展性。（具体拓展性等下会降到）</p>
+<p>通过绑定事件来获取该事件的action，然后建立起一个对应的对象，用键值对的方式，每个action对应相应操作的funcion。例如 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 操作事件列表对象</div><div class="line"> */</div><div class="line">var actionList : &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 点赞事件</div><div class="line">     *</div><div class="line">     * @param &#123;Object&#125; $this</div><div class="line">     * @param &#123;Object&#125; config</div><div class="line">     */</div><div class="line">    like : function ($this, config) &#123;</div><div class="line">        // 此处省略具体点赞操作代码</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 展开动态操作事件</div><div class="line">     *</div><div class="line">     * @param &#123;Object&#125; $this</div><div class="line">     * @param &#123;Object&#125; config</div><div class="line">     */</div><div class="line">    showOperation : function ($this, config) &#123;</div><div class="line">        // 此处省略具体的战士操作代码</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样每个action点击时，会去调用action对应的function，并执行。跟绑定在该元素上进行操作是一样的。</p>
+<p>这样就可以完美解决多个事件需要动态绑定，同时不需要多个事件代理的写法。</p>
+<p>同时，这样的做法也提高的拓展性，只需要简单几步就可以绑定需要的事件：<br>1、在需要绑定的元素上添加class，例如“js-action”, 指定其data-action属性，同时为其添加需要用到的自定义属性。<br>2、为actionList添加对应data-action的function。例如可以先写好统一的拓展方法 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 为action list添加新的action跟function</div><div class="line"> *</div><div class="line"> * @param &#123;string&#125; action</div><div class="line"> * @param &#123;Function&#125; actionFunction</div><div class="line"> */</div><div class="line">actionList.add = function (action , actionFunction) &#123;</div><div class="line">    actionList[action] = actionFunction;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>哈哈，这是最简单的写法，当然如果想用类的思想来改写，可以在构造器的原型链上添加该方法。</p>
+<p>学到老，活到老。</p>
+<p>希望再前端的路上越走越远~ 加油 :fist:</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;昨天把项目中的动态页面样式用SASS改写完成，今天开始写动态交互事件。基于之前的项目使用方式，都是一个单独的事件绑定在body元素上，但是这样存在一个问题，就是如果需要绑定的事件太多，就存在一个body元素上绑定了N个click事件。作为一个有强迫症+些许代码设计优美的码农
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>纯CSS hover 提示框</title>
+    <link href="http://www.tuzkiss.com/2015/12/23/project/front-end/prue-css-hover/"/>
+    <id>http://www.tuzkiss.com/2015/12/23/project/front-end/prue-css-hover/</id>
+    <published>2015-12-23T00:00:00.000Z</published>
+    <updated>2017-02-14T09:31:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2015年12月23日23:01:43，好久没码字了，手有点痒了。好吧，其实是之前有段时间过得有些心累，而且也偷懒了，之前买的《高程》也是看了200页之后荒废了。哎，想要让自己变得强大还是要坚持内心的渴望。</p>
+<p>闲话少说，进入正题。</p>
+<p>最近开始再重写项目中的主体，动态的详细页面时，突然想到可不可以添加一个提示框，因为对于有些需要提示的地方使用原生的title属性感觉效果并不好，所以考虑自己手动写一个hover提示效果。</p>
+<p>然后之前看到过可以在:before / :after伪类中的content属性使用 DOM的属性attr(data-*)，好像我大github的提示效果就是这么做的吧。。</p>
+<p>那么，首先定一个class，例如ty-tip。HTML的代码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;ty-tip&quot; data-title=&quot;查看更多&quot;&gt; &lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>然后为其定义CSS样式（因为重写使用了SASS，所以下面是SASS语法的代码）</p>
+<h4 id="依赖两个基础的mixin-："><a href="#依赖两个基础的mixin-：" class="headerlink" title="依赖两个基础的mixin ："></a>依赖两个基础的mixin ：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@mixin transition ($time : .3s) &#123;</div><div class="line">  -webkit-transition: all $time ease-in-out;</div><div class="line">  -moz-transition: all $time ease-in-out;</div><div class="line">  -ms-transition: all $time ease-in-out;</div><div class="line">  -o-transition: all $time ease-in-out;</div><div class="line">  transition: all $time ease-in-out;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@mixin translate($x : 0, $y : 0, $z : 0) &#123;</div><div class="line">  -webkit-transform: translate3d($x, $y, $z);</div><div class="line">  -moz-transform: translate3d($x, $y, $z);</div><div class="line">  -ms-transform: translate3d($x, $y, $z);</div><div class="line">  -o-transform: translate3d($x, $y, $z);</div><div class="line">  transform: translate3d($x, $y, $z);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="下面是具体的ty-tip代码（scss）"><a href="#下面是具体的ty-tip代码（scss）" class="headerlink" title="下面是具体的ty-tip代码（scss）"></a>下面是具体的ty-tip代码（scss）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">.ty-tip &#123;</div><div class="line">  position: relative;</div><div class="line">  -webkit-backface-visibility: hidden;</div><div class="line">  backface-visibility: hidden;</div><div class="line">  @include translate();</div><div class="line"></div><div class="line">  &amp;:before,</div><div class="line">  &amp;:after &#123;</div><div class="line">    z-index: -1;</div><div class="line">    opacity: 0;</div><div class="line">    @include translate(0, 3px, 0);</div><div class="line">    @include transition();</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  &amp;:before&#123;</div><div class="line">    content: &apos;&apos;;</div><div class="line">    position: absolute;</div><div class="line">    width: 0;</div><div class="line">    height: 0;</div><div class="line"></div><div class="line">    border:6px solid transparent;</div><div class="line">    border-top-color:rgba(0, 0, 0, .6);</div><div class="line">    top: -7px;</div><div class="line">    left: 50%;</div><div class="line">    margin-left: -6px;</div><div class="line">    z-index: 10;</div><div class="line">    overflow: hidden;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  &amp;:after &#123;</div><div class="line">    content: attr(data-title);</div><div class="line">    position: absolute;</div><div class="line">    display: inline-block;</div><div class="line">    background: rgba(0, 0, 0, .6);</div><div class="line">    color: #fff;</div><div class="line">    padding: 3px 4px;</div><div class="line">    top: 0;</div><div class="line">    font-size: 12px;</div><div class="line">    line-height: 18px;</div><div class="line">    height: 17px;</div><div class="line">    width: auto;</div><div class="line">    min-width: 60px;</div><div class="line">    text-align: center;</div><div class="line">    left: 50%;</div><div class="line">    margin-top: -30px;</div><div class="line">    margin-left: -33px;</div><div class="line">    overflow: hidden;</div><div class="line">    @include boxShadow(0 0 3px #ddd);</div><div class="line"></div><div class="line">    @include borderRadius(5px);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  &amp;:hover:before ,</div><div class="line">  &amp;:hover:after &#123;</div><div class="line">      z-index: 1;</div><div class="line">      opacity: 1;</div><div class="line">      @include translate(0, 0, 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &amp;:hover:before &#123;</div><div class="line">    z-index: 10;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="效果图为："><a href="#效果图为：" class="headerlink" title="效果图为："></a>效果图为：</h4><p><img src="https://cloud.githubusercontent.com/assets/5539512/11979023/f92fe252-a9ca-11e5-80c6-c5a000e0111d.png" alt="image"></p>
+<h4 id="核心思想是："><a href="#核心思想是：" class="headerlink" title="核心思想是："></a>核心思想是：</h4><p>使用:before伪类元素来创建向下的箭头，用:after元素来创建提示主体正文。默认状态为opacity ：0， z-index:-1, transform : translate3d(0, 3px, 0); Hover 时，分别把透明度设为1，层级提高，并且移动到指定位置。</p>
+<h4 id="用到的坑-："><a href="#用到的坑-：" class="headerlink" title="用到的坑 ："></a>用到的坑 ：</h4><p> 遇到的坑主要是两个：<br>1、如何让主体元素始终跟hover元素居中？<br>解决方法是：绝对定位的:after 元素 left设置为 50%， 同时margin-left 的值为 :after元素的50% 与:bofore元素的50%的负数，上例中也就是（margin-left: - (30 + 4) px）。 这样就可以让提示元素始终居中了。</p>
+<p>2、在Chrome下面，hover时出现tip提示框会导致有些DOM元素莫名的消失？<br>解决方法是：这个问题困扰好久，而且使用firefox跟safari中hover不会存在在问题。google了一通之后，发现可能是Chrome的GPU渲染时会导致有些DOM消失不见。SO， 需要添加以下代码在ty-tipz中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-webkit-backface-visibility: hidden;</div><div class="line"> backface-visibility: hidden;</div><div class="line"> @include translate();</div></pre></td></tr></table></figure>
+<p>使改提示框在不可见的时候隐藏，同时设置其translateZ 为 0；</p>
+<p># </p>
+<p>这样就完成一个简单的纯CSS提示框，可以在需要提示的元素上添加改样式名，或者在需要的父元素添加一个span元素，同时设置span元素的class为ty-tip，然后添加data-title属性即可。</p>
+<p>是不是很EASY…</p>
+<p>学以致用，加油~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2015年12月23日23:01:43，好久没码字了，手有点痒了。好吧，其实是之前有段时间过得有些心累，而且也偷懒了，之前买的《高程》也是看了200页之后荒废了。哎，想要让自己变得强大还是要坚持内心的渴望。&lt;/p&gt;
+&lt;p&gt;闲话少说，进入正题。&lt;/p&gt;
+&lt;p&gt;
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="http://www.tuzkiss.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6+SASS 项目总结</title>
+    <link href="http://www.tuzkiss.com/2015/12/17/project/website/unicornstartup/"/>
+    <id>http://www.tuzkiss.com/2015/12/17/project/website/unicornstartup/</id>
+    <published>2015-12-17T00:00:00.000Z</published>
+    <updated>2017-02-14T09:26:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy:</p>
+<h3 id="一、项目简述"><a href="#一、项目简述" class="headerlink" title="一、项目简述"></a>一、项目简述</h3><p>该项目名字叫做 “独角兽”，目前线上地址为 <a href="http://unicornstartup.me/" target="_blank" rel="external">地址</a> ， 后台使用php + mysql , 使用twig模板引擎，前端采用了HTML5 + ES6 + SASS，使用自动化构建工具gulp编译sass和es6，同时为静态文件添加md5后缀。</p>
+<h3 id="二、项目准备"><a href="#二、项目准备" class="headerlink" title="二、项目准备"></a>二、项目准备</h3><p>后台不需要考虑，前端使用gulp作为自动化构建基础。</p>
+<p><a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/32" target="_blank" rel="external">gulp基础构建请移步至gulp学习一</a></p>
+<p>主要的gulp流程为 【clean】 =&gt; 【html】 =&gt;【sass】 =&gt; 【es6】</p>
+<p>并同时添加 3个watch， 用于监控文件改变实时生成最新的文件（貌似最新有个叫做热更新的，等有时间了可以研究下看看）</p>
+<p>主要的task为【sass】 和【es6】,<br>【sass】主要思想是 【sass文件】 =&gt;（gulp-sass） 【css多个文件】 =&gt; (gulp-concat) 【css单个文件】 =&gt; (gulp-minify-css) =&gt; 【css压缩文件】 =&gt;（gulp-md5-plus） 【css带md5文件】</p>
+<p>【es6】主要思想是 【es6文件】 =&gt; (gulp-babel) 【js多个文件】 =&gt; (gulp-concat) 【js单个文件】 =&gt; (gulp-uglify) 【js压缩文件】 =&gt; (gulp-md5-plus) 【js带md5文件】</p>
+<p>然后 需要在开发的过程中启动 gulp watch 。</p>
+<h3 id="三、项目开发"><a href="#三、项目开发" class="headerlink" title="三、项目开发"></a>三、项目开发</h3><h5 id="sass-文件分为3个-scss文件，-分别为-："><a href="#sass-文件分为3个-scss文件，-分别为-：" class="headerlink" title="sass 文件分为3个.scss文件， 分别为 ："></a>sass 文件分为3个.scss文件， 分别为 ：</h5><p>variable.scss     =&gt;   常用变量，和mixin<br>base.scss         =&gt;  通用的样式，import variable<br>index.scss        =&gt;  具体样式 ， import base</p>
+<p>样式开发中使用PC优先，兼容mobile的思想，使用@media query 兼容主流的mobile browser。</p>
+<h5 id="es6-文件主要分为2个-es6文件，分别为："><a href="#es6-文件主要分为2个-es6文件，分别为：" class="headerlink" title="es6 文件主要分为2个.es6文件，分别为："></a>es6 文件主要分为2个.es6文件，分别为：</h5><p>base.es6      =&gt;   通用的方法和属性<br>index.es6     =&gt;  具体的方法</p>
+<p>在es6文件中依旧使用之前熟悉的UMD加载方法 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">((root, factory) =&gt; &#123;</div><div class="line">    &apos;use strict&apos;;</div><div class="line"></div><div class="line">    if (typeof define === &apos;function&apos; &amp;&amp; define.amd) &#123;</div><div class="line">        define([], factory);</div><div class="line">    &#125; else if (typeof module === &apos;object&apos;) &#123;</div><div class="line">        module.exports = factory();</div><div class="line">    &#125; else &#123;</div><div class="line">        root.XXX = factory();</div><div class="line">    &#125;</div><div class="line">&#125;)(window, () =&gt; &#123;</div><div class="line">    &apos;use strict&apos;;</div><div class="line"></div><div class="line">   // 此处省略具体代码</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="四、项目总结"><a href="#四、项目总结" class="headerlink" title="四、项目总结"></a>四、项目总结</h3><p>终于迈出了es6+sass项目的第一步，在学习中使用，在使用中学习，然后准备把主站点十年后也升级到es6+sass，同时添加gulp自动化构建工具。</p>
+<p>当然，在新技术带来便利的同时，也或多或少的遇到一些坑，暂时总结与思考如下：</p>
+<h5 id="1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知"><a href="#1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知" class="headerlink" title="1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知"></a>1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知</h5><h5 id="2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？"><a href="#2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？" class="headerlink" title="2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？"></a>2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？</h5><h5 id="3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。"><a href="#3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。" class="headerlink" title="3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。"></a>3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。</h5><h5 id="4、es6中目前使用到的更多是let-和-gt-，-是否可以用到更多的新属性？"><a href="#4、es6中目前使用到的更多是let-和-gt-，-是否可以用到更多的新属性？" class="headerlink" title="4、es6中目前使用到的更多是let 和 =&gt;， 是否可以用到更多的新属性？"></a>4、es6中目前使用到的更多是let 和 =&gt;， 是否可以用到更多的新属性？</h5><h5 id="5、-gt-符号指代是无法使用this，所以-gt-符号更好适用于什么情况下，暂时未知。"><a href="#5、-gt-符号指代是无法使用this，所以-gt-符号更好适用于什么情况下，暂时未知。" class="headerlink" title="5、=&gt; 符号指代是无法使用this，所以=&gt;符号更好适用于什么情况下，暂时未知。"></a>5、=&gt; 符号指代是无法使用this，所以=&gt;符号更好适用于什么情况下，暂时未知。</h5><h5 id="6、目前借助于第三方的js类库，zepto，-是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）"><a href="#6、目前借助于第三方的js类库，zepto，-是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）" class="headerlink" title="6、目前借助于第三方的js类库，zepto， 是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）"></a>6、目前借助于第三方的js类库，zepto， 是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）</h5><h5 id="7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。"><a href="#7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。" class="headerlink" title="7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。"></a>7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。</h5><h5 id="8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。-joy"><a href="#8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。-joy" class="headerlink" title="8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。:joy:"></a>8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。:joy:</h5>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy:&lt;/p&gt;
+&lt;h3 id=&quot;一、项目简述&quot;&gt;&lt;a href=&quot;#一、项目简述&quot; class=&quot;headerlink&quot; title=&quot;一
+    
+    </summary>
+    
+    
+      <category term="ES6" scheme="http://www.tuzkiss.com/tags/ES6/"/>
+    
+      <category term="SASS" scheme="http://www.tuzkiss.com/tags/SASS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS学习 （一）</title>
+    <link href="http://www.tuzkiss.com/2015/12/02/learning/front-end/css/css-experience-1/"/>
+    <id>http://www.tuzkiss.com/2015/12/02/learning/front-end/css/css-experience-1/</id>
+    <published>2015-12-02T00:00:00.000Z</published>
+    <updated>2017-02-14T09:22:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1、关于margin-0-auto-居中原理"><a href="#1、关于margin-0-auto-居中原理" class="headerlink" title="1、关于margin: 0 auto; 居中原理"></a>1、关于margin: 0 auto; 居中原理</h4><p>对于块级元素来说，默认的width为100%的父元素的width, 当我们设定了该元素的width之后，可以使用margin:0 auto;把改元素居中，<b>是因为使用了auto后会默认填充满宽度，而我们设定了左右的margin都为auto，则margin-left和margin-right会平分父元素100% - 元素width </b> ，所以实现了水平居中。</p>
+<p>ps.如果把margin:0 auto;改为padding: 0 auto;则不会使元素width变为100%；</p>
+<h4 id="2、pointer-events-none-使用"><a href="#2、pointer-events-none-使用" class="headerlink" title="2、pointer-events:none 使用"></a>2、pointer-events:none 使用</h4><p>在使用css美化select元素时，需要为其添加一个自定义的下了箭头，使用父元素的after伪类实现，但是，鼠标点击无法触发select事件，之前用过很蠢的做法就是，去绑定如果点击了该父元素，则触发改父元素下的select点击事件。今天，又学到了个新的知识，pointer-events:none， 可以把鼠标事件禁用掉，相当于成为了“幻影”箭头，点击箭头可以触发select 下拉。</p>
+<h4 id="3、Chrome下transition过程中会导致一些DOM元素不可见"><a href="#3、Chrome下transition过程中会导致一些DOM元素不可见" class="headerlink" title="3、Chrome下transition过程中会导致一些DOM元素不可见"></a>3、Chrome下transition过程中会导致一些DOM元素不可见</h4><p>在使用:after属性content : attr(data-title)制作提示框时，遇到在Chrome下神奇的问题，如该题目。网上看到原因可能为This is Chrome bug that sometimes appears for some reason. All absolute-positioned elements inside hardware-accelerated container (e.g. slides) must have rsAbsoluteEl class, or just such css styles to force hw acceleration on element that blinks:<br>所以需要添加这个样式 ：<br> -webkit-backface-visibility: hidden;<br>transform : translateZ(0);</p>
+<p>就可以解决改问题。NICE ~ :joy:</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1、关于margin-0-auto-居中原理&quot;&gt;&lt;a href=&quot;#1、关于margin-0-auto-居中原理&quot; class=&quot;headerlink&quot; title=&quot;1、关于margin: 0 auto; 居中原理&quot;&gt;&lt;/a&gt;1、关于margin: 0 auto
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="http://www.tuzkiss.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gulp学习</title>
+    <link href="http://www.tuzkiss.com/2015/11/12/project/build-tools/gulp-experience/"/>
+    <id>http://www.tuzkiss.com/2015/11/12/project/build-tools/gulp-experience/</id>
+    <published>2015-11-12T00:00:00.000Z</published>
+    <updated>2017-02-14T09:16:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在忙碌了几个月之后终于还是项目开始慢慢的进入优化改进期间，当然也不能闲着，之前看会点ES2015的新内容，学了node的基本操作，加上准备学习下gulp和webpack。今天稍微能让gulp运行项目了，就在这总结一下。（因为之前有用过grunt，所以学起来还是蛮顺手和蛮快的）</p>
+<h4 id="1-首先需要全局安装gulp"><a href="#1-首先需要全局安装gulp" class="headerlink" title="1.首先需要全局安装gulp"></a>1.首先需要全局安装gulp</h4><p>在命令行中输入安装命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install gulp -g</div></pre></td></tr></table></figure>
+<p>(之前一直无法安装全局gulp，而且找不到原因，后来把npm卸载和重新安装了node，如果又遇到类似的情况，可以尝试下)</p>
+<h4 id="2-在项目下安装gulp"><a href="#2-在项目下安装gulp" class="headerlink" title="2.在项目下安装gulp"></a>2.在项目下安装gulp</h4><p>在命令行中输入安装命令（需要到该项目路径下）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install gulp --save-dev</div></pre></td></tr></table></figure>
+<p>–save : 是添加到本地项目文件中<br>-dev    : 是添加到package.json中的devDependencies </p>
+<p>添加这样的命令安装时会自动添加到package.json的devDependencies，然后如果重置项目或者他人使用项目是只需要使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
+<p>就能完成项目所需的模块加载。</p>
+<h4 id="3-创建gulpfile-js"><a href="#3-创建gulpfile-js" class="headerlink" title="3.创建gulpfile.js"></a>3.创建gulpfile.js</h4><p>首先需要引入gulp模块，然后使用gulp.task创建任务。默认可以使用default任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line"></div><div class="line">gulp.task(&apos;default&apos;, function ()&#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="4-运行gulp"><a href="#4-运行gulp" class="headerlink" title="4.运行gulp"></a>4.运行gulp</h4><p>在命令中输入gulp就可运行默认的default任务（需要到该项目路径下）： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp</div></pre></td></tr></table></figure>
+<p>这样就一个初始的gulp任务创建完成。</p>
+<h4 id="5-添加gulp其他任务"><a href="#5-添加gulp其他任务" class="headerlink" title="5.添加gulp其他任务"></a>5.添加gulp其他任务</h4><p>目前常用的任务有，css的编译（如果需要），合并，压缩，script的合并，压缩，html内的替换路径等。</p>
+<p>下面是对应的模块名<br>css的合并 ： gulp-concat-css<br>css的压缩 ： gulp-minify-css<br>script的合并 ： gulp-concat<br>script的压缩 ： gulp-uglify<br>html的替换 ： gulp-html-replace<br>清理文件夹 ： gulp-clean<br>加密文件 ： gulp-md5-plus</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev gulp-clean gulp-concat gulp-concat-css gulp-html-replace gulp-md5-plus gulp-minify-css gulp-rename gulp-uglify</div></pre></td></tr></table></figure>
+<p>然后引入到gulpfile.js中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var concat = require(&apos;gulp-concat&apos;);</div><div class="line">var uglify = require(&apos;gulp-uglify&apos;);</div><div class="line">var rename = require(&apos;gulp-rename&apos;);</div><div class="line">var minifyCss = require(&apos;gulp-minify-css&apos;);</div><div class="line">var concatCss = require(&apos;gulp-concat-css&apos;);</div><div class="line">var htmlReplace = require(&apos;gulp-html-replace&apos;);</div><div class="line">var clean = require(&apos;gulp-clean&apos;);</div><div class="line">var md5 = require(&apos;gulp-md5-plus&apos;);</div></pre></td></tr></table></figure>
+<h4 id="6-确定任务流程"><a href="#6-确定任务流程" class="headerlink" title="6.确定任务流程"></a>6.确定任务流程</h4><p>ps. 以下用到的version变量为项目的版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var pjson = require(&apos;./package.json&apos;);</div><div class="line">var version = pjson.version;</div></pre></td></tr></table></figure>
+<p>我们的项目中开发文件都存放在src文件夹下， 分别为css， scripts, images 文件夹和html文件。<br>需要在项目发布的时候把需要用到的css打包成一个文件然后压缩，并引入到html文件中， script同理。<br>然后把发布的文件放在build文件夹下，同时每次发布项目是需要重新构建build文件夹。</p>
+<p>首先创建一个clean任务，用于删除build文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;clean&apos;, () =&gt; &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line">    return gulp.src(&apos;./build&apos;)</div><div class="line">        .pipe(clean(&#123;force : true&#125;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>然后创建一个css任务，用于合并css和压缩css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;css&apos;, [&apos;clean&apos;],  () =&gt; &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    return gulp.src(&apos;./src/css/**/*.css&apos;)</div><div class="line">        .pipe(concatCss(&apos;index_&apos; + version + &apos;.css&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./build/css&apos;))</div><div class="line">        .pipe(rename(&apos;index_&apos; + version + &apos;.min.css&apos;))</div><div class="line">        .pipe(minifyCss())</div><div class="line">        .pipe(gulp.dest(&apos;./build/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>task 中第二个参数如果为数组的话，就说明这个task需要在数组里面的task都完成之后才会执行。</p>
+<p>然后创建scripts 任务， 用于合并scripts和压缩scripts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;script&apos;, [&apos;clean&apos;],  () =&gt; &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    return gulp.src(&apos;./src/scripts/**/*.js&apos;)</div><div class="line">        .pipe(concat(&apos;index_&apos; + version + &apos;.js&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./build/scripts&apos;))</div><div class="line">        .pipe(rename(&apos;index_&apos; + version + &apos;.min.js&apos;))</div><div class="line">        .pipe(uglify())</div><div class="line">        .pipe(gulp.dest(&apos;./build/scripts&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>之后创建html任务，用于替换更换css和script的链接</p>
+<p>···<br>gulp.task(‘html’, [‘css’, ‘script’], () =&gt; {<br>    “use strict”;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">return gulp.src(&apos;./src/index.html&apos;)</div><div class="line">    .pipe(htmlReplace(&#123;</div><div class="line">        &apos;css&apos; : &apos;./css/index_&apos; + version +&apos;.min.css&apos;,</div><div class="line">        &apos;js&apos;  : &apos;./scripts/index_&apos; + version + &apos;.min.js&apos;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&apos;./build&apos;));</div></pre></td></tr></table></figure>
+<p>});<br>···</p>
+<p>然后创建一个md5任务， 用于更改不同的后缀，防止浏览器缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;md5&apos;, [&apos;html&apos;],  () =&gt; &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    gulp.src(&apos;./build/scripts/*.js&apos;)</div><div class="line">        .pipe(md5(16, &apos;./build/*.html&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./build/scripts&apos;));</div><div class="line"></div><div class="line">    gulp.src(&apos;./build/css/*.css&apos;)</div><div class="line">        .pipe(md5(16, &apos;./build/*.html&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./build/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>最后 更改我们的default 任务 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;default&apos;, function ()&#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line">    gulp.run([&apos;clean&apos;, &apos;image&apos;, &apos;css&apos;, &apos;script&apos;, &apos;html&apos;, &apos;md5&apos;]);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>至此，我们常用的任务已经完成。</p>
+<p>任务流程是 【clean】 =&gt; 【css, script】 =&gt; 【html】 =&gt; 【md5】 （后面的任务需要在前面的完成之后可以完全执行）</p>
+<p>在命令行中运行gulp就完全执行我们的任务流程了。</p>
+<p>如果需要单独执行某个命令的话 可以输入 gulp css (或其他task的名字)即可。</p>
+<h4 id="。。"><a href="#。。" class="headerlink" title="。。"></a>。。</h4><p>最近貌似webpack比较火，然后准备这两天在看看webpack，然后结合gulp建立一个相对完整的前端工作流。<br>恩，加油。</p>
+<h4 id="2015年11月13日10-17-50-更新"><a href="#2015年11月13日10-17-50-更新" class="headerlink" title="2015年11月13日10:17:50 更新"></a>2015年11月13日10:17:50 更新</h4><p>因为使用到了ES2015，所以想在项目生成的时候转化成ES5或其他，就需要用到babel。同时有gulp-babel的插件，以及转化ES2015的插件 babel-preset-es2015。</p>
+<p>所以在命令中输入： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev gulp-babel babel-preset-es2015</div></pre></td></tr></table></figure>
+<p>然后在需要转化的JS后添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.pipe(babel(&#123;</div><div class="line">       presets: [&apos;es2015&apos;]</div><div class="line">&#125;))</div></pre></td></tr></table></figure>
+<p>最终我们的上述例子中的script的task为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;script&apos;, [&apos;clean&apos;],  () =&gt; &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    return gulp.src(&apos;./src/scripts/**/*.js&apos;)</div><div class="line">        .pipe(babel(&#123;</div><div class="line">            presets: [&apos;es2015&apos;]</div><div class="line">        &#125;))</div><div class="line">        .pipe(concat(&apos;index_&apos; + version + &apos;.js&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./build/scripts&apos;))</div><div class="line">        .pipe(rename(&apos;index_&apos; + version + &apos;.min.js&apos;))</div><div class="line">        .pipe(uglify())</div><div class="line">        .pipe(gulp.dest(&apos;./build/scripts&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就可以在我们的项目中使用ES2015了~ 新世界的大门= = 有木有:joy:</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在忙碌了几个月之后终于还是项目开始慢慢的进入优化改进期间，当然也不能闲着，之前看会点ES2015的新内容，学了node的基本操作，加上准备学习下gulp和webpack。今天稍微能让gulp运行项目了，就在这总结一下。（因为之前有用过grunt，所以学起来还是蛮顺手和蛮快的
+    
+    </summary>
+    
+    
+      <category term="Build Tool" scheme="http://www.tuzkiss.com/tags/Build-Tool/"/>
+    
+      <category term="Gulp" scheme="http://www.tuzkiss.com/tags/Gulp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NODE 学习1</title>
+    <link href="http://www.tuzkiss.com/2015/11/10/learning/front-end/node/my-first-app/"/>
+    <id>http://www.tuzkiss.com/2015/11/10/learning/front-end/node/my-first-app/</id>
+    <published>2015-11-10T00:00:00.000Z</published>
+    <updated>2017-02-14T09:13:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>链接 mongodb</p>
+<h3 id="1-首先启动mongodb"><a href="#1-首先启动mongodb" class="headerlink" title="1.首先启动mongodb"></a>1.首先启动mongodb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod</div></pre></td></tr></table></figure>
+<h3 id="2-安装mongoose-module-同时引入到app-js-中"><a href="#2-安装mongoose-module-同时引入到app-js-中" class="headerlink" title="2.安装mongoose module, 同时引入到app.js 中"></a>2.安装mongoose module, 同时引入到app.js 中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install mongoose</div></pre></td></tr></table></figure>
+<p>在app.js 中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var mongoose = require(&apos;mongoose&apos;);</div><div class="line">.</div><div class="line">.</div><div class="line">.</div><div class="line">mongoose.connect(&apos;mongodb://localhost/demo20151107&apos;);</div></pre></td></tr></table></figure>
+<h3 id="3-在项目中新建两个新文件夹-models-存放数据库对象-schemas-数据架构-ps-其实是这个是看别人的视频中学到的-现在还不知道做什么用"><a href="#3-在项目中新建两个新文件夹-models-存放数据库对象-schemas-数据架构-ps-其实是这个是看别人的视频中学到的-现在还不知道做什么用" class="headerlink" title="3.在项目中新建两个新文件夹, models (存放数据库对象), schemas(数据架构?) ps.其实是这个是看别人的视频中学到的,现在还不知道做什么用"></a>3.在项目中新建两个新文件夹, models (存放数据库对象), schemas(数据架构?) ps.其实是这个是看别人的视频中学到的,现在还不知道做什么用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir models schemas</div></pre></td></tr></table></figure>
+<h3 id="4-创建user类和数据库操作方法"><a href="#4-创建user类和数据库操作方法" class="headerlink" title="4.创建user类和数据库操作方法"></a>4.创建user类和数据库操作方法</h3><p>在schemas中添加user.js, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">// 引入mongoose module</div><div class="line">var mongoose = require(&apos;mongoose&apos;);</div><div class="line"></div><div class="line">// 新建user schema</div><div class="line">var UserSchemas = new mongoose.Schema(&#123;</div><div class="line">    account : String,</div><div class="line">    password : String,</div><div class="line">    registerDate : Date,</div><div class="line">    loginCount : Number,</div><div class="line">    lastLoginDate : Date,</div><div class="line">    accountType : Number</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// user schemas statics function</div><div class="line">UserSchemas.statics = &#123;</div><div class="line">    fetch : function (cb) &#123;</div><div class="line">        return this</div><div class="line">            .find(&#123;&#125;)</div><div class="line">            .exec(cb);</div><div class="line">    &#125;,</div><div class="line">    findById : function (id, cb) &#123;</div><div class="line">        return this</div><div class="line">            .findOne(&#123;_id : id&#125;)</div><div class="line">            .exec(cb)</div><div class="line">    &#125;,</div><div class="line">    findByAccount : function (account, cb) &#123;</div><div class="line">        return this</div><div class="line">            .findOne(&#123;account : account&#125;)</div><div class="line">            .exec(cb)</div><div class="line">    &#125;,</div><div class="line">    deleteByAccount : function (account, cb) &#123;</div><div class="line">        return this</div><div class="line">            .remove(&#123;account : account&#125;)</div><div class="line">            .exec(cb);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// module export</div><div class="line">module.exports = UserSchemas;</div></pre></td></tr></table></figure>
+<p>同时在models中创建user.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var mongoose = require(&apos;mongoose&apos;);</div><div class="line">var UserSchemas = require(&apos;../schemas/user&apos;);</div><div class="line">var User = mongoose.model(&apos;User&apos;, UserSchemas);</div><div class="line"></div><div class="line">module.exports = User;</div></pre></td></tr></table></figure>
+<p>models中的user.js的作用是主要把之前创建的user对象转换成数据库模型</p>
+<h3 id="5-需要在app-js-中引入"><a href="#5-需要在app-js-中引入" class="headerlink" title="5.需要在app.js 中引入"></a>5.需要在app.js 中引入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var User = require(&apos;./models/user&apos;);</div></pre></td></tr></table></figure>
+<p>这样就可以在后面使用User的增删改查方法了.</p>
+<h3 id="6-在app-js中创建新增add路由"><a href="#6-在app-js中创建新增add路由" class="headerlink" title="6.在app.js中创建新增add路由"></a>6.在app.js中创建新增add路由</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">app.post(&apos;/add&apos;, function (req, res) &#123;</div><div class="line">    var param = req.body;</div><div class="line"></div><div class="line">    var user = new User(&#123;</div><div class="line">        account : param.account,</div><div class="line">        password : param.password,</div><div class="line">        registerDate : new Date()</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    user.save(function (err, user) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">            console.log(err);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (user)&#123;</div><div class="line">            res.json(&#123;status: &apos;success&apos;, data : &#123; user : user &#125;&#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="7-在app-js中新增-delete路由"><a href="#7-在app-js中新增-delete路由" class="headerlink" title="7.在app.js中新增 delete路由"></a>7.在app.js中新增 delete路由</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">app.post(&apos;/delete&apos;, function (req, res) &#123;</div><div class="line">    var param = req.body;</div><div class="line"></div><div class="line">    User.deleteByAccount(param.account, function (err, user) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">           console.log(err);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (user) &#123;</div><div class="line">            res.json(&#123;status : &apos;success&apos;&#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="8-在app-js中新增-modify路由"><a href="#8-在app-js中新增-modify路由" class="headerlink" title="8.在app.js中新增 modify路由"></a>8.在app.js中新增 modify路由</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">app.post(&apos;/modifyPassword&apos;, function (req, res) &#123;</div><div class="line">   var param = req.body;</div><div class="line"></div><div class="line">    User.findByAccount(param.account, function (err, user) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">            console.log(err);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (user &amp;&amp; user.account === param.account) &#123;</div><div class="line">            user.password = param.password;</div><div class="line"></div><div class="line">            user.save(function (err, nuser) &#123;</div><div class="line">                if(err) &#123;</div><div class="line">                    console.log(err);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                if (nuser) &#123;</div><div class="line">                    res.json(&#123;status : &apos;success&apos;&#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="9-在app-js中使用查询功能-分为全部查询和单个查询"><a href="#9-在app-js中使用查询功能-分为全部查询和单个查询" class="headerlink" title="9.在app.js中使用查询功能,分为全部查询和单个查询"></a>9.在app.js中使用查询功能,分为全部查询和单个查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">app.get(&apos;/list&apos;, function (req, res) &#123;</div><div class="line">    User.fetch(function (err, users) &#123;</div><div class="line">        if (err)  &#123;</div><div class="line">            console.log(err);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        res.render(&apos;list&apos;, &#123;</div><div class="line">            users : users</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line">app.post(&apos;/checkLogin&apos;, function (req, res) &#123;</div><div class="line">   var param = req.body;</div><div class="line"></div><div class="line">    User.findByAccount(param.account, function (err, user) &#123;</div><div class="line">        if(err) &#123;</div><div class="line">            console.log(err);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (user) &#123;</div><div class="line">            console.log(user);</div><div class="line"></div><div class="line">            if (user.password === param.password) &#123;</div><div class="line">                res.json(&#123;status : &apos;success&apos;&#125;);</div><div class="line">            &#125; else &#123;</div><div class="line">                res.json(&#123;status : &apos;fail&apos;&#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="最后在index-js中绑定按钮使用ajax去调用这些POST请求-既可以简单的实现增删改查"><a href="#最后在index-js中绑定按钮使用ajax去调用这些POST请求-既可以简单的实现增删改查" class="headerlink" title="最后在index.js中绑定按钮使用ajax去调用这些POST请求, 既可以简单的实现增删改查.."></a>最后在index.js中绑定按钮使用ajax去调用这些POST请求, 既可以简单的实现增删改查..</h4><p>附上 index.js 代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">var index = &#123;</div><div class="line">    init : function () &#123;</div><div class="line">        console.log(&apos;index init...&apos;);</div><div class="line"></div><div class="line">        this.registerUser()</div><div class="line">            .checkSignIn()</div><div class="line">            .modifyPassword()</div><div class="line">            .deleteUser()</div><div class="line">    &#125;,</div><div class="line">    registerUser : function () &#123;</div><div class="line"></div><div class="line">        var that = this;</div><div class="line"></div><div class="line">        $(&apos;#register&apos;).on(&apos;click&apos;, function (e) &#123;</div><div class="line">            e.preventDefault();</div><div class="line"></div><div class="line"></div><div class="line">            that.ajax(&apos;/add&apos;, function (res) &#123;</div><div class="line">                console.log(res);</div><div class="line"></div><div class="line">                if (res.status === &apos;success&apos;) &#123;</div><div class="line">                    alert(&apos;注册成功&apos;);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line"></div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    checkSignIn : function () &#123;</div><div class="line"></div><div class="line">        var that = this;</div><div class="line"></div><div class="line">        $(&apos;#sign_in&apos;).on(&apos;click&apos;, function (e) &#123;</div><div class="line"></div><div class="line">            e.preventDefault();</div><div class="line"></div><div class="line">            that.ajax(&apos;/checkLogin&apos;, function (res) &#123;</div><div class="line">                console.log(res);</div><div class="line"></div><div class="line">                if(res.status === &apos;success&apos;) &#123;</div><div class="line">                    location.href = &apos;/list&apos;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line"></div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    modifyPassword : function () &#123;</div><div class="line">        var that = this;</div><div class="line"></div><div class="line">        $(&apos;#modify&apos;).on(&apos;click&apos;, function (e) &#123;</div><div class="line">            e.preventDefault();</div><div class="line"></div><div class="line">            that.ajax(&apos;/modifyPassword&apos;, function (res) &#123;</div><div class="line">                console.log(res);</div><div class="line"></div><div class="line">                if (res.status === &apos;success&apos;) &#123;</div><div class="line">                    alert(&apos;modify success&apos;);</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    deleteUser : function () &#123;</div><div class="line">        var that = this;</div><div class="line"></div><div class="line">        $(&apos;#delete&apos;).on(&apos;click&apos;, function (e) &#123;</div><div class="line">            e.preventDefault();</div><div class="line"></div><div class="line">            that.ajax(&apos;/delete&apos;, function (res) &#123;</div><div class="line">                console.log(res);</div><div class="line"></div><div class="line">                if (res.status === &apos;success&apos;) &#123;</div><div class="line">                    alert(&apos;delete success&apos;);</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    ajax : function (url, callback) &#123;</div><div class="line"></div><div class="line">        var param = &#123;</div><div class="line">            account : $(&apos;#account&apos;).val(),</div><div class="line">            password : $(&apos;#password&apos;).val()</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        $.ajax(&#123;</div><div class="line">            type : &apos;post&apos;,</div><div class="line">            url : url,</div><div class="line">            data : param,</div><div class="line">            dataType : &apos;json&apos;</div><div class="line">        &#125;).done(callback);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">index.init();</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;链接 mongodb&lt;/p&gt;
+&lt;h3 id=&quot;1-首先启动mongodb&quot;&gt;&lt;a href=&quot;#1-首先启动mongodb&quot; class=&quot;headerlink&quot; title=&quot;1.首先启动mongodb&quot;&gt;&lt;/a&gt;1.首先启动mongodb&lt;/h3&gt;&lt;figure cla
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+      <category term="Node" scheme="http://www.tuzkiss.com/tags/Node/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NODE 学习0</title>
+    <link href="http://www.tuzkiss.com/2015/11/07/learning/front-end/node/start-my-first-node-app/"/>
+    <id>http://www.tuzkiss.com/2015/11/07/learning/front-end/node/start-my-first-node-app/</id>
+    <published>2015-11-07T00:00:00.000Z</published>
+    <updated>2017-02-14T09:12:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-首先新建一个NODE项目"><a href="#1-首先新建一个NODE项目" class="headerlink" title="1.首先新建一个NODE项目"></a>1.首先新建一个NODE项目</h3><h3 id="2-可以使用命令行命令创建文件夹"><a href="#2-可以使用命令行命令创建文件夹" class="headerlink" title="2.可以使用命令行命令创建文件夹"></a>2.可以使用命令行命令创建文件夹</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir views public</div></pre></td></tr></table></figure>
+<h3 id="3-新建app-js-作为NODE项目起始文件"><a href="#3-新建app-js-作为NODE项目起始文件" class="headerlink" title="3.新建app.js 作为NODE项目起始文件"></a>3.新建app.js 作为NODE项目起始文件</h3><h3 id="4-使用npm安装需要用到的module-例如express-jade-等"><a href="#4-使用npm安装需要用到的module-例如express-jade-等" class="headerlink" title="4.使用npm安装需要用到的module, 例如express, jade 等"></a>4.使用npm安装需要用到的module, 例如express, jade 等</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install express jade</div></pre></td></tr></table></figure>
+<h3 id="5-编写app-js文件"><a href="#5-编写app-js文件" class="headerlink" title="5.编写app.js文件"></a>5.编写app.js文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var express = require(&apos;express&apos;);</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line">var bodyParser = require(&apos;body-parser&apos;);</div><div class="line"></div><div class="line">var port = process.env.PORT || 3000;</div><div class="line"></div><div class="line">var app = express();</div><div class="line"></div><div class="line">app.set(&apos;views&apos;, &apos;./views&apos;);</div><div class="line">app.set(&apos;view engine&apos;, &apos;jade&apos;);</div><div class="line"></div><div class="line">app.use(bodyParser.urlencoded(&#123;</div><div class="line">    extended : true</div><div class="line">&#125;));</div><div class="line"></div><div class="line">app.use(bodyParser.json());</div><div class="line"></div><div class="line">app.use(express.static(path.join(__dirname, &apos;/public&apos;)));</div><div class="line"></div><div class="line">app.listen(port);</div><div class="line"></div><div class="line">console.log(&apos;the website starts on port &apos; + port);</div><div class="line"></div><div class="line">app.get(&apos;/&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;index&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="6-编写index-jade文件"><a href="#6-编写index-jade文件" class="headerlink" title="6.编写index.jade文件"></a>6.编写index.jade文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">doctype</div><div class="line">html</div><div class="line">   head</div><div class="line">      title hello node</div><div class="line">      link(rel=&quot;stylesheet&quot; href=&quot;css/index.css&quot;)</div><div class="line">   body</div><div class="line">      h1 Hello Node 2015年11月07日10:40:31</div><div class="line"></div><div class="line">      script(src=&quot;scripts/index.js&quot;)</div></pre></td></tr></table></figure>
+<h3 id="7-运行项目"><a href="#7-运行项目" class="headerlink" title="7.运行项目"></a>7.运行项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node app.js</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-首先新建一个NODE项目&quot;&gt;&lt;a href=&quot;#1-首先新建一个NODE项目&quot; class=&quot;headerlink&quot; title=&quot;1.首先新建一个NODE项目&quot;&gt;&lt;/a&gt;1.首先新建一个NODE项目&lt;/h3&gt;&lt;h3 id=&quot;2-可以使用命令行命令创建文件夹&quot;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+      <category term="Node" scheme="http://www.tuzkiss.com/tags/Node/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>下一阶段学习目标</title>
+    <link href="http://www.tuzkiss.com/2015/06/30/life/2016-06-30/"/>
+    <id>http://www.tuzkiss.com/2015/06/30/life/2016-06-30/</id>
+    <published>2015-06-30T00:00:00.000Z</published>
+    <updated>2017-02-14T09:07:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2015年06月30日22:58:45，已经上班一个礼拜了。</p>
+<p>今天是2015年上半年的最后一天，今天过了，就跨入到了2015年的下半年了，想想还是蛮难过的，时间过那么快，一点心理准备都没有T T</p>
+<p>话说，第一个礼拜上班好不习惯，各种各种，同时来上海之前荒淫了两天导致又上火了。现在不知道为什么，一上火舌头就出问题，哎，各种难受，加上各种不习惯，还好坚持了过来。</p>
+<p>然后，买了个13.3的mac pro，人生第一次拥有这么贵的东西，之前也考虑了很久，其实还不是因为穷么？买了这个在经济范围内的最贵的玩具，你不会后悔的。</p>
+<p>也看了网上他们说购物的一些心得等等，买一个东西值不值就看你每天使用它的时间久不久。所以，买那些经常使用到的东西你可以大大的提高你的生活质量。</p>
+<p>这一个礼拜，从刚开始的H5分享页面，到现在的shiqing.me的官网，感觉这样的创业团队还是比较赶的，每天都一直在忙。相对于恒天来讲，简直就是个灾难吧= = 而且我一般中午还睡不着觉，也不怎么休息，所以下午一般比较累。所以上火一周了还没有好，不过应该快好了把。</p>
+<p>其实，来到十年后喜忧参半，忧是因为没有跟之前想象的那么好，虽然我也知道现实永远没有想象的那么美好，所以还是需要时间慢慢去接受这一切。好吧，其实是我还没做好一个人承担一切的准备，勇士是孤独的。喜是有了一个相对专业的team，和公司报销了mac的一办花费，想象还是蛮激动的。</p>
+<p>今天忙完了之后，觉得心里还是有点小想法，就洗完澡码点字抒发下内心的情绪。最近还有好些事情，所以心头乱乱的，不愿意去想，也不愿意去做，只好拖着拖着等到再也拖不了去做。</p>
+<p>觉得每天工作也算是种学习和成长，不过得多做总结和积累。</p>
+<p>所以暂时定一下下一阶段的学习目标：</p>
+<h2 id="1、开发一个适应pc和mobile的动画框架"><a href="#1、开发一个适应pc和mobile的动画框架" class="headerlink" title="1、开发一个适应pc和mobile的动画框架"></a>1、开发一个适应pc和mobile的动画框架</h2><h2 id="2、学习Angular-或者-nodeJs"><a href="#2、学习Angular-或者-nodeJs" class="headerlink" title="2、学习Angular 或者 nodeJs"></a>2、学习Angular 或者 nodeJs</h2><p>说得多不如做得多，所以，加油吧，在这个那么多人都想往上爬的城市。</p>
+<p>你是你自己人生的主角。</p>
+<p>Face your fate。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2015年06月30日22:58:45，已经上班一个礼拜了。&lt;/p&gt;
+&lt;p&gt;今天是2015年上半年的最后一天，今天过了，就跨入到了2015年的下半年了，想想还是蛮难过的，时间过那么快，一点心理准备都没有T T&lt;/p&gt;
+&lt;p&gt;话说，第一个礼拜上班好不习惯，各种
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="http://www.tuzkiss.com/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端学习（二） - CSS居中</title>
+    <link href="http://www.tuzkiss.com/2015/06/11/learning/front-end/css/learning-css-center-style/"/>
+    <id>http://www.tuzkiss.com/2015/06/11/learning/front-end/css/learning-css-center-style/</id>
+    <published>2015-06-11T00:00:00.000Z</published>
+    <updated>2017-02-14T09:05:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>CSS居中一个img或者div元素总结。</p>
+<h4 id="1、水平居中一-text-align居中"><a href="#1、水平居中一-text-align居中" class="headerlink" title="1、水平居中一 text-align居中"></a>1、水平居中一 text-align居中</h4><p>给父元素加添 text-align:center 即可。 </p>
+<p>适用于img等等，兼容IE8及以上，现代浏览器</p>
+<h4 id="2、水平居中二-margin居中"><a href="#2、水平居中二-margin居中" class="headerlink" title="2、水平居中二 margin居中"></a>2、水平居中二 margin居中</h4><p>给子元素添加 margin:0 auto即可。<br>适用于img、div等等，兼容IE8及以上，现代浏览器</p>
+<h4 id="3、完全居中一-table-cell居中"><a href="#3、完全居中一-table-cell居中" class="headerlink" title="3、完全居中一  table-cell居中"></a>3、完全居中一  table-cell居中</h4><p>把父元素的display设置为:table-cell，把父元素的父元素的display设置为:table。<br>同时把父元素设置为:text-align: center;vertical-align :middle; 即可。 </p>
+<p>适用于img等等，兼容IE8及以上，现代浏览器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;table&quot;&gt;</div><div class="line">    &lt;div class=&quot;table-cell&quot;&gt;</div><div class="line">        &lt;img src=&quot;demo.jpg&quot; &gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">.table &#123;</div><div class="line">    width: 100%;</div><div class="line">    height: 500px;</div><div class="line">    display: table;</div><div class="line">&#125;</div><div class="line">.table-cell &#123;</div><div class="line">    display: table-cell;</div><div class="line">    text-align: center;</div><div class="line">    vertical-align :middle;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4、完全居中二-absolute居中"><a href="#4、完全居中二-absolute居中" class="headerlink" title="4、完全居中二  absolute居中"></a>4、完全居中二  absolute居中</h4><p>把父元素设置position属性为relative/absolute/fixed中任意一种。 把子元素设置position属性为absolute，并将四个方向距离值设为0，margin设为auto; </p>
+<p>适用img、div等等，兼容IE8及以上，现代浏览器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;layout&quot;&gt;</div><div class="line">    &lt;img src=&quot;demo.jpg&quot; class=&quot;img&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">.layout &#123;</div><div class="line">    width: 100%;</div><div class="line">    height: 300px;</div><div class="line">    position:relative;</div><div class="line">&#125;</div><div class="line">.img &#123;</div><div class="line">    width: 200px;</div><div class="line">    height: 200px;</div><div class="line">    background: red;</div><div class="line">    position: absolute;</div><div class="line">    left: 0;</div><div class="line">    top: 0;</div><div class="line">    right: 0;</div><div class="line">    bottom: 0;</div><div class="line">    margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>PS: 如果把上述子元素img的width和height属性删除的话，img会撑满整个父元素layout哦~</p>
+<h4 id="5、完全居中三-translate居中"><a href="#5、完全居中三-translate居中" class="headerlink" title="5、完全居中三  translate居中"></a>5、完全居中三  translate居中</h4></blockquote>
+<p>把父元素设置position属性为relative/absolute/fixed中任意一种。<br>把子元素设置position属性为absolute，距离left为50%，top为50%, 然后使用CSS3中的transform中translate移动属性，分别像X轴和Y轴平移-50%。<br>(tips:距离left，top的百分比是针对父元素来说的，而transform的百分比是针对自身来说的。)</p>
+<p>适用img、div等等，兼容IE9及以上，现代浏览器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;layout&quot;&gt;</div><div class="line">    &lt;img src=&quot;demo.jpg&quot; class=&quot;img&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">.layout &#123;</div><div class="line">    width: 100%;</div><div class="line">    height: 300px;</div><div class="line">    position: relative;</div><div class="line">&#125;</div><div class="line">.img &#123;</div><div class="line">    width: 200px;</div><div class="line">    height: 200px;</div><div class="line">    background: red;</div><div class="line">    position: absolute;</div><div class="line">    left: 50%;</div><div class="line">    top: 50%;</div><div class="line"></div><div class="line">    transform: translate(-50%, -50%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>PS:如果知道子元素的width和height的具体属性时，可以在translate中写具体px数。或者去掉transform属性，改用margin-left:-100px和margin-top:-100px(上例中width和height各为200px)。 该方法兼容IE8;</p>
+<h4 id="6、完全居中四-Flexbox居中"><a href="#6、完全居中四-Flexbox居中" class="headerlink" title="6、完全居中四  Flexbox居中"></a>6、完全居中四  Flexbox居中</h4></blockquote>
+<p>对Flexbox了解不是很多，感觉这个是个很神奇的属性，等到时候抽空需要好好补补。</p>
+<p>使用Flexbox只需要给父元素加上下面这段就OK了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">display: flex; </div><div class="line">justify-content: center; </div><div class="line">align-items: center;</div></pre></td></tr></table></figure>
+<p>适用img、div等等，不兼容IE = =，貌似只兼容现代浏览器</p>
+<h4 id="7、完全居中五-calc居中"><a href="#7、完全居中五-calc居中" class="headerlink" title="7、完全居中五  calc居中"></a>7、完全居中五  calc居中</h4><p>calc其实也相当于要知道width和height属性了。</p>
+<p>把父元素设置position属性为relative/absolute/fixed中任意一种。<br>把子元素设置position属性为absolute，距离left为 calc(50% - width / 2)，<br>top为 calc( 50% -  * height / 2)。(width, height 为代指);</p>
+<p>适用img、div等等，兼容IE9及以上，现代浏览器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;layout&quot;&gt;</div><div class="line">    &lt;img src=&quot;demo.jpg&quot; class=&quot;img&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">.layout &#123;</div><div class="line">    width: 100%;</div><div class="line">    height: 300px;</div><div class="line">    position: relative;</div><div class="line">&#125;</div><div class="line">.img &#123;</div><div class="line">    width: 200px;</div><div class="line">    height: 200px;</div><div class="line">    background: red;</div><div class="line">    position: absolute;</div><div class="line"></div><div class="line">    left: calc(50% - 100px);</div><div class="line">    top: calc(50% - 100px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CSS居中一个img或者div元素总结。&lt;/p&gt;
+&lt;h4 id=&quot;1、水平居中一-text-align居中&quot;&gt;&lt;a href=&quot;#1、水平居中一-text-align居中&quot; class=&quot;headerlink&quot; title=&quot;1、水平居中一 text-align居中&quot;&gt;&lt;/
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="http://www.tuzkiss.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自定义组件三之画廊组件</title>
+    <link href="http://www.tuzkiss.com/2015/06/06/learning/front-end/plugins/plugin-gallery/"/>
+    <id>http://www.tuzkiss.com/2015/06/06/learning/front-end/plugins/plugin-gallery/</id>
+    <published>2015-06-06T00:00:00.000Z</published>
+    <updated>2017-02-14T09:03:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2015年6月6日22:37:32，耳边循环着的是douban的某个频道。</p>
+<p>最近因为项目中需要用到一个画廊图片展示，就抽空写了个简易的画廊组件。</p>
+<p>这次使用jquery作为基础类库，基于此开发的这个WEB组件。稍微做了些可以自定义的兼容，DEMO图片如下图。<a href="https://tuzkiss.github.io/web_app/js_animation/BatmanyGallery/index.html" target="_blank" rel="external">具体DEMO地址请猛击！</a></p>
+<p><img src="https://tuzkiss.github.io/images/blog/galleryDemo.png" alt="画廊demo图片"></p>
+<p><strong>该组件的大致开发思想为：用户传入画廊容器的ID，以及一些可选属性。然后根据元素填充大小，实现满容器的图片切换功能，之后根据容器中图片的数量创建包含等量数量的导航条，可以通过click 或 hover 事件触发手动切换画廊图片。以及添加了一个摧毁该画廊的方法。</strong></p>
+<p>首先定义一个构造函数，包括定义该gallery的version和author，以及一些默认的参数。包括动画持续时间，动画间隔（演示），父元素ID，手动切换方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function BatmanGallery()&#123;</div><div class="line">    this.version = &apos;1.0.0&apos;;</div><div class="line">    this.author = &apos;tuzkiss&apos;;</div><div class="line"></div><div class="line">    this.defalutConfig = &#123;</div><div class="line">        // 动画持续时间</div><div class="line">        duration : 1000,</div><div class="line"></div><div class="line">        // 动画延时</div><div class="line">        delay : 5000,</div><div class="line"></div><div class="line">        // 相册容器ID</div><div class="line">        parentId: &apos;body&apos;,</div><div class="line"></div><div class="line">        // 切换方式click / hover</div><div class="line">        eventStyle: &apos;click&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在该构造函数的原型链上拓展方法：</p>
+<p>··· </p>
+<p># </p>
+<p>BatmanGallery.prototype = {</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div></pre></td><td class="code"><pre><div class="line">index : 0,</div><div class="line">length: 0,</div><div class="line">domId : &apos;body&apos;,</div><div class="line">liWidth : 0,</div><div class="line">delay : 5000,</div><div class="line">duration : 1000,</div><div class="line">animation : null,</div><div class="line">isStarted : false,</div><div class="line">isAnimation: false,</div><div class="line">eventStyle: &apos;clcik&apos;,</div><div class="line">init: function (config) &#123;</div><div class="line"></div><div class="line">    // 混合参数</div><div class="line">    var CFG = $.extend(&#123;&#125;,this.defalutConfig, config);</div><div class="line">    this.domId = CFG.parentId;</div><div class="line">    this.duration = CFG.duration;</div><div class="line">    this.delay = CFG.delay;</div><div class="line">    this.eventStyle = CFG.eventStyle;</div><div class="line"></div><div class="line">    this.initLayout().initLength().bindNavMove().bindGalleryMove();    </div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 初始化布局</div><div class="line">initLayout: function () &#123;</div><div class="line">    var parentWidth = $(&apos;#&apos; + this.domId).width(),</div><div class="line">        parentHeight = $(&apos;#&apos; + this.domId).height();</div><div class="line"></div><div class="line">    this.liWidth = parentWidth;</div><div class="line">    $(&apos;#&apos; + this.domId).find(&apos;ul &gt; li &gt; img&apos;).css(&apos;height&apos;, parentHeight);</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 初始化相册长度</div><div class="line">initLength:function () &#123;</div><div class="line">    this.length = $(&apos;#&apos; + this.domId + &apos; &gt; ul&gt;li&apos;).length;</div><div class="line"></div><div class="line">    if (this.length) &#123;</div><div class="line">        this.createNav(this.domId);</div><div class="line">    &#125;</div><div class="line">    return this;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 创建导航nav</div><div class="line">createNav:function () &#123;</div><div class="line"></div><div class="line">    $(&apos;#&apos; + this.domId + &apos;Nav&apos;).remove();</div><div class="line"></div><div class="line">    var nav = &apos;&apos;;</div><div class="line">    nav += &apos;&lt;div id=&quot;&apos; + this.domId + &apos;Nav&quot; class=&quot;gallery-nav&quot;&gt;&lt;ul&gt;&apos;;</div><div class="line">    nav += &apos;&lt;li class=&quot;active&quot;&gt;&apos; + 0 + &apos;&lt;/li&gt;&apos;;</div><div class="line">    for (var i = 1; i &lt; this.length; i ++) &#123;</div><div class="line">        nav += &apos;&lt;li&gt;&apos; + i + &apos;&lt;/li&gt;&apos;;</div><div class="line">    &#125;</div><div class="line">    nav += &apos;&lt;/ul&gt;&lt;/div&gt;&apos;;</div><div class="line"></div><div class="line"></div><div class="line">    $(&apos;#&apos; + this.domId).find(&apos;ul&apos;).append(nav);</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 绑定相册切换</div><div class="line">bindNavMove: function () &#123;</div><div class="line">    var that = this;</div><div class="line"></div><div class="line">    if (this.eventStyle === &apos;click&apos;) &#123;</div><div class="line">        $(&apos;#&apos; + this.domId + &apos;Nav&apos;).find(&apos;li&apos;).unbind().click(function ()&#123;</div><div class="line">            var $this = $(this);</div><div class="line">            if (!$this.hasClass(&apos;active&apos;)) &#123;</div><div class="line"></div><div class="line">                that.index = $this.html();</div><div class="line">                that.isStarted = false;</div><div class="line">                that.bindGalleryMove();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125; else if (this.eventStyle === &apos;hover&apos;) &#123;</div><div class="line">        $(&apos;#&apos; + this.domId + &apos;Nav&apos;).find(&apos;li&apos;).unbind().hover(function ()&#123;</div><div class="line">            var $this = $(this);</div><div class="line">            if (!$this.hasClass(&apos;active&apos;)) &#123;</div><div class="line"></div><div class="line">                that.index = $this.html();</div><div class="line">                that.isStarted = false;</div><div class="line">                that.bindGalleryMove();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 绑定默认切换</div><div class="line">bindGalleryMove: function () &#123;</div><div class="line">    var that = this;</div><div class="line">    if (!this.isStarted) &#123;</div><div class="line">        this.galleryMove();</div><div class="line">        this.isStarted = true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 清除定时器</div><div class="line">    clearInterval(BATMAN_GALLERY_ANIMATION);</div><div class="line">    BATMAN_GALLERY_ANIMATION = null;</div><div class="line"></div><div class="line">    // 重置定时器</div><div class="line">    BATMAN_GALLERY_ANIMATION = setInterval(function ()&#123;</div><div class="line">        that.galleryMove();</div><div class="line">    &#125;, this.delay);</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 相册切换方法</div><div class="line">galleryMove: function () &#123;</div><div class="line">    if (this.isAnimation) &#123;</div><div class="line">        return null;</div><div class="line">    &#125; else &#123;</div><div class="line">        var that = this,</div><div class="line">            $nav = $(&apos;#&apos; + that.domId + &apos;Nav&gt;ul&apos;),</div><div class="line">            marginLeft;</div><div class="line"></div><div class="line">        this.isAnimation = true;</div><div class="line"></div><div class="line">        if (this.index &lt;= this.length - 1) &#123;</div><div class="line">            marginLeft = &apos;-&apos; + (this.index * this.liWidth) + &apos;px&apos;;</div><div class="line">        &#125; else &#123;</div><div class="line">            marginLeft = 0;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        $nav.find(&apos;.active&apos;).removeClass(&apos;active&apos;);</div><div class="line">        $nav.find(&apos;li&apos;).eq(that.index).addClass(&apos;active&apos;);</div><div class="line"></div><div class="line">        // 切换</div><div class="line">        $(&apos;#&apos; + this.domId +  &apos;&gt;ul&apos;).animate(&#123;</div><div class="line">            marginLeft:marginLeft</div><div class="line">        &#125;, this.durations, function () &#123;</div><div class="line"></div><div class="line">            that.isAnimation = false;</div><div class="line"></div><div class="line">            if (that.index &lt; that.length - 1) &#123;</div><div class="line">                that.index ++;</div><div class="line">            &#125; else &#123;</div><div class="line">                 that.index = 0;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;); </div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;</div><div class="line">&#125;,</div><div class="line"></div><div class="line">// 摧毁相册</div><div class="line">destroy: function () &#123;</div><div class="line">    this.index = 0;</div><div class="line">    this.isStarted = false;</div><div class="line">    this.isAnimation = false;</div><div class="line"></div><div class="line">    clearInterval(BATMAN_GALLERY_ANIMATION);</div><div class="line">    BATMAN_GALLERY_ANIMATION = null;</div><div class="line"></div><div class="line">    $(&apos;#&apos; + this.domId + &apos; &gt; ul&apos;).css(&apos;marginLeft&apos;, &apos;0&apos;);</div><div class="line">    $(&apos;#&apos; + this.domId + &apos;Nav&apos;).remove();</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>}<br>···</p>
+<p>通过init函数初始化该gallery，需要传入自定义config对象，包含必须对象parentId（未判断，下次改进）。主要函数为：创建自动切换动画，和创建手动切换导航。</p>
+<p>具体调用方法为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">new BatmanGallery().init(&#123;</div><div class="line">        parentId: &apos;gallery&apos;,</div><div class="line">        delay : 5000,</div><div class="line">        duration : 1000,</div><div class="line">        eventStyle: &apos;click&apos;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><a href="https://tuzkiss.github.io/web_app/js_animation/BatmanyGallery/index.html" target="_blank" rel="external">具体DEMO地址请猛击！</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2015年6月6日22:37:32，耳边循环着的是douban的某个频道。&lt;/p&gt;
+&lt;p&gt;最近因为项目中需要用到一个画廊图片展示，就抽空写了个简易的画廊组件。&lt;/p&gt;
+&lt;p&gt;这次使用jquery作为基础类库，基于此开发的这个WEB组件。稍微做了些可以自定义的
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+      <category term="Plugins" scheme="http://www.tuzkiss.com/tags/Plugins/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端学习（一）- 闭包</title>
+    <link href="http://www.tuzkiss.com/2015/05/28/learning/front-end/javascripts/learning-closure/"/>
+    <id>http://www.tuzkiss.com/2015/05/28/learning/front-end/javascripts/learning-closure/</id>
+    <published>2015-05-28T00:00:00.000Z</published>
+    <updated>2017-02-14T09:05:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于自己前端基础的不扎实，决定花点时间去好好去学习或者先了解下比较薄弱的地方。</p>
+<p>之前多次面试得出的结论是暂时有<br>1、JS闭包<br>2、JS事件<br>3、JS一些其他基础知识等等<br>4、CSS布局<br>5、浏览器兼容性方面<br>6、对于jq库，bootstrap库，以及js框架没有深层的去了解。</p>
+<h3 id="js闭包"><a href="#js闭包" class="headerlink" title="js闭包"></a>js闭包</h3><p>闭包是指有权访问另一个函数作用于内的变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数</p>
+<p>闭包有三个特性：<br>1、函数嵌套函数<br>2、函数内部可以引用外部的参数和变量<br>3、参数和变量不会被垃圾回收机制回收，也就是说一直保存在内存中</p>
+<p>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function add()&#123;</div><div class="line">    var index = 1;</div><div class="line">    return function () &#123;</div><div class="line">        index ++;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var fn = add();</div><div class="line">fn();       // index : 1</div><div class="line">fn();       // index : 2</div><div class="line">fn = null;  // fn被回收</div></pre></td></tr></table></figure>
+<p>闭包会是变量一直保存在内存中，所以如果使用不当的话就会增大内存消耗。</p>
+<p>顺便说下javascript的垃圾回收机制：<br>1、在javascript中，如果一个对象不再被引用吗，那么这个对象就会被GC回收。<br>2、如果两个对象相互引用，而不再被第三者引用，那么这两个对象也会被回收。</p>
+<p>那么闭包的好处在哪？<br>1、可以让一个变量一直保存在内存中<br>2、避免全局变量污染<br>3、私有成员的存在</p>
+<p>又例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function add = (function ()&#123;</div><div class="line">    var index = 1;</div><div class="line">    return function ()&#123;</div><div class="line">        index ++;</div><div class="line">    &#125;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">add();      // index : 1</div><div class="line">add();      // index : 2</div></pre></td></tr></table></figure>
+<p>常用到的一个实例有，绑定点ul下的li元素然后显示对应li元素的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">// 假设有那么一个ul元素</div><div class="line"></div><div class="line">&lt;ul id=&quot;ul&quot;&gt;</div><div class="line">    &lt;li&gt;1&lt;/li&gt;</div><div class="line">    &lt;li&gt;2&lt;/li&gt;</div><div class="line">    &lt;li&gt;3&lt;/li&gt;</div><div class="line">&lt;ul&gt;</div><div class="line"></div><div class="line">// 那么在JS中绑定可以如下</div><div class="line"></div><div class="line">window.onload = function ()&#123;</div><div class="line">    var ul = document.getElementById(&apos;ul&apos;);</div><div class="line">    var li = ul.getElementsByTagName(&apos;li&apos;);</div><div class="line"></div><div class="line">    for (var i = 0, len = li.length; i &lt; len; i ++) &#123;</div><div class="line">        (function(i)&#123;</div><div class="line">            li[i].addEventListener(&apos;click&apos;,alertLiHtml, false);</div><div class="line">        &#125;)(i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function alertLiHtml()&#123;</div><div class="line">    console.log(this);</div><div class="line">    alert(this.innerHTML);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于自己前端基础的不扎实，决定花点时间去好好去学习或者先了解下比较薄弱的地方。&lt;/p&gt;
+&lt;p&gt;之前多次面试得出的结论是暂时有&lt;br&gt;1、JS闭包&lt;br&gt;2、JS事件&lt;br&gt;3、JS一些其他基础知识等等&lt;br&gt;4、CSS布局&lt;br&gt;5、浏览器兼容性方面&lt;br&gt;6、对于jq库，
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+</feed>
