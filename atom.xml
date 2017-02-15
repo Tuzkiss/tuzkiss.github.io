@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tuzkiss.com/"/>
-  <updated>2017-02-07T07:32:33.000Z</updated>
+  <updated>2017-02-15T09:11:07.000Z</updated>
   <id>http://www.tuzkiss.com/</id>
   
   <author>
@@ -16,38 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://www.tuzkiss.com/2017/02/07/hello-world/"/>
-    <id>http://www.tuzkiss.com/2017/02/07/hello-world/</id>
-    <published>2017-02-07T07:32:33.000Z</published>
-    <updated>2017-02-07T07:32:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Player Loader (播放器加载容器)</title>
+    <title>Player Loader - Flash与HTML5播放器统一加载方案</title>
     <link href="http://www.tuzkiss.com/2017/01/01/project/player/player-loader/"/>
     <id>http://www.tuzkiss.com/2017/01/01/project/player/player-loader/</id>
     <published>2017-01-01T00:00:00.000Z</published>
-    <updated>2017-02-14T10:37:44.000Z</updated>
+    <updated>2017-02-15T09:11:07.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一、架构"><a href="#一、架构" class="headerlink" title="一、架构"></a>一、架构</h2><p><strong>背景</strong>： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。</p>
 <p><strong>设想</strong>： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：</p>
@@ -97,7 +70,9 @@ reload: function (callback) {}       // 重新载入播放器
    container: document.getElementById(&apos;player_container&apos;),
    cid: 110
 });
-</code></pre><h2 id="三、存在问题及优化方向"><a href="#三、存在问题及优化方向" class="headerlink" title="三、存在问题及优化方向"></a>三、存在问题及优化方向</h2><h5 id="3-1-目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。"><a href="#3-1-目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。" class="headerlink" title="3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。"></a>3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。</h5><h5 id="3-2-目前使用手动修改-Config-revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。"><a href="#3-2-目前使用手动修改-Config-revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。" class="headerlink" title="3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。"></a>3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。</h5><h5 id="3-3-…"><a href="#3-3-…" class="headerlink" title="3.3 …"></a>3.3 …</h5>]]></content>
+</code></pre><h2 id="三、存在问题及优化方向"><a href="#三、存在问题及优化方向" class="headerlink" title="三、存在问题及优化方向"></a>三、存在问题及优化方向</h2><p>3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。</p>
+<p>3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。</p>
+]]></content>
     
     <summary type="html">
     
@@ -123,9 +98,9 @@ reload: function (callback) {}       // 重新载入播放器
     <link href="http://www.tuzkiss.com/2016/01/27/learning/front-end/javascripts/learning-2016-4/"/>
     <id>http://www.tuzkiss.com/2016/01/27/learning/front-end/javascripts/learning-2016-4/</id>
     <published>2016-01-27T00:00:00.000Z</published>
-    <updated>2017-02-14T09:50:26.000Z</updated>
+    <updated>2017-02-15T08:33:21.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="2016前端学习（四）"><a href="#2016前端学习（四）" class="headerlink" title="2016前端学习（四）"></a>2016前端学习（四）</h1><h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>写过Ajax一般都知道，通过XHR实现Ajax通信的一个主要限制就是<strong>跨域安全策略</strong></p>
+    <content type="html"><![CDATA[<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>写过Ajax一般都知道，通过XHR实现Ajax通信的一个主要限制就是<strong>跨域安全策略</strong></p>
 <p>当然，有些开发中必然少不了跨域开发的问题，所以就出现了CORS</p>
 <h4 id="1、CORS"><a href="#1、CORS" class="headerlink" title="1、CORS"></a>1、CORS</h4><p>CORS （Cross-orgin Resource Sharing） 跨域资源共享。</p>
 <p>CORS的基本思想是，使用自定义的HTTP头部信息让浏览器跟服务器沟通，从而决定请求或相应的成功或失败。</p>
@@ -134,6 +109,7 @@ reload: function (callback) {}       // 重新载入播放器
 <p>CSRF (Cross-site Resource Forgery) 跨站点请求伪造<br>XSS (Cross-site Scripting) 跨站点脚本</p>
 </blockquote>
 <p>当然，目前主流的浏览器都支持XHR的CORS，但是需要服务端的配合修改。那么，机智的前端们总会想出写完美解决的方法，例如JSONP。</p>
+<a id="more"></a>
 <h4 id="2、JSONP"><a href="#2、JSONP" class="headerlink" title="2、JSONP"></a>2、JSONP</h4><p>JSONP （JSON with padding） 填充式JSON 或者说参数式JSON。</p>
 <p>JSONP是目前用的比较广泛的跨域技术。</p>
 <p>JSONP的原理是动态添加script标签，并处理返回的json数据。例如 ：</p>
@@ -146,7 +122,15 @@ reload: function (callback) {}       // 重新载入播放器
     
     <summary type="html">
     
-      &lt;h1 id=&quot;2016前端学习（四）&quot;&gt;&lt;a href=&quot;#2016前端学习（四）&quot; class=&quot;headerlink&quot; title=&quot;2016前端学习（四）&quot;&gt;&lt;/a&gt;2016前端学习（四）&lt;/h1&gt;&lt;h2 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;head
+      &lt;h2 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;headerlink&quot; title=&quot;跨域&quot;&gt;&lt;/a&gt;跨域&lt;/h2&gt;&lt;p&gt;写过Ajax一般都知道，通过XHR实现Ajax通信的一个主要限制就是&lt;strong&gt;跨域安全策略&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当然，有些开发中必然少不了跨域开发的问题，所以就出现了CORS&lt;/p&gt;
+&lt;h4 id=&quot;1、CORS&quot;&gt;&lt;a href=&quot;#1、CORS&quot; class=&quot;headerlink&quot; title=&quot;1、CORS&quot;&gt;&lt;/a&gt;1、CORS&lt;/h4&gt;&lt;p&gt;CORS （Cross-orgin Resource Sharing） 跨域资源共享。&lt;/p&gt;
+&lt;p&gt;CORS的基本思想是，使用自定义的HTTP头部信息让浏览器跟服务器沟通，从而决定请求或相应的成功或失败。&lt;/p&gt;
+&lt;p&gt;有那么两个跨域可能造成的危害&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CSRF (Cross-site Resource Forgery) 跨站点请求伪造&lt;br&gt;XSS (Cross-site Scripting) 跨站点脚本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当然，目前主流的浏览器都支持XHR的CORS，但是需要服务端的配合修改。那么，机智的前端们总会想出写完美解决的方法，例如JSONP。&lt;/p&gt;
     
     </summary>
     
@@ -160,11 +144,12 @@ reload: function (callback) {}       // 重新载入播放器
     <link href="http://www.tuzkiss.com/2016/01/26/learning/front-end/javascripts/learning-2016-3/"/>
     <id>http://www.tuzkiss.com/2016/01/26/learning/front-end/javascripts/learning-2016-3/</id>
     <published>2016-01-26T00:00:00.000Z</published>
-    <updated>2017-02-14T09:50:08.000Z</updated>
+    <updated>2017-02-15T08:34:31.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="三、闭包生成唯一ID"><a href="#三、闭包生成唯一ID" class="headerlink" title="三、闭包生成唯一ID"></a>三、闭包生成唯一ID</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var createUniqueId = function () &#123;</div><div class="line">    &quot;use strict&quot;;</div><div class="line"></div><div class="line">    var _id = 0;</div><div class="line">    return function () &#123;</div><div class="line">        return _id ++;</div><div class="line">    &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var createId = createUniqueId();</div><div class="line"></div><div class="line">createId(); // 0</div><div class="line">createId(); // 1</div><div class="line">createId(); // 2</div><div class="line">createId(); // 3</div></pre></td></tr></table></figure>
 <p>上述代码挺简单的，但是要理解闭包原理还是蛮复杂的。</p>
+<a id="more"></a>
 <p>所谓闭包，在Javascript高级程序设计书中指<strong>有权访问另一个函数作用域中的变量的函数</strong></p>
 <p>理解闭包，首先等先理解<strong>作用域</strong></p>
 <p>所谓作用域主要是指全局作用域和局部作用域，在局部作用域内可以直接读取全局作用域，而全局作用域无法直接读取局部作用域的变量。</p>
@@ -174,7 +159,9 @@ reload: function (callback) {}       // 重新载入播放器
     
     <summary type="html">
     
-      &lt;h2 id=&quot;三、闭包生成唯一ID&quot;&gt;&lt;a href=&quot;#三、闭包生成唯一ID&quot; class=&quot;headerlink&quot; title=&quot;三、闭包生成唯一ID&quot;&gt;&lt;/a&gt;三、闭包生成唯一ID&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;t
+      &lt;h2 id=&quot;三、闭包生成唯一ID&quot;&gt;&lt;a href=&quot;#三、闭包生成唯一ID&quot; class=&quot;headerlink&quot; title=&quot;三、闭包生成唯一ID&quot;&gt;&lt;/a&gt;三、闭包生成唯一ID&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;var createUniqueId = function () &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;quot;use strict&amp;quot;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    var _id = 0;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return function () &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        return _id ++;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;var createId = createUniqueId();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;createId(); // 0&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;createId(); // 1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;createId(); // 2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;createId(); // 3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;上述代码挺简单的，但是要理解闭包原理还是蛮复杂的。&lt;/p&gt;
     
     </summary>
     
@@ -188,12 +175,13 @@ reload: function (callback) {}       // 重新载入播放器
     <link href="http://www.tuzkiss.com/2016/01/25/learning/front-end/javascripts/learning-2016-2/"/>
     <id>http://www.tuzkiss.com/2016/01/25/learning/front-end/javascripts/learning-2016-2/</id>
     <published>2016-01-25T00:00:00.000Z</published>
-    <updated>2017-02-14T09:49:44.000Z</updated>
+    <updated>2017-02-15T08:34:50.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前总结了基本类型的判断和检测，现在来总结下Javascript中对象的原型和继承</p>
 <h2 id="二、对象与原型"><a href="#二、对象与原型" class="headerlink" title="二、对象与原型"></a>二、对象与原型</h2><p>首先建立各一个简单的对象</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &apos;tuzkiss&apos;;</div><div class="line">person.age = 24;</div><div class="line">person.job = &apos;Front-end developer&apos;;</div><div class="line"></div><div class="line">person.sayHi = function () &#123;</div><div class="line">    alert(this.name)</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>在ECMAScript中有两种属性，<strong>数据属性</strong>和<strong>访问器属性</strong>。</p>
+<a id="more"></a>
 <p><strong>数据属性</strong> ： 包含一个数据值位置，在这个位置可以读取或者写入值。有4个特性<br>1、【Configurable】 ： 表示是否通过delete删除属性， 是是否能修改属性的特性， 或者是否能把修改成访问器属性。默认为true。<br>2、【Enumerable】 : 表示能否通过for-in循环返回属性。默认为true。<br>3、【Writable】 : 表示能否修改属性的值。默认为true。<br>4、【Value】 : 包含这个属性的值。默认值为undefined。</p>
 <p>如果要修改默认属性的特性的话，必须使用ECMAScript5中的<strong>Object.defineProperty()</strong>方法。这个方法介绍三个参数，<strong>属性所在的对象</strong>， <strong>属性的名称</strong>， <strong>一个描述符的对象</strong>。 描述符的属性是上面4种种的。</p>
 <p>例如 ： </p>
@@ -232,7 +220,9 @@ reload: function (callback) {}       // 重新载入播放器
     <summary type="html">
     
       &lt;p&gt;之前总结了基本类型的判断和检测，现在来总结下Javascript中对象的原型和继承&lt;/p&gt;
-&lt;h2 id=&quot;二、对象与原型&quot;&gt;&lt;a href=&quot;#二、对象与原型&quot; class=&quot;headerlink&quot; title=&quot;二、对象与原型&quot;&gt;&lt;/a&gt;二、对象与原型&lt;/h2&gt;&lt;p&gt;首
+&lt;h2 id=&quot;二、对象与原型&quot;&gt;&lt;a href=&quot;#二、对象与原型&quot; class=&quot;headerlink&quot; title=&quot;二、对象与原型&quot;&gt;&lt;/a&gt;二、对象与原型&lt;/h2&gt;&lt;p&gt;首先建立各一个简单的对象&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;var person = new Object();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;person.name = &amp;apos;tuzkiss&amp;apos;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;person.age = 24;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;person.job = &amp;apos;Front-end developer&amp;apos;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;person.sayHi = function () &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    alert(this.name)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在ECMAScript中有两种属性，&lt;strong&gt;数据属性&lt;/strong&gt;和&lt;strong&gt;访问器属性&lt;/strong&gt;。&lt;/p&gt;
     
     </summary>
     
@@ -246,10 +236,11 @@ reload: function (callback) {}       // 重新载入播放器
     <link href="http://www.tuzkiss.com/2016/01/24/learning/front-end/javascripts/learning-2016-1/"/>
     <id>http://www.tuzkiss.com/2016/01/24/learning/front-end/javascripts/learning-2016-1/</id>
     <published>2016-01-24T00:00:00.000Z</published>
-    <updated>2017-02-14T09:43:26.000Z</updated>
+    <updated>2017-02-15T09:25:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前说了那么多雄心壮志的话，包括喝了浓浓的鸡汤，总要做点什么咯？是吧，没有人可以动动嘴皮子或者码点字就去改变世界的（特定的人除外）。so， 向着前端架构师的方向，有距离不可怕，可怕的是想要前进的渴望和信仰。</p>
-<p>会慢慢总结一些关于前端学习方面的知识，同时也要跟上看书的节奏。<br>首先先回顾下这些呗，听说是某个面试官leader出的题：js 数据类型以及判断，原型和继承，基于闭包实现唯一生成id，跨域，jsonp 具体实现代码，dom 事件和自定义事件系统，前端路由，具体组件api设计和开发；css 常用布局属性，盒模型相关，position，sticky 效果，flex 布局</p>
+<p>会慢慢总结一些关于前端学习方面的知识，同时也要跟上看书的节奏。<br>首先先回顾下这些呗，听说是某个面试官leader出的题：js 数据类型以及判断，原型和继承，基于闭包实现唯一生成id，跨域，jsonp 具体实现代码，dom事件和自定义事件系统，前端路由，具体组件api设计和开发；css 常用布局属性，盒模型相关，position，sticky 效果，flex 布局。</p>
+<a id="more"></a>
 <h2 id="一、JS数据类型已经判断"><a href="#一、JS数据类型已经判断" class="headerlink" title="一、JS数据类型已经判断"></a>一、JS数据类型已经判断</h2><p>javascript中的数据类型主要分为以下几种：</p>
 <p><strong>1、Number</strong><br><strong>2、String</strong><br><strong>3、Boolean</strong><br><strong>4、Null</strong><br><strong>5、Undefined</strong><br><strong>6、Object</strong></p>
 <p>前五种是JS的基本类型，最后一种Object 包括几种特殊的类型，包括有Function, Array等等。</p>
@@ -283,7 +274,7 @@ reload: function (callback) {}       // 重新载入播放器
     <summary type="html">
     
       &lt;p&gt;之前说了那么多雄心壮志的话，包括喝了浓浓的鸡汤，总要做点什么咯？是吧，没有人可以动动嘴皮子或者码点字就去改变世界的（特定的人除外）。so， 向着前端架构师的方向，有距离不可怕，可怕的是想要前进的渴望和信仰。&lt;/p&gt;
-&lt;p&gt;会慢慢总结一些关于前端学习方面的知识，同时也要跟上看
+&lt;p&gt;会慢慢总结一些关于前端学习方面的知识，同时也要跟上看书的节奏。&lt;br&gt;首先先回顾下这些呗，听说是某个面试官leader出的题：js 数据类型以及判断，原型和继承，基于闭包实现唯一生成id，跨域，jsonp 具体实现代码，dom事件和自定义事件系统，前端路由，具体组件api设计和开发；css 常用布局属性，盒模型相关，position，sticky 效果，flex 布局。&lt;/p&gt;
     
     </summary>
     
@@ -906,6 +897,44 @@ reload: function (callback) {}       // 重新载入播放器
     
     
       <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自定义组件二之分页组件</title>
+    <link href="http://www.tuzkiss.com/2015/05/04/learning/front-end/plugins/plugin-paging/"/>
+    <id>http://www.tuzkiss.com/2015/05/04/learning/front-end/plugins/plugin-paging/</id>
+    <published>2015-05-04T00:00:00.000Z</published>
+    <updated>2017-02-14T08:57:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在是北京时间的2015年5月4日13:43:34，耳边听着的是shuffle中的歌曲。 刚准备把之前做的自定义组件总结一下，顺便解决了下之前没想清楚的小BUG，哈哈:joy:</p>
+<p>因为之前在项目中需要用到分页组件，然后想到自己反正最近也在看一些关于开发自定义组件的知识，就想着要不自己尝试写一下咯，这样也能很好的适应项目的需求。然后。。就花了半天写了个差不多能用的分页组件。:joy:</p>
+<p>分页组件大致思想为:传入一些跟生成分页有关的信息以及一个点击分页是的callback。因为之前做的是基于ajax的数据展现成table，所以分页变换也是在本页中展现，而不是通过页面挑战。</p>
+<p>首先使用构造器函数定义一个分页函数: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function Paging() &#123;</div><div class="line">    this.version = &apos;1.1.4&apos;;</div><div class="line">    this.author = &apos;TuzK1ss&apos;;</div><div class="line"></div><div class="line">    this.config = &#123;</div><div class="line">        pageSize: 10,</div><div class="line">        pageIndex: 1,</div><div class="line">        total: 10,</div><div class="line">        parentId: &apos;document.body&apos;,</div><div class="line">        align : &apos;right&apos;,</div><div class="line">        callback: function (index) &#123;</div><div class="line">            console.log(index);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    this.align = &apos;right&apos;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>首先定义了版本号，作者以及对其方式，以及一个默认对象config。<br>Config对象中包括需要传入的pageSize（每页数据条数），pageIndex（当前页），total（总条数），parentId（分页生成的父节点ID），align（对齐方式）， callback（点击每页触发回发事件）。</p>
+<p>然后在构造器中拓展其prototype，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div></pre></td><td class="code"><pre><div class="line">Paging.prototype = &#123;</div><div class="line">    init: function (config) &#123;</div><div class="line">        var CFG = this.mixConfig(this.config, config);</div><div class="line"></div><div class="line">        var domId = CFG.parentId,</div><div class="line">            size = CFG.pageSize,</div><div class="line">            index = CFG.pageIndex,</div><div class="line">            total = CFG.total,</div><div class="line">            callback = CFG.callback;</div><div class="line"></div><div class="line">        this.align = CFG.align;</div><div class="line"></div><div class="line">        this.renderPaging(domId, size, index, total, callback)</div><div class="line">            .pagingClickHandler(domId, size, total, callback)</div><div class="line">            .formSubmitHandler(domId, size, total, callback);</div><div class="line"></div><div class="line">        return this;</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    mixConfig: function (defaultConfig, config) &#123;</div><div class="line">        for (var i in defaultConfig) &#123;</div><div class="line">            config[i] = config[i] || defaultConfig[i];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        config.pageIndex = config.pageIndex &gt; Math.ceil(config.total / config.pageSize) ? Math.ceil(config.total / config.pageSize) : config.pageIndex;</div><div class="line"></div><div class="line">        return config;</div><div class="line">    &#125;,</div><div class="line">    renderPaging: function (domId, size, index, total, callback) &#123;</div><div class="line">        var dom = document.getElementById(domId),</div><div class="line">            totalPage = Math.ceil(total / size),</div><div class="line">            last = 0,</div><div class="line">            html = &apos;&apos;;</div><div class="line"></div><div class="line"></div><div class="line">        dom.innerHTML = &quot;&quot;;</div><div class="line"></div><div class="line">        html += &apos;&lt;ul class=&quot;paging-ul paging-&apos; + this.align + &apos;&quot;&gt;&apos;;</div><div class="line"></div><div class="line">        html += &apos;&lt;li class=&quot;prev&quot;&gt;&lt;a data-size=&quot;prev&quot; href=&quot;javascript:;&quot;&gt;上一页&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line"></div><div class="line">        index = Math.ceil(index);</div><div class="line"></div><div class="line">        if (totalPage &lt;= 7) &#123;</div><div class="line">            // 当分页总页数小于7时全部显示</div><div class="line"></div><div class="line">            if (index &lt; 4 &amp;&amp; totalPage &lt; 5) &#123;</div><div class="line">                last = totalPage;</div><div class="line">            &#125; else if (index &lt; 4 &amp;&amp; totalPage &gt;= 5) &#123;</div><div class="line">                last = 5;</div><div class="line">            &#125; else if (index &lt; 5 &amp;&amp; totalPage &gt;= 6) &#123;</div><div class="line">                last = 6;</div><div class="line">            &#125; else &#123;</div><div class="line">                last = 7;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            for (var i = 1; i &lt; last + 1; i++) &#123;</div><div class="line">                html += &apos;&lt;li class=&quot;item&quot;&gt;&lt;a data-size=&quot;&apos; + i + &apos;&quot; href=&quot;javascript:;&quot;&gt;&apos; + i + &apos;&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; else if (totalPage &gt; 7 &amp;&amp; index &lt;= 5) &#123;</div><div class="line">            last = index + 2 &lt; 5 ? 5 : index + 2;</div><div class="line"></div><div class="line">            for (var i = 1; i &lt; last + 1; i++) &#123;</div><div class="line">                html += &apos;&lt;li class=&quot;item&quot;&gt;&lt;a data-size=&quot;&apos; + i + &apos;&quot; href=&quot;javascript:;&quot;&gt;&apos; + i + &apos;&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            html += &apos;&lt;li class=&quot;item dot&quot;&gt;...&lt;/li&gt;&apos;;</div><div class="line"></div><div class="line">        &#125; else if (totalPage &gt; 7 &amp;&amp; index &gt; 5) &#123;</div><div class="line">            // 当前页大于第五页</div><div class="line"></div><div class="line">            // 前两页 + ...</div><div class="line">            for (var i = 1; i &lt; 3; i++) &#123;</div><div class="line">                html += &apos;&lt;li class=&quot;item&quot;&gt;&lt;a data-size=&quot;&apos; + i + &apos;&quot; href=&quot;javascript:;&quot;&gt;&apos; + i + &apos;&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            html += &apos;&lt;li class=&quot;item dot&quot;&gt;...&lt;/li&gt;&apos;;</div><div class="line"></div><div class="line">            // 后五页</div><div class="line">            if (index + 2 &lt; totalPage) &#123;</div><div class="line"></div><div class="line">                for (var i = index - 2; i &lt; index + 3; i++) &#123;</div><div class="line">                    html += &apos;&lt;li class=&quot;item&quot;&gt;&lt;a data-size=&quot;&apos; + i + &apos;&quot; href=&quot;javascript:;&quot;&gt;&apos; + i + &apos;&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line">                &#125;</div><div class="line">                html += &apos;&lt;li class=&quot;item dot&quot;&gt;...&lt;/li&gt;&apos;;</div><div class="line"></div><div class="line">            &#125; else &#123;</div><div class="line"></div><div class="line">                for (var i = index - 2; i &lt; totalPage + 1; i++) &#123;</div><div class="line">                    html += &apos;&lt;li class=&quot;item&quot;&gt;&lt;a data-size=&quot;&apos; + i + &apos;&quot; href=&quot;javascript:;&quot;&gt;&apos; + i + &apos;&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        html += &apos;&lt;li class=&quot;next&quot;&gt;&lt;a data-size=&quot;next&quot;  href=&quot;javascript:;&quot;&gt;下一页&lt;/a&gt;&lt;/li&gt;&apos;;</div><div class="line"></div><div class="line">        html += &apos;&lt;li class=&quot;paging-total&quot;&gt;&apos;;</div><div class="line">        html += (&apos;共&apos; + total + &apos;条数据，&apos; + &apos;&lt;span id=&quot;&apos; + domId + &apos;PageForm&quot; class=&quot;form&quot;&gt;总计&amp;nbsp;&lt;span id=&quot;&apos; + domId + &apos;Total&quot;&gt;&apos; + totalPage + &apos;&lt;/span&gt;&amp;nbsp;页, 到第&amp;nbsp;&lt;input id=&quot;&apos; + domId + &apos;Index&quot; type=&quot;number&quot; value=&quot;&apos; + index + &apos;&quot; min=&quot;1&quot; max=&quot;&apos; + totalPage + &apos;&quot; class=&quot;paging-index&quot; value=&quot;&apos; + index + &apos;&quot;&lt;/input&gt;&amp;nbsp;&lt;/div&gt;页 &apos; +</div><div class="line">                &apos;&lt;input id=&quot;&apos; + domId + &apos;Comfirm&quot; class=&quot;go-paging&quot; type=&quot;submit&quot;  value=&quot;确定&quot;&gt;&lt;/span&gt;&apos;);</div><div class="line">        html += &apos;&lt;/li&gt;&lt;/ul&gt;&apos;;</div><div class="line"></div><div class="line">        dom.innerHTML = html;</div><div class="line"></div><div class="line">        this.readerActiveLi(domId, index, totalPage).formSubmitHandler(domId, size, total, callback);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    readerActiveLi: function (domId, index, totalPage) &#123;</div><div class="line">        var item = document.querySelectorAll(&apos;#&apos; + domId + &apos; .item a&apos;),</div><div class="line">            indexA,</div><div class="line">            tmp, tpp;</div><div class="line"></div><div class="line">        if (1 == index) &#123;</div><div class="line">            tmp = document.querySelector(&apos;#&apos; + domId + &apos; .prev a&apos;);</div><div class="line">            tmp.style.color = &quot;#999&quot;;</div><div class="line">            tmp.setAttribute(&apos;disabled&apos;, &apos;true&apos;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (totalPage == index) &#123;</div><div class="line">            tmp = document.querySelector(&apos;#&apos; + domId + &apos; .next a&apos;);</div><div class="line">            tmp.style.color = &quot;#999&quot;;</div><div class="line">            tmp.setAttribute(&apos;disabled&apos;, &apos;true&apos;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (var i = 0, len = item.length; i &lt; len; i++) &#123;</div><div class="line">            var indexA = item[i].getAttribute(&apos;data-size&apos;) || 0;</div><div class="line"></div><div class="line">            if (index == indexA) &#123;</div><div class="line">                item[i].parentNode.className += &apos; active-li&apos;;</div><div class="line">                item[i].setAttribute(&apos;disabled&apos;, &apos;true&apos;);</div><div class="line">                return this;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    pagingClickHandler: function (domId, size, total, callback) &#123;</div><div class="line">        var that = this;</div><div class="line"></div><div class="line">        var paging = document.getElementById(domId);</div><div class="line">        paging.addEventListener(&apos;click&apos;, function (e) &#123;</div><div class="line">            e = e || window.event;</div><div class="line">            var target = e.target || e.srcElement;</div><div class="line"></div><div class="line">            var index = target.getAttribute(&apos;data-size&apos;),</div><div class="line">                isDisabled = target.getAttribute(&apos;disabled&apos;),</div><div class="line">                //total = document.getElementById(domId + &apos;Total&apos;).innerHTML,</div><div class="line">                active = parseInt(document.querySelector(&apos;#&apos; + domId + &apos; .active-li a&apos;).getAttribute(&apos;data-size&apos;));</div><div class="line"></div><div class="line">            if (index &amp;&amp; !isDisabled) &#123;</div><div class="line">                if (index === &apos;prev&apos;) &#123;</div><div class="line">                    that.renderPaging(domId, size, active - 1, total, callback);</div><div class="line">                &#125; else if (index === &apos;next&apos;) &#123;</div><div class="line">                    that.renderPaging(domId, size, active + 1, total, callback);</div><div class="line">                &#125; else &#123;</div><div class="line">                    that.renderPaging(domId, size, index, total, callback);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                that.clickHandlerCallback(domId, callback);</div><div class="line">            &#125;</div><div class="line">        &#125;, false);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;,</div><div class="line">    getIndex: function (domId) &#123;</div><div class="line">        var index = parseInt(document.querySelector(&apos;#&apos; + domId + &apos; .active-li a&apos;).getAttribute(&apos;data-size&apos;));</div><div class="line">        return index;</div><div class="line">    &#125;,</div><div class="line">    clickHandlerCallback: function (domId, callback) &#123;</div><div class="line">        var index = this.getIndex(domId);</div><div class="line">        callback(index);</div><div class="line">    &#125;,</div><div class="line">    formSubmitHandler: function (domId, size, total, callback) &#123;</div><div class="line">        var that = this,</div><div class="line">            input = document.getElementById(domId + &apos;Comfirm&apos;);;</div><div class="line"></div><div class="line">        input.addEventListener(&apos;click&apos;, function (e) &#123;</div><div class="line">            e = e || window.event;</div><div class="line">            e.preventDefault();</div><div class="line">            var totalPage = Math.ceil(total / size);</div><div class="line"></div><div class="line">            var form = document.getElementById(domId + &apos;PageForm&apos;),</div><div class="line">                index = parseInt(form.getElementsByTagName(&apos;input&apos;)[0].value),</div><div class="line">                active = that.getIndex(domId);</div><div class="line"></div><div class="line">            if (index !== active &amp;&amp; index &lt;= totalPage  &amp;&amp; index &gt; 0) &#123;</div><div class="line">                that.renderPaging(domId, size, index, total, callback)</div><div class="line">                    .clickHandlerCallback(domId, callback);</div><div class="line">            &#125; else if (index !== active) &#123;</div><div class="line">                form.getElementsByTagName(&apos;input&apos;)[0].value = 1;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;, false);</div><div class="line"></div><div class="line">        return this;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>拓展为几个方法，分别为<br>init（初始化函数）<br>mixConfig（混合自定义config和默认config）<br>renderPaging（渲染分页组件）<br>readerActiveLi（激活当前页面的页码li）<br>pagingClickHandler（点击页码触发事件，包括上、下一页等）<br>getIndex（获取当前激活页码，暴露给外部可以使用）<br>clickHandlerCallback（触发回发事件）<br>formSubmitHandler（点击跳转确定按钮触发事件）</p>
+<p>当然后期可能还会有一些其他的方法加入进来例如更改skin， 重新渲染reReader，摧毁destroy等等。</p>
+<p>具体的调用函数为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">new Paging().init(&#123;</div><div class="line">              pageSize: 10,</div><div class="line">             pageIndex: 1,</div><div class="line">             total: 18,</div><div class="line">              parentId: &apos;newsPaging&apos;,</div><div class="line">              callback: function (index) &#123;</div><div class="line">                                alert(index);</div><div class="line">             &#125;</div><div class="line">     &#125;);</div></pre></td></tr></table></figure>
+<p>成功调用之后会出现:<br><img src="http://tuzkiss.github.io/images/blog/pagingDemo.png" alt="分页demo图片"></p>
+<p><a href="http://tuzkiss.github.io/web_app/js_animation/Paging%20module/Version%201.1.0/Paging%20module%20demo.html" target="_blank" rel="external">具体DEMO请猛击！</a></p>
+<p>请勿吐槽文件命名，下次会注意哈:joy:</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在是北京时间的2015年5月4日13:43:34，耳边听着的是shuffle中的歌曲。 刚准备把之前做的自定义组件总结一下，顺便解决了下之前没想清楚的小BUG，哈哈:joy:&lt;/p&gt;
+&lt;p&gt;因为之前在项目中需要用到分页组件，然后想到自己反正最近也在看一些关于开发自定义组件
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://www.tuzkiss.com/tags/Javascript/"/>
+    
+      <category term="Plugins" scheme="http://www.tuzkiss.com/tags/Plugins/"/>
     
   </entry>
   
