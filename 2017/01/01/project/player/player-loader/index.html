@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/uploads/favicon.ico?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="一、架构背景： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。 设想： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：">
+<meta name="keywords" content="Javascript,Player,BILIBILI,Player-Loader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Player Loader - Flash与HTML5播放器统一加载方案">
+<meta property="og:url" content="http://blog.tuzkiss.com/2017/01/01/project/player/player-loader/index.html">
+<meta property="og:site_name" content="TuzK1ss&#39;s Home">
+<meta property="og:description" content="一、架构背景： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。 设想： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://7xoebg.com1.z0.glb.clouddn.com/170208160913.png?imageMogr2/strip">
+<meta property="og:updated_time" content="2017-02-15T09:11:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Player Loader - Flash与HTML5播放器统一加载方案">
+<meta name="twitter:description" content="一、架构背景： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。 设想： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：">
+<meta name="twitter:image" content="http://7xoebg.com1.z0.glb.clouddn.com/170208160913.png?imageMogr2/strip">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.tuzkiss.com/2017/01/01/project/player/player-loader/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Player Loader - Flash与HTML5播放器统一加载方案 | TuzK1ss's Home</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TuzK1ss's Home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">💻 Be humble and grateful but never satisfied.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2017/01/01/project/player/player-loader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TuzK1ss">
+      <meta itemprop="description" content="TuzK1ss's Blog">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TuzK1ss's Home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Player Loader - Flash与HTML5播放器统一加载方案
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-01T00:00:00+08:00">2017-01-01</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-02-15 17:11:07" itemprop="dateModified" datetime="2017-02-15T17:11:07+08:00">2017-02-15</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、架构"><a href="#一、架构" class="headerlink" title="一、架构"></a>一、架构</h2><p><strong>背景</strong>： 页面中需要使用Flash播放器或HTML5播放器，同时播放器会与页面进行某些交互。已知调用Flash播放器的方法和HTML5播放器的方法不一致，尽量少改动页面前端代码。</p>
+<p><strong>设想</strong>： 建立一个第三方播放器加载容器文件，通过播放器加载容器文件来加载Flash播放器或HTML5播放器，同时暴露出部分API与页面交互。如下图：</p>
+<p><img src="http://7xoebg.com1.z0.glb.clouddn.com/170208160913.png?imageMogr2/strip" alt></p>
+<a id="more"></a>
+
+<p>情况如下：</p>
+<h4 id="1-1、初次加载，默认Flash-播放器："><a href="#1-1、初次加载，默认Flash-播放器：" class="headerlink" title="1.1、初次加载，默认Flash 播放器："></a>1.1、初次加载，默认Flash 播放器：</h4><p> <code>① （创建实例，准备加载Flash播放器） -&gt; ②（加载并实例化Flash播放器）-&gt; ③ （成功创建，并触发回调函数）</code></p>
+<h4 id="1-2、Flash播放器切换至HTML5-播放器"><a href="#1-2、Flash播放器切换至HTML5-播放器" class="headerlink" title="1.2、Flash播放器切换至HTML5 播放器"></a>1.2、Flash播放器切换至HTML5 播放器</h4><ul>
+<li>如果该浏览器支持HTML5播放器，则：<code>③（准备切换至HTML5播放器） -&gt; ①（检测该浏览器是否支持HTML5播放器，如果支持） -&gt; ④ （成功加载并实例化HTML5播放器）</code></li>
+<li>如果该浏览器不支持HTML5播放器，则：<code>（准备切换至HTML5播放器） -&gt; ①（检测该浏览器是否支持HTML5播放器，如果不支持） -&gt; ② （重新创建Flash播放器）</code></li>
+</ul>
+<h4 id="1-3、HTML5播放器切换至Flash播放器："><a href="#1-3、HTML5播放器切换至Flash播放器：" class="headerlink" title="1.3、HTML5播放器切换至Flash播放器："></a>1.3、HTML5播放器切换至Flash播放器：</h4><p> <code>⑤（准备切换至Flash播放器） -&gt; ①（准备加载Flash播放器） -&gt; ② （成功加载Flash播放器）</code></p>
+<h4 id="1-4、再次加载时，会根据上次使用播放器类型："><a href="#1-4、再次加载时，会根据上次使用播放器类型：" class="headerlink" title="1.4、再次加载时，会根据上次使用播放器类型："></a>1.4、再次加载时，会根据上次使用播放器类型：</h4><ul>
+<li>若为Flash播放器，则为： <code>① -&gt; ②</code></li>
+<li>若为HTML5播放器, 则为：  <code>① -&gt; ④</code></li>
+</ul>
+<h4 id="1-5、外部调用播放器API时，则会根据播放器类型："><a href="#1-5、外部调用播放器API时，则会根据播放器类型：" class="headerlink" title="1.5、外部调用播放器API时，则会根据播放器类型："></a>1.5、外部调用播放器API时，则会根据播放器类型：</h4><ul>
+<li>若为Flash播放器，则为： <code>① -&gt; ②</code></li>
+<li>若为HTML5播放器, 则为：  <code>① -&gt; ④</code></li>
+</ul>
+<h2 id="二、实现"><a href="#二、实现" class="headerlink" title="二、实现"></a>二、实现</h2><h4 id="2-1、概述"><a href="#2-1、概述" class="headerlink" title="2.1、概述"></a>2.1、概述</h4><p>使用单例模式，创建一个名为EmbedPlayer的构造器函数，传入创建播放器所需的参数，根据用户选择实例化Flash播放器或者HTML5播放器，并绑定外部调用API接口函数。</p>
+<h4 id="2-2、默认配置项"><a href="#2-2、默认配置项" class="headerlink" title="2.2、默认配置项"></a>2.2、默认配置项</h4><pre><code>var config = {
+ revision: &apos;&apos;,       // 版本号, 用于记录和更新缓存
+ defaultType: &apos;&apos;,  // 播放器默认类型
+ localName: &apos;&apos;,    // 播放器LocalStorage Key Name
+ typeMap: {},     // 播放器类型枚举
+ mapping: {},     //  Feedback 弹窗隐射表
+ autoFeedback: {},   // 自动Feedback 弹窗
+ options: {},       //  播放器通用参数
+ flashvars: {},     // 播放器
+ param: {},         // Flash播放器参数
+ prefilter: function (options) {}    // 前置过滤函数 
+};</code></pre><h4 id="2-3、API接口"><a href="#2-3、API接口" class="headerlink" title="2.3、API接口"></a>2.3、API接口</h4><pre><code>// Construcor 
+EmbedPlayer: function (options) {}
+
+// Portotype Method
+done: function () {}        // 成功回调函数
+loader: function () {type, callback}      // 切换播放器
+reload: function () {callback}      // 重新载入播放器
+
+// Static Method
+feedback: function () {}  // 显示播放器反馈面板
+loader: function (type, callback) {}       // 切换播放器
+reload: function (callback) {}       // 重新载入播放器</code></pre><h4 id="2-4、Example"><a href="#2-4、Example" class="headerlink" title="2.4、Example"></a>2.4、Example</h4><pre><code>var player = new EmbedPlayer({
+   container: document.getElementById(&apos;player_container&apos;),
+   cid: 110
+});</code></pre><h2 id="三、存在问题及优化方向"><a href="#三、存在问题及优化方向" class="headerlink" title="三、存在问题及优化方向"></a>三、存在问题及优化方向</h2><p>3.1 目前使用单例模式，无法同时创建多个播放器实例，无法在同个页面使用多个播放器。后期可以考虑使用其他设计模式。</p>
+<p>3.2 目前使用手动修改 Config.revision来更新版本和缓存，每次修改播放器文件需要同时修改此文件。后期考虑是否可以优化。</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/Player/" rel="tag"># Player</a>
+          
+            <a href="/tags/BILIBILI/" rel="tag"># BILIBILI</a>
+          
+            <a href="/tags/Player-Loader/" rel="tag"># Player-Loader</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/27/learning/front-end/javascripts/learning-2016-4/" rel="next" title="2016前端学习（四）">
+                <i class="fa fa-chevron-left"></i> 2016前端学习（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/21/project/build-tools/webpack-workflow/" rel="prev" title="Webpack Workflow">
+                Webpack Workflow <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="TuzK1ss">
+            
+              <p class="site-author-name" itemprop="name">TuzK1ss</p>
+              <div class="site-description motion-element" itemprop="description">TuzK1ss's Blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、架构"><span class="nav-number">1.</span> <span class="nav-text">一、架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1、初次加载，默认Flash-播放器："><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1、初次加载，默认Flash 播放器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2、Flash播放器切换至HTML5-播放器"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2、Flash播放器切换至HTML5 播放器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3、HTML5播放器切换至Flash播放器："><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3、HTML5播放器切换至Flash播放器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4、再次加载时，会根据上次使用播放器类型："><span class="nav-number">1.0.4.</span> <span class="nav-text">1.4、再次加载时，会根据上次使用播放器类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5、外部调用播放器API时，则会根据播放器类型："><span class="nav-number">1.0.5.</span> <span class="nav-text">1.5、外部调用播放器API时，则会根据播放器类型：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实现"><span class="nav-number">2.</span> <span class="nav-text">二、实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1、概述"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2、默认配置项"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2、默认配置项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3、API接口"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3、API接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4、Example"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.4、Example</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、存在问题及优化方向"><span class="nav-number">3.</span> <span class="nav-text">三、存在问题及优化方向</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TuzK1ss</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

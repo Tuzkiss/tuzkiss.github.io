@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/uploads/favicon.ico?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy: 一、项目简述该项目名字叫做 “独角兽”，目前线上地址为 地址 ， 后台使用php + mysql , 使用twig模板引擎，前端采用了HTML5 + ES6 + SASS，使用自动化构建工具gulp编译sass和es6，同时为静态文件添加md5后缀。">
+<meta name="keywords" content="ES6,SASS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6+SASS 项目总结">
+<meta property="og:url" content="http://blog.tuzkiss.com/2015/12/17/project/website/unicornstartup/index.html">
+<meta property="og:site_name" content="TuzK1ss&#39;s Home">
+<meta property="og:description" content="现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy: 一、项目简述该项目名字叫做 “独角兽”，目前线上地址为 地址 ， 后台使用php + mysql , 使用twig模板引擎，前端采用了HTML5 + ES6 + SASS，使用自动化构建工具gulp编译sass和es6，同时为静态文件添加md5后缀。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-02-16T09:44:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6+SASS 项目总结">
+<meta name="twitter:description" content="现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy: 一、项目简述该项目名字叫做 “独角兽”，目前线上地址为 地址 ， 后台使用php + mysql , 使用twig模板引擎，前端采用了HTML5 + ES6 + SASS，使用自动化构建工具gulp编译sass和es6，同时为静态文件添加md5后缀。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.tuzkiss.com/2015/12/17/project/website/unicornstartup/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ES6+SASS 项目总结 | TuzK1ss's Home</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TuzK1ss's Home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">💻 Be humble and grateful but never satisfied.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2015/12/17/project/website/unicornstartup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TuzK1ss">
+      <meta itemprop="description" content="TuzK1ss's Blog">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TuzK1ss's Home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6+SASS 项目总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2015-12-17 00:00:00" itemprop="dateCreated datePublished" datetime="2015-12-17T00:00:00+08:00">2015-12-17</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-02-16 17:44:59" itemprop="dateModified" datetime="2017-02-16T17:44:59+08:00">2017-02-16</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在是北京时间的2015年12月17日00:17:28，刚忙完上线的站点，然后准备把该项目总结一下，不然总觉得拖着拖着又不了了之了。:joy:</p>
+<h3 id="一、项目简述"><a href="#一、项目简述" class="headerlink" title="一、项目简述"></a>一、项目简述</h3><p>该项目名字叫做 “独角兽”，目前线上地址为 <a href="http://unicornstartup.me/" target="_blank" rel="noopener">地址</a> ， 后台使用php + mysql , 使用twig模板引擎，前端采用了HTML5 + ES6 + SASS，使用自动化构建工具gulp编译sass和es6，同时为静态文件添加md5后缀。</p>
+<a id="more"></a>
+
+<h3 id="二、项目准备"><a href="#二、项目准备" class="headerlink" title="二、项目准备"></a>二、项目准备</h3><p>后台不需要考虑，前端使用gulp作为自动化构建基础。</p>
+<p><a href="https://github.com/Tuzkiss/tuzkiss.github.io/issues/32" target="_blank" rel="noopener">gulp基础构建请移步至gulp学习一</a></p>
+<p>主要的gulp流程为 【clean】 =&gt; 【html】 =&gt;【sass】 =&gt; 【es6】</p>
+<p>并同时添加 3个watch， 用于监控文件改变实时生成最新的文件（貌似最新有个叫做热更新的，等有时间了可以研究下看看）</p>
+<p>主要的task为【sass】 和【es6】,<br>【sass】主要思想是 【sass文件】 =&gt;（gulp-sass） 【css多个文件】 =&gt; (gulp-concat) 【css单个文件】 =&gt; (gulp-minify-css) =&gt; 【css压缩文件】 =&gt;（gulp-md5-plus） 【css带md5文件】</p>
+<p>【es6】主要思想是 【es6文件】 =&gt; (gulp-babel) 【js多个文件】 =&gt; (gulp-concat) 【js单个文件】 =&gt; (gulp-uglify) 【js压缩文件】 =&gt; (gulp-md5-plus) 【js带md5文件】</p>
+<p>然后 需要在开发的过程中启动 gulp watch 。</p>
+<h3 id="三、项目开发"><a href="#三、项目开发" class="headerlink" title="三、项目开发"></a>三、项目开发</h3><h5 id="sass-文件分为3个-scss文件，-分别为-："><a href="#sass-文件分为3个-scss文件，-分别为-：" class="headerlink" title="sass 文件分为3个.scss文件， 分别为 ："></a>sass 文件分为3个.scss文件， 分别为 ：</h5><p>variable.scss     =&gt;   常用变量，和mixin<br>base.scss         =&gt;  通用的样式，import variable<br>index.scss        =&gt;  具体样式 ， import base</p>
+<p>样式开发中使用PC优先，兼容mobile的思想，使用@media query 兼容主流的mobile browser。</p>
+<h5 id="es6-文件主要分为2个-es6文件，分别为："><a href="#es6-文件主要分为2个-es6文件，分别为：" class="headerlink" title="es6 文件主要分为2个.es6文件，分别为："></a>es6 文件主要分为2个.es6文件，分别为：</h5><p>base.es6      =&gt;   通用的方法和属性<br>index.es6     =&gt;  具体的方法</p>
+<p>在es6文件中依旧使用之前熟悉的UMD加载方法 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">((root, factory) =&gt; &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">    if (typeof define === &apos;function&apos; &amp;&amp; define.amd) &#123;</span><br><span class="line">        define([], factory);</span><br><span class="line">    &#125; else if (typeof module === &apos;object&apos;) &#123;</span><br><span class="line">        module.exports = factory();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        root.XXX = factory();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(window, () =&gt; &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">   // 此处省略具体代码</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、项目总结"><a href="#四、项目总结" class="headerlink" title="四、项目总结"></a>四、项目总结</h3><p>终于迈出了es6+sass项目的第一步，在学习中使用，在使用中学习，然后准备把主站点十年后也升级到es6+sass，同时添加gulp自动化构建工具。</p>
+<p>当然，在新技术带来便利的同时，也或多或少的遇到一些坑，暂时总结与思考如下：</p>
+<h5 id="1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知"><a href="#1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知" class="headerlink" title="1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知"></a>1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知</h5><h5 id="2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？"><a href="#2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？" class="headerlink" title="2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？"></a>2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？</h5><h5 id="3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。"><a href="#3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。" class="headerlink" title="3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。"></a>3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。</h5><h5 id="4、es6中目前使用到的更多是let-和-gt-，-是否可以用到更多的新属性？"><a href="#4、es6中目前使用到的更多是let-和-gt-，-是否可以用到更多的新属性？" class="headerlink" title="4、es6中目前使用到的更多是let 和 =&gt;， 是否可以用到更多的新属性？"></a>4、es6中目前使用到的更多是let 和 =&gt;， 是否可以用到更多的新属性？</h5><h5 id="5、-gt-符号指代是无法使用this，所以-gt-符号更好适用于什么情况下，暂时未知。"><a href="#5、-gt-符号指代是无法使用this，所以-gt-符号更好适用于什么情况下，暂时未知。" class="headerlink" title="5、=&gt; 符号指代是无法使用this，所以=&gt;符号更好适用于什么情况下，暂时未知。"></a>5、=&gt; 符号指代是无法使用this，所以=&gt;符号更好适用于什么情况下，暂时未知。</h5><h5 id="6、目前借助于第三方的js类库，zepto，-是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）"><a href="#6、目前借助于第三方的js类库，zepto，-是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）" class="headerlink" title="6、目前借助于第三方的js类库，zepto， 是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）"></a>6、目前借助于第三方的js类库，zepto， 是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）</h5><h5 id="7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。"><a href="#7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。" class="headerlink" title="7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。"></a>7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。</h5><h5 id="8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。-joy"><a href="#8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。-joy" class="headerlink" title="8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。:joy:"></a>8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。:joy:</h5>
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/SASS/" rel="tag"># SASS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/02/learning/front-end/css/css-experience-1/" rel="next" title="CSS学习 （一）">
+                <i class="fa fa-chevron-left"></i> CSS学习 （一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/23/project/front-end/prue-css-hover/" rel="prev" title="纯CSS hover 提示框">
+                纯CSS hover 提示框 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="TuzK1ss">
+            
+              <p class="site-author-name" itemprop="name">TuzK1ss</p>
+              <div class="site-description motion-element" itemprop="description">TuzK1ss's Blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、项目简述"><span class="nav-number">1.</span> <span class="nav-text">一、项目简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、项目准备"><span class="nav-number">2.</span> <span class="nav-text">二、项目准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、项目开发"><span class="nav-number">3.</span> <span class="nav-text">三、项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#sass-文件分为3个-scss文件，-分别为-："><span class="nav-number">3.0.1.</span> <span class="nav-text">sass 文件分为3个.scss文件， 分别为 ：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#es6-文件主要分为2个-es6文件，分别为："><span class="nav-number">3.0.2.</span> <span class="nav-text">es6 文件主要分为2个.es6文件，分别为：</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#四、项目总结"><span class="nav-number">4.</span> <span class="nav-text">四、项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知"><span class="nav-number">4.0.1.</span> <span class="nav-text">1、sass中使用多层嵌套导致class多长是否会影响页面渲染性能？这个暂时未知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？"><span class="nav-number">4.0.2.</span> <span class="nav-text">2、sass中因为PC优先，使用了镀层嵌套之后，在兼容移动端时也需要大于等于的嵌套来覆盖样式，是否有更好的解决方法？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。"><span class="nav-number">4.0.3.</span> <span class="nav-text">3、sass是否可以做成热更新，不需要每一次更改文件之后手动去刷新页面。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、es6中目前使用到的更多是let-和-gt-，-是否可以用到更多的新属性？"><span class="nav-number">4.0.4.</span> <span class="nav-text">4、es6中目前使用到的更多是let 和 =&gt;， 是否可以用到更多的新属性？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、-gt-符号指代是无法使用this，所以-gt-符号更好适用于什么情况下，暂时未知。"><span class="nav-number">4.0.5.</span> <span class="nav-text">5、=&gt; 符号指代是无法使用this，所以=&gt;符号更好适用于什么情况下，暂时未知。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6、目前借助于第三方的js类库，zepto，-是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）"><span class="nav-number">4.0.6.</span> <span class="nav-text">6、目前借助于第三方的js类库，zepto， 是否可以用原生的js构建整个项目。（之前开发静态页面时，均使用原生js，后来因为需要用到ajax所以引入了zepto，等看完基础的ajax，是否可以自己封装一个建议的ajax方法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。"><span class="nav-number">4.0.7.</span> <span class="nav-text">7、还是要多学习，多看看业界内新技术和工具，不光会在效率上提升，更会更加符合未来的语言发展趋势。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。-joy"><span class="nav-number">4.0.8.</span> <span class="nav-text">8、嗯。好像暂时没想到其他的了。然后这个项目做的也是很赶很急，累感不爱。:joy:</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TuzK1ss</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
