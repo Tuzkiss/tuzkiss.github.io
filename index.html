@@ -292,13 +292,6 @@
     </header>
 
     
-  
-  
-
-  
-
-  <a href="https://github.com/tuzkiss" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
-
 
 
     <main id="main" class="main">
@@ -372,7 +365,7 @@
                 
               
 
-              <time title="Created: 2019-07-14 00:00:00 / Modified: 15:56:01" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">2019-07-14</time>
+              <time title="Created: 2019-07-14 00:00:00 / Modified: 15:59:03" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">2019-07-14</time>
             </span>
           
 
@@ -417,8 +410,7 @@
 
       
         
-          
-            <p>平时工作开发中，在本地搭建一个服务器能帮忙祝我</p>
+          <p>平时工作开发中，在本地搭建一个服务器能帮忙祝我</p>
 <h3 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h3><p>使用 MacOS 上的 Package Manager - <a href="https://brew.sh/" target="_blank" rel="noopener">HomeBrew</a> 来安装 Nginx。</p>
 <blockquote>
 <p>如果还未安装 HomeBrew, 可以自行登录官网安装。<a href="https://brew.sh/" target="_blank" rel="noopener">https://brew.sh/</a><br>或者在 Terminal 运行如下脚本:  <code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></p>
@@ -437,179 +429,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stop — fast shutdown</span><br><span class="line">quit — graceful shutdown</span><br><span class="line">reload — reloading the configuration file</span><br><span class="line">reopen — reopening the log files</span><br></pre></td></tr></table></figure>
 </blockquote>
 <p>如果是其他 Linux 系统，安装类似。</p>
-<h3 id="修改-Nginx-配置"><a href="#修改-Nginx-配置" class="headerlink" title="修改 Nginx 配置"></a>修改 Nginx 配置</h3><p>安装完成之后，可以设置 Nginx 配置来指定默认 Root 文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/local/etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>手动修改默认 server 中 location 中 root 地址，例如：<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/190714154301.jpg" alt="nginx conf"></p>
-<p>修改完成之后，手动重启 nginx 服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<p>此时可以通过 localhost 或者 127.0.0.1 来验证 root 是否修改成功。</p>
-<blockquote>
-<p>如果遇到 403 nginx 403 forbidden<br>可以尝试使用: <code>$ sudo chmod 755 [root directory name]</code></p>
-</blockquote>
-<h3 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h3><p>作为开发者需要设置一些启动项，用于每次重启之后自动启动 Nginx 服务，减少重新开启的重复劳动力，那么就可以进行如下设置：</p>
-<p><strong>首先需要将 Nginx 服务文件添加至系统启动进程文件夹中（ 使用管理员权限运行 ）</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp -v /usr/local/opt/nginx/*.plist /Library/LaunchDaemons</span><br><span class="line"></span><br><span class="line">$ sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist</span><br></pre></td></tr></table></figure>
-
-<p>同时需求确保启动列表中设置 Nginx 服务状态是活跃的，例如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /Library/LaunchDaemons/homebrew.mxcl.nginx.plist</span><br><span class="line"></span><br><span class="line"># Ensure this is in the file:</span><br><span class="line"># &lt;key&gt;KeepAlive&lt;/key&gt;</span><br><span class="line"># &lt;true/&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>最后将 Nginx 服务加载到启动列表</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist</span><br></pre></td></tr></table></figure>
-
-<p>Enjoy~</p>
-
+          <!--noindex-->
           
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2019/07/14/base/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TuzK1ss">
-      <meta itemprop="description" content="TuzK1ss's Blog">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TuzK1ss's Home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/14/base/" class="post-title-link" itemprop="url">Template Markdown</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/14/Mac/nginx-setting-up/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
           
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-14 00:00:00 / Modified: 14:32:56" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">2019-07-14</time>
-            </span>
-          
-
-          
-            
-
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
+          <!--/noindex-->
         
       
     </div>
@@ -2007,6 +1835,180 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2016/01/07/project/website/10years/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TuzK1ss">
+      <meta itemprop="description" content="TuzK1ss's Blog">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TuzK1ss's Home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/01/07/project/website/10years/" class="post-title-link" itemprop="url">十年后WEB架构</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-07T00:00:00+08:00">2016-01-07</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-02-16 17:44:47" itemprop="dateModified" datetime="2017-02-16T17:44:47+08:00">2017-02-16</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>现在是北京时间的2016年01月07日16:32:35，准备开始整理下十年后项目的架构，主要是WEB。大致上使用了baidu的脑图，下面的链接可以打开到具体的页面查看脑图(如果打不开或者错误，请刷新页面重试下)。</p>
+<blockquote>
+<p>版本 1.0.0</p>
+<p>作者 TuzK1ss</p>
+<p>更新 2016-01-07</p>
+</blockquote>
+<h2 id="1、十年后产品"><a href="#1、十年后产品" class="headerlink" title="1、十年后产品"></a>1、十年后产品</h2><p>产品介绍 ： 十年后是 …</p>
+<p>首先是整个十年后产品的的架构：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5539512/12226386/2f68dd08-b856-11e5-8947-457fe0ac8798.png" alt="image"></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/01/07/project/website/10years/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2055,7 +2057,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2108,9 +2110,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

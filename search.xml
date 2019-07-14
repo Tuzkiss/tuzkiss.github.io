@@ -6,17 +6,9 @@
     <content type="text"><![CDATA[平时工作开发中，在本地搭建一个服务器能帮忙祝我 安装 Nginx使用 MacOS 上的 Package Manager - HomeBrew 来安装 Nginx。 如果还未安装 HomeBrew, 可以自行登录官网安装。https://brew.sh/或者在 Terminal 运行如下脚本: /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 正式安装 Nginx 在 Terminal 中运行如下命令: 1$ brew install nginx 等待安装完成之后，可以通过 $ nginx -h 来查看可使用命令，如下图： 运行以下命令开启 Nginx 服务 1$ nginx 此时打开 http://localhost/ 或 http://127.0.0.1 查看是否 Nginx 是否正常运行。 nginx -s 中参数说明: 1234stop — fast shutdownquit — graceful shutdownreload — reloading the configuration filereopen — reopening the log files 如果是其他 Linux 系统，安装类似。 修改 Nginx 配置安装完成之后，可以设置 Nginx 配置来指定默认 Root 文件夹 1$ vim /usr/local/etc/nginx/nginx.conf 手动修改默认 server 中 location 中 root 地址，例如： 修改完成之后，手动重启 nginx 服务 1$ nginx -s reload 此时可以通过 localhost 或者 127.0.0.1 来验证 root 是否修改成功。 如果遇到 403 nginx 403 forbidden可以尝试使用: $ sudo chmod 755 [root directory name] 开机自启动作为开发者需要设置一些启动项，用于每次重启之后自动启动 Nginx 服务，减少重新开启的重复劳动力，那么就可以进行如下设置： 首先需要将 Nginx 服务文件添加至系统启动进程文件夹中（ 使用管理员权限运行 ） 123$ sudo cp -v /usr/local/opt/nginx/*.plist /Library/LaunchDaemons$ sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 同时需求确保启动列表中设置 Nginx 服务状态是活跃的，例如: 12345$ sudo vim /Library/LaunchDaemons/homebrew.mxcl.nginx.plist# Ensure this is in the file:# &lt;key&gt;KeepAlive&lt;/key&gt;# &lt;true/&gt; 最后将 Nginx 服务加载到启动列表 1$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist Enjoy~]]></content>
       <tags>
         <tag>Mac</tag>
-        <tag>Nginx</tag>
-        <tag>App</tag>
         <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Template Markdown]]></title>
-    <url>%2F2019%2F07%2F14%2Fbase%2F</url>
-    <content type="text"></content>
-      <tags>
-        <tag>Base</tag>
+        <tag>App</tag>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
