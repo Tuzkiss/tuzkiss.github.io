@@ -1705,7 +1705,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #dbffe9;
+  background: #b3348f;
 }
 .feed-link,
 .chat {
@@ -3011,6 +3011,11 @@ body {
     margin: 8px 0 0;
   }
 }
+body {
+  background-image: url("../uploads/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
 blockquote {
   color: #7f8c8d;
   border-left-color: rgba(243,156,18,0.4);
@@ -3029,4 +3034,7 @@ h3 {
 }
 code {
   word-break: break-all;
+}
+img[alt$="radius"] {
+  border-radius: 4px;
 }
