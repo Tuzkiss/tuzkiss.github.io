@@ -12,17 +12,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS Code 设置与技巧]]></title>
-    <url>%2F2019%2F07%2F16%2FMac%2FVS-Code-Setting-up%2F</url>
-    <content type="text"><![CDATA[年中在 Apple 更新了 MacBook Pro 2019 之后，终于还是没忍住下单了 15 寸次顶配，于是手中的 MacBook Pro 13-inch Early 2015 理所当然的退休了。 之前一直使用 WebStorm 作为主力 IDE，但是鉴于之前 MacBook Pro 2015 性能有所欠缺，在后期的使用中存在些长时间使用卡顿的现象，所以准备在新 MacBook Pro 2019 上使用 VS Code 来作为新的 IDE。（ 当然这一块选择上也各有所爱，不必强求。） 俗话说得好，工欲善其事，必先利其器。 所以，在这总结并记录下在使用 VS Code 编辑器中的一些设置与技巧。 相关环境及版本地址: MacOS Mojave 10.14.5 (18F132) Visual Studio Code 1.36.1 (1.36.1) Alfred 4 4.0.3 启动项目平时可能经常需要在以下场景下启动 VS Code: 在 VS Code 中手动打开项目， File → Open 在 Terminal 中启动 VS Code 打开当前项目或者指定项目 在 Finder 中选中项目文件夹，启动 VS Code 中打开该项目 通过搜索指定项目，并启动 VS Code 打开指定项目 手动打开最基础也是最简单的打开方式。（ 但是个人觉得有点麻烦，操作步骤有点多 在 VS Code 左上角 File → Open → Select Project 在 VS Code 中通过快捷键 ⌘ + O → Select Project 在 Terminal 中打开项目有时候在 Terminal 中操作时，会遇到一些可能需要打开项目的需要，所以如果能直接通过 Terminal 打开项目，就能减少手动打开的操作步骤。 // 启动 VS Code 并打开当前目录项目 $ code . // 启动 VS Code 并打开 project-name 文件名的项目 $ code project-name 具体可以查看 VS Code 官网中相关链接： https://code.visualstudio.com/docs/editor/command-line 在 Finder 中打开项目 （）全局搜索并打开项目 （）]]></content>
-      <tags>
-        <tag>Mac</tag>
-        <tag>MacOS</tag>
-        <tag>VS Code</tag>
-        <tag>Visual Studio Code</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[MacOS Nginx 安装及设置]]></title>
     <url>%2F2019%2F07%2F14%2FMac%2Fnginx-setting-up%2F</url>
     <content type="text"><![CDATA[安装 Nginx使用 MacOS 上的 Package Manager - HomeBrew 来安装 Nginx。 如果还未安装 HomeBrew, 可以自行登录官网安装。https://brew.sh/或者在 Terminal 运行如下脚本: /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 正式安装 Nginx 在 Terminal 中运行如下命令: 1$ brew install nginx 等待安装完成之后，可以通过 $ nginx -h 来查看可使用命令，如下图： 运行以下命令开启 Nginx 服务 1$ nginx 此时打开 http://localhost/ 或 http://127.0.0.1 查看是否 Nginx 是否正常运行。 nginx -s 中参数说明: 1234stop — fast shutdownquit — graceful shutdownreload — reloading the configuration filereopen — reopening the log files 如果是其他 Linux 系统，安装类似。 修改 Nginx 配置安装完成之后，可以设置 Nginx 配置来指定默认 Root 文件夹 1$ vim /usr/local/etc/nginx/nginx.conf 手动修改默认 server 中 location 中 root 地址，例如： 修改完成之后，手动重启 nginx 服务 1$ nginx -s reload 此时可以通过 localhost 或者 127.0.0.1 来验证 root 是否修改成功。 如果遇到 403 nginx 403 forbidden可以尝试使用: $ sudo chmod 755 [root directory name] 开机自启动作为开发者需要设置一些启动项，用于每次重启之后自动启动 Nginx 服务，减少重新开启的重复劳动力，那么就可以进行如下设置： 首先需要将 Nginx 服务文件添加至系统启动进程文件夹中（ 使用管理员权限运行 ） 123$ sudo cp -v /usr/local/opt/nginx/*.plist /Library/LaunchDaemons$ sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 同时需求确保启动列表中设置 Nginx 服务状态是活跃的，例如: 12345$ sudo vim /Library/LaunchDaemons/homebrew.mxcl.nginx.plist# Ensure this is in the file:# &lt;key&gt;KeepAlive&lt;/key&gt;# &lt;true/&gt; 最后将 Nginx 服务加载到启动列表 1$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist Enjoy~]]></content>
