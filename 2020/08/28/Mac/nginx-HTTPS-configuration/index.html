@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/uploads/favicon.ico?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="前置阅读: macOS 下 Nginx 安装及设置  近期在部分开发场景中，需要使用的 HTTPS 环境，故研究了下 macOS 下 Nginx HTTPS 环境配置。( HTTPS 相关知识可自行了解 ) 创建自定义 SSL 证书之前在服务器上一直使用 Let’s Encrypt 的 Certbot 脚本一键安装，但是发现本地并无法正确申请证书和使用。在搜索相关教程和对比之后，发现可以通过 O">
+<meta name="keywords" content="Mac,macOS,Nginx,HTTPS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS Nginx HTTPS 环境配置">
+<meta property="og:url" content="http://blog.tuzkiss.com/2020/08/28/Mac/nginx-HTTPS-configuration/index.html">
+<meta property="og:site_name" content="TuzK1ss&#39;s Home">
+<meta property="og:description" content="前置阅读: macOS 下 Nginx 安装及设置  近期在部分开发场景中，需要使用的 HTTPS 环境，故研究了下 macOS 下 Nginx HTTPS 环境配置。( HTTPS 相关知识可自行了解 ) 创建自定义 SSL 证书之前在服务器上一直使用 Let’s Encrypt 的 Certbot 脚本一键安装，但是发现本地并无法正确申请证书和使用。在搜索相关教程和对比之后，发现可以通过 O">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://tuzkiss-1257228966.file.myqcloud.com/assets/200828235207.png">
+<meta property="og:image" content="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829001118.png">
+<meta property="og:image" content="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829003751.png">
+<meta property="og:image" content="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829005631.png">
+<meta property="og:updated_time" content="2020-08-28T17:30:19.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="macOS Nginx HTTPS 环境配置">
+<meta name="twitter:description" content="前置阅读: macOS 下 Nginx 安装及设置  近期在部分开发场景中，需要使用的 HTTPS 环境，故研究了下 macOS 下 Nginx HTTPS 环境配置。( HTTPS 相关知识可自行了解 ) 创建自定义 SSL 证书之前在服务器上一直使用 Let’s Encrypt 的 Certbot 脚本一键安装，但是发现本地并无法正确申请证书和使用。在搜索相关教程和对比之后，发现可以通过 O">
+<meta name="twitter:image" content="https://tuzkiss-1257228966.file.myqcloud.com/assets/200828235207.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.tuzkiss.com/2020/08/28/Mac/nginx-HTTPS-configuration/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>macOS Nginx HTTPS 环境配置 | TuzK1ss's Home</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143765927-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143765927-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TuzK1ss's Home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">💻 Be humble and grateful but never satisfied.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2020/08/28/Mac/nginx-HTTPS-configuration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TuzK1ss">
+      <meta itemprop="description" content="TuzK1ss's Blog">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TuzK1ss's Home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">macOS Nginx HTTPS 环境配置
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-08-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-28T00:00:00+08:00">2020-08-28</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-29 01:30:19" itemprop="dateModified" datetime="2020-08-29T01:30:19+08:00">2020-08-29</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/08/28/Mac/nginx-HTTPS-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/28/Mac/nginx-HTTPS-configuration/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>前置阅读: <a href="https://tuzkiss.com/2019/07/14/Mac/nginx-configuration/" target="_blank" rel="noopener">macOS 下 Nginx 安装及设置</a></p>
+</blockquote>
+<p>近期在部分开发场景中，需要使用的 HTTPS 环境，故研究了下 macOS 下 Nginx HTTPS 环境配置。<br>( HTTPS 相关知识可自行了解 )</p>
+<h3 id="创建自定义-SSL-证书"><a href="#创建自定义-SSL-证书" class="headerlink" title="创建自定义 SSL 证书"></a>创建自定义 SSL 证书</h3><p>之前在服务器上一直使用 <a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a> 的 <a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx" target="_blank" rel="noopener">Certbot</a> 脚本一键安装，但是发现本地并无法正确申请证书和使用。<br>在搜索相关教程和对比之后，发现可以通过 <a href="https://www.openssl.org/" target="_blank" rel="noopener">OpenSSL</a> 生成证书或直接使用 <a href="https://github.com/FiloSottile/mkcert" target="_blank" rel="noopener">mkcert</a> 简易生成证书。</p>
+<p>本文主要针对 mkcert 如何创建证书及使用。</p>
+<p><strong>安装</strong><br>使用 macOS 上的 Package Manager - <a href="https://brew.sh/" target="_blank" rel="noopener">HomeBrew</a> 来安装 mkcert。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew install mkcert</span><br><span class="line"><span class="meta">$</span> brew install nss # if you use Firefox</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建根证书</strong><br>创建根证书 CA ( Certificate Authority，即证书颁发机构 )，可以运行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert -install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 成功安装后输出</span><br><span class="line"><span class="meta">#</span> Using the local CA at "/Users/Tuzkiss/Library/Application Support/mkcert" ✨</span><br><span class="line"><span class="meta">#</span> The local CA is now installed in the system trust store! ⚡️</span><br><span class="line"><span class="meta">#</span> The local CA is already installed in the Firefox trust store! 👍</span><br></pre></td></tr></table></figure>
+
+<p>安装后使用 Keychain Access App 查看安装的证书，点击具体证书可以查看更详细信息：<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200828235207.png" alt="root-CA-screenshot"></p>
+<p><strong>创建自签名证书</strong><br>例如需要针对 tuzkiss.com 、localhost 等域名生成自签名证书，则可以运行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert tuzkiss.com localhost 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 成功安装后输出</span><br><span class="line"><span class="meta">#</span> Using the local CA at "/Users/Tuzkiss/Library/Application Support/mkcert" ✨</span><br><span class="line"><span class="meta">#</span> Created a new certificate valid for the following names 📜</span><br><span class="line"><span class="meta">#</span> - "tuzkiss.com"</span><br><span class="line"><span class="meta">#</span> - "localhost"</span><br><span class="line"><span class="meta">#</span> - "127.0.0.1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> The certificate is at "./tuzkiss.com+2.pem" and the key at "./tuzkiss.com+2-key.pem" ✅</span><br></pre></td></tr></table></figure>
+
+<p>成功创建之后，会在该目录下生成如下两个文件：</p>
+<ul>
+<li>证书 tuzkiss.com+2.pem </li>
+<li>私钥 tuzkiss.com+2-key.pem</li>
+</ul>
+<p>你可以手动跟改这两个文件名，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tuzkiss.com+2.pem  -&gt; Tuzkiss-SSL.pem</span><br><span class="line">tuzkiss.com+2-key.pem  -&gt; Tuzkiss-SSL-Key.pem</span><br></pre></td></tr></table></figure>
+
+<p>或者可以直接通过 mkcert 中命令参数创建:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert -cert-file Tuzkiss-SSL.pem -key-file Tuzkiss-SSL-Key.pem tuzkiss.com localhost 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>最终都会生成如下两个文件:<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829001118.png" alt="cert-and-key-screenshot"></p>
+<p><strong>至此，自定义 SSL 证书均已创建完毕。</strong></p>
+<p>更多 mkcert 详细使用可查看：<a href="https://github.com/FiloSottile/mkcert" target="_blank" rel="noopener">https://github.com/FiloSottile/mkcert</a></p>
+<a id="more"></a>
+
+<hr>
+<h3 id="Ngixn-Server-配置"><a href="#Ngixn-Server-配置" class="headerlink" title="Ngixn Server 配置"></a>Ngixn Server 配置</h3><p>将上述创建的 SSL 证书和私钥放到合适的位置（ 凭个人喜好 ），然后编辑 Nginx 配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vi /usr/local/etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> or </span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> code /usr/local/etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>在 nginx.conf 中的 http 字段中配置 server，例如:<br>（ 需要根据实际情况调整  ssl_certificate、ssl_certificate_key、root 等字段 ）</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    <span class="comment"># 同时监听 80、443 端口，并设置 server name 为 tuzkiss.com、localhost</span></span><br><span class="line">    listen       <span class="number">80</span>;</span><br><span class="line">    listen       <span class="number">443</span> ssl;</span><br><span class="line">    server_name  tuzkiss.com localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置 SSL 证书和私钥地址</span></span><br><span class="line">    ssl_certificate      /Users/Tuzkiss/CodeProjects/Tuzkiss-SSL.pem;</span><br><span class="line">    ssl_certificate_key  /Users/Tuzkiss/CodeProjects/Tuzkiss-SSL-key.pem;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># SSL 会话配置</span></span><br><span class="line">    ssl_session_cache    shared:SSL:<span class="number">10</span>m;</span><br><span class="line">    ssl_session_timeout  <span class="number">10</span>m;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># SSL 协议、加密配置</span></span><br><span class="line">    ssl_protocols  TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span> TLSv1<span class="number">.3</span>;</span><br><span class="line">    ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 服务器地址等配置</span></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /Users/Tuzkiss/CodeProjects;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改完成后需运行以下命令来重启 Nginx 服务器，保证设置的配置生效:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>重启之后可以通过访问上述证书中设定任意 HTTPS 地址验证：</p>
+<ul>
+<li><a href="https://127.0.0.1" target="_blank" rel="noopener">https://127.0.0.1</a></li>
+<li><a href="https://localhost" target="_blank" rel="noopener">https://localhost</a></li>
+<li><a href="https://tuzkiss.com" target="_blank" rel="noopener">https://tuzkiss.com</a></li>
+</ul>
+<p>当然也可以通过 Chrome DevTools 中的 Security Overview 查看当前信息：</p>
+<p><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829003751.png" alt="overview"></p>
+<p><strong>至此，可以愉快的使用 HTTPS 本地服务器进行开发、调试了～ 🎉</strong></p>
+<hr>
+<h3 id="其他设备访问"><a href="#其他设备访问" class="headerlink" title="其他设备访问"></a>其他设备访问</h3><p>例如想在 iOS Safari 上访问该域名，则可以通过 iOS 上代理软件 ( Surge / Quantumult X 等) 将 tuzkiss.com 设置本地 IP Host，参考配置如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Surge iOS</span></span><br><span class="line">[Host]</span><br><span class="line">tuzkiss.com = <span class="number">192.168</span><span class="number">.123</span><span class="number">.204</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Quantumult X</span></span><br><span class="line">[dns]</span><br><span class="line">address=/tuzkiss.com/<span class="number">192.168</span><span class="number">.123</span><span class="number">.204</span></span><br></pre></td></tr></table></figure>
+
+<p>然后通过手动信任即可访问:<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829005631.png" alt="iOS-screenshot"></p>
+<hr>
+<h3 id="Webpack-devServer-使用"><a href="#Webpack-devServer-使用" class="headerlink" title="Webpack devServer 使用"></a>Webpack devServer 使用</h3><p>同时生成的证书也可以配合 Webpack devServer 使用，例如设置 webpack.config.js 中配置：<br>( 需要根据实际情况调整 key、cert、ca 参数 )</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  devServer: &#123;</span><br><span class="line">    <span class="comment">// HTTPS 相关设置</span></span><br><span class="line">    https: <span class="literal">true</span>,</span><br><span class="line">    key: fs.readFileSync(<span class="string">'/Users/Tuzkiss/CodeProjects/Tuzkiss-SSL-Key.pem'</span>),</span><br><span class="line">    cert: fs.readFileSync(<span class="string">'/Users/Tuzkiss/CodeProjects/Tuzkiss-SSL.pem'</span>),</span><br><span class="line">    ca: fs.readFileSync(<span class="string">'/Users/Tuzkiss/Library/Application Support/mkcert/rootCA.pem'</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基础设置，可根据实际情况调整</span></span><br><span class="line">    contentBase: path.join(__dirname, <span class="string">'./demo'</span>),</span><br><span class="line">    publicPath: <span class="string">'/dev/'</span>,</span><br><span class="line">    host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    compress: <span class="literal">true</span>,</span><br><span class="line">    port: <span class="number">8080</span>,</span><br><span class="line">    hot: <span class="literal">true</span>,</span><br><span class="line">    allowedHosts: [</span><br><span class="line">        <span class="string">'tuzkiss.com'</span></span><br><span class="line">    ],</span><br><span class="line">    open: <span class="literal">true</span>,</span><br><span class="line">    openPage: <span class="string">'https://tuzkiss.com'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如上设置之后，运行 <code>webpack-dev-server</code> 就可以愉快的直接使用 HTTPS 环境了～</p>
+<p>更多 Webpack devServer HTTPS 详细使用可查看:<br><a href="https://webpack.js.org/configuration/dev-server/#devserverhttps" target="_blank" rel="noopener">https://webpack.js.org/configuration/dev-server/#devserverhttps</a></p>
+<hr>
+<p><strong>That’s all, enjoy your life ~ 😏</strong></p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Mac/" rel="tag"># Mac</a>
+          
+            <a href="/tags/macOS/" rel="tag"># macOS</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/HTTPS/" rel="tag"># HTTPS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/16/Mac/VS-Code-configuration/" rel="next" title="VS Code 设置与技巧">
+                <i class="fa fa-chevron-left"></i> VS Code 设置与技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="TuzK1ss">
+            
+              <p class="site-author-name" itemprop="name">TuzK1ss</p>
+              <div class="site-description motion-element" itemprop="description">TuzK1ss's Blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建自定义-SSL-证书"><span class="nav-number">1.</span> <span class="nav-text">创建自定义 SSL 证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ngixn-Server-配置"><span class="nav-number">2.</span> <span class="nav-text">Ngixn Server 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他设备访问"><span class="nav-number">3.</span> <span class="nav-text">其他设备访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-devServer-使用"><span class="nav-number">4.</span> <span class="nav-text">Webpack devServer 使用</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TuzK1ss</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://tuzkiss.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://blog.tuzkiss.com/2020/08/28/Mac/nginx-HTTPS-configuration/";
+    this.page.identifier = "2020/08/28/Mac/nginx-HTTPS-configuration/";
+    this.page.title = 'macOS Nginx HTTPS 环境配置';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://tuzkiss.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

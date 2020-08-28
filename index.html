@@ -320,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2019/07/16/Mac/VS-Code-setting-up/">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2020/08/28/Mac/nginx-HTTPS-configuration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TuzK1ss">
@@ -340,7 +340,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/07/16/Mac/VS-Code-setting-up/" class="post-title-link" itemprop="url">VS Code 设置与技巧</a>
+                <a href="/2020/08/28/Mac/nginx-HTTPS-configuration/" class="post-title-link" itemprop="url">macOS Nginx HTTPS 环境配置</a>
               
             
           </h1>
@@ -365,13 +365,23 @@
                 
               
 
-              <time title="Created: 2019-07-16 00:00:00 / Modified: 23:48:18" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00+08:00">2019-07-16</time>
+              <time title="Created: 2020-08-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-28T00:00:00+08:00">2020-08-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-29 01:30:19" itemprop="dateModified" datetime="2020-08-29T01:30:19+08:00">2020-08-29</time>
+              </span>
             
           
 
@@ -387,8 +397,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/07/16/Mac/VS-Code-setting-up/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/16/Mac/VS-Code-setting-up/" itemprop="commentCount"></span>
+                <a href="/2020/08/28/Mac/nginx-HTTPS-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/28/Mac/nginx-HTTPS-configuration/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -422,15 +432,40 @@
 
       
         
-          <p>年中在 Apple 更新了 MacBook Pro 2019 之后，终于还是没忍住下单了 15 寸次顶配，于是手中的 MacBook Pro 13-inch Early 2015 理所当然的退休了。</p>
-<p>之前一直使用 WebStorm 作为主力 IDE，但是鉴于之前 MacBook Pro 2015 性能有所欠缺，在后期的使用中存在些长时间使用卡顿的现象，所以准备在新 MacBook Pro 2019 上使用 VS Code 来作为新的 IDE。（ 当然这一块选择上也各有所爱，不必强求。）</p>
-<p>俗话说得好，工欲善其事，必先利其器。<br>所以，在这总结并记录下在使用 VS Code 编辑器中的一些设置与技巧。</p>
-<p>相关环境及版本地址:<br><strong>MacOS Mojave</strong> 10.14.5 (18F132)<br><strong>Visual Studio Code</strong> 1.36.1 (1.36.1)<br><strong>Alfred 4</strong> 4.0.3</p>
-<p><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/190716234742.png" alt="VS Code Screen Shot"></p>
+          <blockquote>
+<p>前置阅读: <a href="https://tuzkiss.com/2019/07/14/Mac/nginx-configuration/" target="_blank" rel="noopener">macOS 下 Nginx 安装及设置</a></p>
+</blockquote>
+<p>近期在部分开发场景中，需要使用的 HTTPS 环境，故研究了下 macOS 下 Nginx HTTPS 环境配置。<br>( HTTPS 相关知识可自行了解 )</p>
+<h3 id="创建自定义-SSL-证书"><a href="#创建自定义-SSL-证书" class="headerlink" title="创建自定义 SSL 证书"></a>创建自定义 SSL 证书</h3><p>之前在服务器上一直使用 <a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a> 的 <a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx" target="_blank" rel="noopener">Certbot</a> 脚本一键安装，但是发现本地并无法正确申请证书和使用。<br>在搜索相关教程和对比之后，发现可以通过 <a href="https://www.openssl.org/" target="_blank" rel="noopener">OpenSSL</a> 生成证书或直接使用 <a href="https://github.com/FiloSottile/mkcert" target="_blank" rel="noopener">mkcert</a> 简易生成证书。</p>
+<p>本文主要针对 mkcert 如何创建证书及使用。</p>
+<p><strong>安装</strong><br>使用 macOS 上的 Package Manager - <a href="https://brew.sh/" target="_blank" rel="noopener">HomeBrew</a> 来安装 mkcert。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew install mkcert</span><br><span class="line"><span class="meta">$</span> brew install nss # if you use Firefox</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建根证书</strong><br>创建根证书 CA ( Certificate Authority，即证书颁发机构 )，可以运行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert -install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 成功安装后输出</span><br><span class="line"><span class="meta">#</span> Using the local CA at "/Users/Tuzkiss/Library/Application Support/mkcert" ✨</span><br><span class="line"><span class="meta">#</span> The local CA is now installed in the system trust store! ⚡️</span><br><span class="line"><span class="meta">#</span> The local CA is already installed in the Firefox trust store! 👍</span><br></pre></td></tr></table></figure>
+
+<p>安装后使用 Keychain Access App 查看安装的证书，点击具体证书可以查看更详细信息：<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200828235207.png" alt="root-CA-screenshot"></p>
+<p><strong>创建自签名证书</strong><br>例如需要针对 tuzkiss.com 、localhost 等域名生成自签名证书，则可以运行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert tuzkiss.com localhost 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 成功安装后输出</span><br><span class="line"><span class="meta">#</span> Using the local CA at "/Users/Tuzkiss/Library/Application Support/mkcert" ✨</span><br><span class="line"><span class="meta">#</span> Created a new certificate valid for the following names 📜</span><br><span class="line"><span class="meta">#</span> - "tuzkiss.com"</span><br><span class="line"><span class="meta">#</span> - "localhost"</span><br><span class="line"><span class="meta">#</span> - "127.0.0.1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> The certificate is at "./tuzkiss.com+2.pem" and the key at "./tuzkiss.com+2-key.pem" ✅</span><br></pre></td></tr></table></figure>
+
+<p>成功创建之后，会在该目录下生成如下两个文件：</p>
+<ul>
+<li>证书 tuzkiss.com+2.pem </li>
+<li>私钥 tuzkiss.com+2-key.pem</li>
+</ul>
+<p>你可以手动跟改这两个文件名，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tuzkiss.com+2.pem  -&gt; Tuzkiss-SSL.pem</span><br><span class="line">tuzkiss.com+2-key.pem  -&gt; Tuzkiss-SSL-Key.pem</span><br></pre></td></tr></table></figure>
+
+<p>或者可以直接通过 mkcert 中命令参数创建:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkcert -cert-file Tuzkiss-SSL.pem -key-file Tuzkiss-SSL-Key.pem tuzkiss.com localhost 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>最终都会生成如下两个文件:<br><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/200829001118.png" alt="cert-and-key-screenshot"></p>
+<p><strong>至此，自定义 SSL 证书均已创建完毕。</strong></p>
+<p>更多 mkcert 详细使用可查看：<a href="https://github.com/FiloSottile/mkcert" target="_blank" rel="noopener">https://github.com/FiloSottile/mkcert</a></p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/07/16/Mac/VS-Code-setting-up/#more" rel="contents">
+              <a class="btn" href="/2020/08/28/Mac/nginx-HTTPS-configuration/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -492,7 +527,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2019/07/14/Mac/nginx-setting-up/">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2019/07/16/Mac/VS-Code-configuration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TuzK1ss">
@@ -512,7 +547,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/07/14/Mac/nginx-setting-up/" class="post-title-link" itemprop="url">MacOS Nginx 安装及设置</a>
+                <a href="/2019/07/16/Mac/VS-Code-configuration/" class="post-title-link" itemprop="url">VS Code 设置与技巧</a>
               
             
           </h1>
@@ -537,13 +572,23 @@
                 
               
 
-              <time title="Created: 2019-07-14 00:00:00 / Modified: 16:30:16" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">2019-07-14</time>
+              <time title="Created: 2019-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00+08:00">2019-07-16</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-28 23:48:01" itemprop="dateModified" datetime="2020-08-28T23:48:01+08:00">2020-08-28</time>
+              </span>
             
           
 
@@ -559,8 +604,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/07/14/Mac/nginx-setting-up/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/14/Mac/nginx-setting-up/" itemprop="commentCount"></span>
+                <a href="/2019/07/16/Mac/VS-Code-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/16/Mac/VS-Code-configuration/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -594,7 +639,189 @@
 
       
         
-          <h3 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h3><p>使用 MacOS 上的 Package Manager - <a href="https://brew.sh/" target="_blank" rel="noopener">HomeBrew</a> 来安装 Nginx。</p>
+          <p>年中在 Apple 更新了 MacBook Pro 2019 之后，终于还是没忍住下单了 15 寸次顶配，于是手中的 MacBook Pro 13-inch Early 2015 理所当然的退休了。</p>
+<p>之前一直使用 WebStorm 作为主力 IDE，但是鉴于之前 MacBook Pro 2015 性能有所欠缺，在后期的使用中存在些长时间使用卡顿的现象，所以准备在新 MacBook Pro 2019 上使用 VS Code 来作为新的 IDE。（ 当然这一块选择上也各有所爱，不必强求。）</p>
+<p>俗话说得好，工欲善其事，必先利其器。<br>所以，在这总结并记录下在使用 VS Code 编辑器中的一些设置与技巧。</p>
+<p>相关环境及版本地址:<br><strong>macOS Mojave</strong> 10.14.5 (18F132)<br><strong>Visual Studio Code</strong> 1.36.1 (1.36.1)<br><strong>Alfred 4</strong> 4.0.3</p>
+<p><img src="https://tuzkiss-1257228966.file.myqcloud.com/assets/190716234742.png" alt="VS Code Screen Shot"></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/16/Mac/VS-Code-configuration/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2019/07/14/Mac/nginx-configuration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TuzK1ss">
+      <meta itemprop="description" content="TuzK1ss's Blog">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TuzK1ss's Home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/14/Mac/nginx-configuration/" class="post-title-link" itemprop="url">macOS Nginx 安装及设置</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">2019-07-14</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-28 23:47:50" itemprop="dateModified" datetime="2020-08-28T23:47:50+08:00">2020-08-28</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/07/14/Mac/nginx-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/14/Mac/nginx-configuration/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h3><p>使用 macOS 上的 Package Manager - <a href="https://brew.sh/" target="_blank" rel="noopener">HomeBrew</a> 来安装 Nginx。</p>
 <blockquote>
 <p>如果还未安装 HomeBrew, 可以自行登录官网安装。<a href="https://brew.sh/" target="_blank" rel="noopener">https://brew.sh/</a><br>或者在 Terminal 运行如下脚本:  <code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></p>
 </blockquote>
@@ -615,7 +842,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/07/14/Mac/nginx-setting-up/#more" rel="contents">
+              <a class="btn" href="/2019/07/14/Mac/nginx-configuration/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1935,190 +2162,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.tuzkiss.com/2016/01/24/learning/front-end/javascripts/learning-2016-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TuzK1ss">
-      <meta itemprop="description" content="TuzK1ss's Blog">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TuzK1ss's Home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/01/24/learning/front-end/javascripts/learning-2016-1/" class="post-title-link" itemprop="url">2016前端学习（一）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-24T00:00:00+08:00">2016-01-24</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2017-02-15 17:25:29" itemprop="dateModified" datetime="2017-02-15T17:25:29+08:00">2017-02-15</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2016/01/24/learning/front-end/javascripts/learning-2016-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/24/learning/front-end/javascripts/learning-2016-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前说了那么多雄心壮志的话，包括喝了浓浓的鸡汤，总要做点什么咯？是吧，没有人可以动动嘴皮子或者码点字就去改变世界的（特定的人除外）。so， 向着前端架构师的方向，有距离不可怕，可怕的是想要前进的渴望和信仰。</p>
-<p>会慢慢总结一些关于前端学习方面的知识，同时也要跟上看书的节奏。<br>首先先回顾下这些呗，听说是某个面试官leader出的题：js 数据类型以及判断，原型和继承，基于闭包实现唯一生成id，跨域，jsonp 具体实现代码，dom事件和自定义事件系统，前端路由，具体组件api设计和开发；css 常用布局属性，盒模型相关，position，sticky 效果，flex 布局。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/01/24/learning/front-end/javascripts/learning-2016-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2162,7 +2210,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2257,7 +2305,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
